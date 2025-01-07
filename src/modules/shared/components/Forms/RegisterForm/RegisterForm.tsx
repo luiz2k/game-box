@@ -13,12 +13,12 @@ import {
 import { FormInput } from "../../Input/Input";
 
 export function RegisterForm() {
-  const { registerFormIsOpen, changeForm } = useFormStore();
+  const { handleRegisterForm, registerFormIsOpen, changeForm } = useFormStore();
 
   return (
     <>
       {registerFormIsOpen && (
-        <DialogWrapping>
+        <DialogWrapping close={handleRegisterForm}>
           <DialogHeader>
             <DialogHeaderTitle>Registro</DialogHeaderTitle>
             <DialogHeaderDesc>

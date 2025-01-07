@@ -13,12 +13,12 @@ import {
 import { FormInput } from "../../Input/Input";
 
 export function LoginForm() {
-  const { loginFormIsOpen, changeForm } = useFormStore();
+  const { loginFormIsOpen, handleLoginForm, changeForm } = useFormStore();
 
   return (
     <>
       {loginFormIsOpen && (
-        <DialogWrapping>
+        <DialogWrapping close={handleLoginForm}>
           <DialogHeader>
             <DialogHeaderTitle>Entrar</DialogHeaderTitle>
             <DialogHeaderDesc>

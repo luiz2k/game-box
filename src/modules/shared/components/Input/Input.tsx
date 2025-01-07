@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { tv, VariantProps } from "tailwind-variants";
 
 const inputTV = tv({
@@ -10,15 +11,34 @@ const inputTV = tv({
   },
 });
 
-type InputTV = Required<VariantProps<typeof inputTV>>;
+type FormInputTV = Required<VariantProps<typeof inputTV>>;
 
-type InputProps = InputTV &
+type FormInputProps = FormInputTV &
   React.InputHTMLAttributes<HTMLInputElement> & {
+    label?: string;
+    error?: string;
     ref?: React.RefObject<HTMLInputElement>;
   };
 
-export function Input({ ref, ...rest }: InputProps) {
+export function FormInput({ label, error, ref, ...rest }: FormInputProps) {
+  const id = useId();
+
   return (
-    <input ref={ref} className={inputTV({ width: rest.width })} {...rest} />
+    <div className="space-y-1">
+      {label && (
+        <label htmlFor={id} className="text-sm">
+          {label}
+        </label>
+      )}
+
+      {error && <p className="text-sm text-red-600">{error}</p>}
+
+      <input
+        id={id}
+        ref={ref}
+        className={inputTV({ width: rest.width })}
+        {...rest}
+      />
+    </div>
   );
 }

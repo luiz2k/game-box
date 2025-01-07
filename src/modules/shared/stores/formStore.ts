@@ -18,7 +18,7 @@ export const useFormStore = create<FormStore>()((set) => ({
 
   loginFormIsOpen: false,
   handleLoginForm: () =>
-    set((state) => ({ registerFormIsOpen: !state.registerFormIsOpen })),
+    set((state) => ({ loginFormIsOpen: !state.loginFormIsOpen })),
 
   changeForm: () =>
     set((state) => ({

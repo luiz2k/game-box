@@ -20,7 +20,7 @@ export function LoginForm() {
       {loginFormIsOpen && (
         <DialogWrapping>
           <DialogHeader>
-            <DialogHeaderTitle>Registro</DialogHeaderTitle>
+            <DialogHeaderTitle>Entrar</DialogHeaderTitle>
             <DialogHeaderDesc>
               Entre com seu e-mail e senha para acessar sua conta.
             </DialogHeaderDesc>

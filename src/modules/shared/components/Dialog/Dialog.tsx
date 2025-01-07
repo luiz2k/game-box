@@ -1,25 +1,43 @@
 "use client";
 
+import { X } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
 type DialogWrappingProps = React.FormHTMLAttributes<HTMLFormElement> & {
   children: React.ReactNode;
   ref?: React.RefObject<HTMLFormElement>;
+  close?: () => void;
 };
 
 export function DialogWrapping({
   children,
   ref,
+  close,
   ...rest
 }: DialogWrappingProps) {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black-2/10 backdrop-blur-3xl">
+    <div
+      className="fixed inset-0 flex items-center justify-center bg-black-2/10 backdrop-blur-3xl"
+      onClick={close}
+    >
       <form
-        className="w-full max-w-[31.25rem] space-y-5 rounded-2xl bg-black-1 p-10"
+        className="relative grid w-full max-w-[31.25rem] gap-5 rounded-2xl bg-black-1 p-10"
         ref={ref}
+        onClick={(event) => event.stopPropagation()}
         {...rest}
       >
         {children}
+
+        {close && (
+          <button
+            type="button"
+            className="absolute right-4 top-4"
+            aria-label="Fechar"
+            onClick={close}
+          >
+            <X />
+          </button>
+        )}
       </form>
     </div>
   );

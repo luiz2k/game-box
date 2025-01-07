@@ -9,7 +9,7 @@ const buttonTV = tv({
     },
     variant: {
       primary: "bg-accent-1 hover:bg-accent-2",
-      shadow: "bg-black-2 hover:bg-black-3",
+      ghost: "bg-black-2 hover:bg-black-3",
     },
   },
 });

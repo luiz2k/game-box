@@ -2,6 +2,7 @@ import { Plus } from "lucide-react";
 import Image from "next/image";
 
 type GameCardProps = {
+  id: number;
   imgSrc: string;
   alt: string;
   title: string;
@@ -10,6 +11,7 @@ type GameCardProps = {
 };
 
 export function GameCard({
+  id,
   imgSrc,
   alt,
   title,
@@ -17,14 +19,19 @@ export function GameCard({
   release_date,
 }: GameCardProps) {
   return (
-    <div className="relative h-fit w-fit overflow-hidden rounded-lg">
-      <div className="flex w-fit flex-col gap-4 bg-black-2/10 p-4 text-white-1 backdrop-blur-3xl duration-200 sm:w-[31.5rem] sm:flex-row">
-        <div>
-          <Image src={imgSrc} alt={alt} width={213.95} height={100} />
-        </div>
+    <div className="relative h-fit overflow-hidden rounded-lg">
+      <div className="flex flex-col gap-4 bg-black-2/10 p-4 text-white-1 backdrop-blur-3xl duration-200 sm:flex-row">
+        <Image
+          src={imgSrc}
+          alt={alt}
+          width={460}
+          height={215}
+          priority={id === 1}
+          className="size-full sm:h-[6.25rem] sm:w-[13.372rem]"
+        />
 
         <div className="space-y-2">
-          <h2 className="font-bold">{title}</h2>
+          <h2 className="line-clamp-2 font-bold">{title}</h2>
 
           <div className="space-y-1">
             <div className="flex">

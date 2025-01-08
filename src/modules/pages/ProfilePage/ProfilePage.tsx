@@ -4,7 +4,7 @@ import { SignatureInfo } from "./components/SignatureInfo/SignatureInfo";
 export function ProfilePage() {
   return (
     <section className="space-y-10">
-      <div>
+      <div className="space-y-1">
         <h1 className="text-center text-4xl font-bold">Perfil</h1>
         <p className="text-center">Informações do seu perfil</p>
       </div>

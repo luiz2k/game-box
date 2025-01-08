@@ -2,16 +2,18 @@ import { Check } from "lucide-react";
 import { Button } from "../Button/Button";
 
 export function SubscriptionCard() {
+  const session = true;
+
   return (
     <div className="space-y-5 rounded-2xl bg-black-2 p-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
         <div className="space-y-1">
-          <h2 className="text-2xl">Faça já sua assinatura!</h2>
+          <h2 className="text-2xl font-bold">Faça já sua assinatura!</h2>
           <p>Comece sua jornada hoje com o plano perfeito para você</p>
         </div>
 
         <div className="space-y-1">
-          <p className="text-end">Plano mensal</p>
+          <p className="sm:text-end">Plano mensal</p>
           <p className="text-4xl font-bold">R$ 24,99</p>
         </div>
       </div>
@@ -21,18 +23,20 @@ export function SubscriptionCard() {
           <span className="text-accent-1">
             <Check className="size-5" />
           </span>
-          Categorize quantos jogos quiser
+          Adicione jogos ilimitadamente nas caixas
         </li>
         <li className="flex gap-1 text-sm">
           <span className="text-accent-1">
             <Check className="size-5" />
           </span>
-          Crie até 20 categorias
+          Crie até 20 caixas
         </li>
       </ul>
 
       <Button width="full" variant="primary">
-        Faça já a sua assinatura!
+        {session
+          ? "Faça já sua assinatura!"
+          : "Crie uma conta e faça sua assinatura!"}
       </Button>
     </div>
   );

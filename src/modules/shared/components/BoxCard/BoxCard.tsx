@@ -7,7 +7,7 @@ type ListCardProps = {
   className?: string;
 };
 
-export function ListCard({ title, icon: Icon, className }: ListCardProps) {
+export function BoxCard({ title, icon: Icon, className }: ListCardProps) {
   return (
     <div className="group space-y-2 text-white-1">
       <div

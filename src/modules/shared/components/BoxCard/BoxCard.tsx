@@ -17,7 +17,7 @@ export function BoxCard({ title, icon: Icon, className }: ListCardProps) {
         )}
       >
         {Icon ? (
-          <Icon className="size-[60px]" />
+          <Icon className="size-[3.75rem]" />
         ) : (
           <>{title[0].toUpperCase()}</>
         )}

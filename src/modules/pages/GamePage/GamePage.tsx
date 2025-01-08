@@ -1,50 +1,62 @@
 import { Button } from "@/modules/shared/components/Button/Button";
 import Image from "next/image";
 
-export function GamePage() {
+import gameData from "@/seeds/data.json";
+import { notFound } from "next/navigation";
+
+type GamePageProps = {
+  params: Promise<{ id: string }>;
+};
+
+export async function GamePage({ params }: GamePageProps) {
+  const { id } = await params;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const games: any[] = gameData;
+
+  const game = games.find((game) => game.id === Number(id));
+
+  if (!game) {
+    return notFound();
+  }
+
   return (
     <section className="space-y-5">
       <div className="grid gap-4 sm:grid-cols-[18.75rem,1fr]">
         <div className="space-y-4">
           <Image
-            src={
-              "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg?t=1720558643"
-            }
-            alt="Lorem"
-            width={300}
-            height={140.22}
+            src={game.cover}
+            alt={game.title}
+            width={460}
+            height={215}
             priority={true}
             loading="eager"
-            className="block w-full rounded-2xl"
+            className="w-full rounded-2xl"
           />
 
           <ul className="space-y-1 rounded-2xl bg-black-2 p-4 text-sm">
             <li>
-              <span className="font-bold">Lançamento:</span> 05/12/2019
+              <span className="font-bold">Lançamento:</span>{" "}
+              {new Date(game.release_date).toLocaleDateString("pt-BR")}
             </li>
             <li>
-              <span className="font-bold">Genero: Ação:</span> Aventura
+              <span className="font-bold">Genero:</span> {game.genre.join(", ")}
             </li>
             <li>
-              <span className="font-bold">Desenvolvedor:</span> Rockstar Games
+              <span className="font-bold">Desenvolvedor:</span>{" "}
+              {game.developer.join(", ")}
             </li>
             <li>
-              <span className="font-bold">Destribuidor:</span> Rockstar Games
+              <span className="font-bold">Destribuidor:</span>{" "}
+              {game.distributor.join(", ")}
             </li>
           </ul>
         </div>
 
         <div className="space-y-1 rounded-2xl bg-black-2 p-4">
-          <h1 className="text-2xl font-bold">Red Dead Redemption 2</h1>
+          <h1 className="text-2xl font-bold">{game.title}</h1>
 
-          <p className="scroll overflow-y-auto text-sm">
-            Arthur Morgan e a gangue Van der Linde são bandidos em fuga. Com
-            agentes federais e os melhores caçadores de recompensas no seu
-            encalço, a gangue precisa roubar, assaltar e lutar para sobreviver
-            no impiedoso coração dos Estados Unidos. Conforme divisões internas
-            profundas ameaçam despedaçar a gangue, Arthur deve fazer uma escolha
-            entre os seus próprios ideais e a lealdade à gangue que o criou.
-          </p>
+          <p className="scroll overflow-y-auto text-sm">{game.summary}</p>
         </div>
       </div>
 

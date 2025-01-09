@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 import Image from "next/image";
 
 type GameCardProps = {
@@ -8,6 +8,9 @@ type GameCardProps = {
   title: string;
   genres: string[];
   release_date: string;
+
+  action?: () => void;
+  actionIcon?: LucideIcon;
 };
 
 export function GameCard({
@@ -17,39 +20,51 @@ export function GameCard({
   title,
   genres,
   release_date,
+
+  action,
+  actionIcon: Icon,
 }: GameCardProps) {
+  // Faz a formatação da data para pt-BR
+  release_date = new Date(release_date).toLocaleDateString("pt-BR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
   return (
-    <div className="relative h-fit overflow-hidden rounded-lg">
-      <div className="flex flex-col gap-4 bg-black-2/10 p-4 text-white-1 backdrop-blur-3xl duration-200 sm:flex-row">
-        <Image
-          src={imgSrc}
-          alt={alt}
-          width={460}
-          height={215}
-          priority={id === 1}
-          className="size-full sm:h-[6.25rem] sm:w-[13.372rem]"
-        />
+    <div className="rounded-2xl bg-black-2 duration-200 hover:bg-black-3">
+      <Image
+        src={imgSrc}
+        width={330.67}
+        height={154.55}
+        alt={alt}
+        quality={100}
+        priority={id === 1}
+        className="w-full overflow-hidden rounded-2xl"
+      />
 
-        <div className="space-y-2">
-          <h2 className="line-clamp-2 font-bold">{title}</h2>
+      <div className="grid grid-cols-[1fr,auto] gap-4 p-4">
+        <div className="space-y-4">
+          <h2 className="line-clamp-1 font-bold">{title}</h2>
 
-          <div className="space-y-1">
-            <div className="flex">
-              <p className="text-sm">{genres.join(", ")}</p>
-            </div>
-
-            <p className="text-sm">
-              {new Date(release_date).toLocaleDateString("pt-BR")}
-            </p>
+          <div className="space-y-1 text-sm">
+            <p>{genres.join(", ")}</p>
+            <p>{release_date}</p>
           </div>
         </div>
 
-        <div className="absolute bottom-4 right-4 hidden size-9 items-center justify-center rounded-full bg-accent-1 duration-200 hover:bg-accent-2 sm:flex">
-          <Plus className="size-6" />
-        </div>
+        {action && Icon && (
+          <div className="flex items-end">
+            <button
+              type="button"
+              className="flex size-9 flex-shrink-0 items-center justify-center rounded-full bg-accent-1 duration-200 hover:bg-accent-2"
+              onClick={action}
+            >
+              <Icon className="size-6 text-white-1" />
+            </button>
+          </div>
+        )}
       </div>
-
-      <div className="absolute left-0 top-0 -z-10 h-[50%] w-full bg-black-2" />
     </div>
   );
 }

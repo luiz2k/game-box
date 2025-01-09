@@ -21,7 +21,7 @@ export function DialogWrapping({
       onClick={close}
     >
       <form
-        className="relative grid w-full max-w-[31.25rem] gap-5 rounded-2xl bg-black-1 p-10"
+        className="relative mx-3.5 grid w-full max-w-[31.25rem] gap-5 rounded-2xl bg-black-1 p-10"
         ref={ref}
         onClick={(event) => event.stopPropagation()}
         {...rest}

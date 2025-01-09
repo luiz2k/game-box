@@ -14,7 +14,7 @@ export function GamesPage() {
         <p className="text-center">Jogos disponíveis</p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="grid grid-cols-[repeat(auto-fit,_minmax(245px,_1fr))] gap-4">
         {games.map((game) => (
           <Link key={game.id} title={game.title} href={`/jogos/${game.id}`}>
             <GameCard

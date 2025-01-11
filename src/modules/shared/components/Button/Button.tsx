@@ -1,7 +1,9 @@
+import { LucideIcon } from "lucide-react";
+import { twMerge } from "tailwind-merge";
 import { tv, VariantProps } from "tailwind-variants";
 
 const buttonTV = tv({
-  base: "h-12 px-4 py-2 text-sm rounded-full text-white-1 duration-200",
+  base: "flex h-12 items-center justify-center gap-1 rounded-full px-4 py-2 text-sm text-white-1 duration-200",
   variants: {
     width: {
       fit: "w-fit",
@@ -11,25 +13,49 @@ const buttonTV = tv({
       primary: "bg-accent-1 hover:bg-accent-2",
       ghost: "bg-black-2 hover:bg-black-3",
     },
+    space: {
+      between: "justify-between",
+      center: "justify-center",
+    },
   },
 });
 
-type ButtonTV = Required<VariantProps<typeof buttonTV>>;
+type ButtonTV = Required<Omit<VariantProps<typeof buttonTV>, "space">> &
+  Pick<VariantProps<typeof buttonTV>, "space">;
 
 type ButtonProps = ButtonTV &
   React.ButtonHTMLAttributes<HTMLButtonElement> & {
     children: string;
     ref?: React.RefObject<HTMLButtonElement>;
+
+    leftIcon?: LucideIcon;
+    rightIcon?: LucideIcon;
   };
 
-export function Button({ children, ref, ...rest }: ButtonProps) {
+export function Button({
+  children,
+  ref,
+  leftIcon: LeftIcon,
+  rightIcon: RightIcon,
+  className,
+  ...rest
+}: ButtonProps) {
   return (
     <button
       ref={ref}
-      className={buttonTV({ width: rest.width, variant: rest.variant })}
+      className={twMerge(
+        buttonTV({
+          width: rest.width,
+          variant: rest.variant,
+          space: rest.space,
+        }),
+        className,
+      )}
       {...rest}
     >
+      {LeftIcon && <LeftIcon />}
       {children}
+      {RightIcon && <RightIcon />}
     </button>
   );
 }

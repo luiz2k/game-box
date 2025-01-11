@@ -1,8 +1,7 @@
-import { Button } from "@/modules/shared/components/Button/Button";
-import Image from "next/image";
-
 import gameData from "@/seeds/data.json";
+import Image from "next/image";
 import { notFound } from "next/navigation";
+import { AddToBox } from "./components/AddToBox/AddToBox";
 
 type GamePageProps = {
   params: Promise<{ id: string }>;
@@ -21,7 +20,7 @@ export async function GamePage({ params }: GamePageProps) {
   }
 
   return (
-    <section className="space-y-5">
+    <section className="grid gap-5">
       <div className="grid gap-4 sm:grid-cols-[18.75rem,1fr]">
         <div className="space-y-4">
           <Image
@@ -60,11 +59,7 @@ export async function GamePage({ params }: GamePageProps) {
         </div>
       </div>
 
-      <div className="ml-auto w-fit">
-        <Button width="fit" variant="primary">
-          Adicionar / Remover
-        </Button>
-      </div>
+      <AddToBox game={game} />
     </section>
   );
 }

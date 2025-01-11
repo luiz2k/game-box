@@ -1,4 +1,11 @@
-import { GameCard } from "@/modules/shared/components/GameCard/GameCard";
+import {
+  GameCardBody,
+  GameCardBodyHeader,
+  GameCardBodyHeaderDesc,
+  GameCardBodyHeaderTitle,
+  GameCardImage,
+  GameCardWarapping,
+} from "@/modules/shared/components/GameCard/GameCard";
 
 import gameData from "@/seeds/data.json";
 import Link from "next/link";
@@ -17,14 +24,25 @@ export function GamesPage() {
       <div className="grid grid-cols-[repeat(auto-fit,_minmax(245px,_1fr))] gap-4">
         {games.map((game) => (
           <Link key={game.id} title={game.title} href={`/jogos/${game.id}`}>
-            <GameCard
-              id={game.id}
-              title={game.title}
-              imgSrc={game.cover}
-              alt={game.title}
-              genres={game.genre}
-              release_date={game.release_date}
-            />
+            <GameCardWarapping>
+              <GameCardImage
+                id={game.id}
+                imgSrc={game.cover}
+                alt={game.title}
+              />
+
+              <GameCardBody>
+                <GameCardBodyHeader>
+                  <GameCardBodyHeaderTitle title={game.title} />
+                  <GameCardBodyHeaderDesc>
+                    <p>{game.genres.join(", ")}</p>
+                    <p>
+                      {new Date(game.release_date).toLocaleDateString("pt-BR")}
+                    </p>
+                  </GameCardBodyHeaderDesc>
+                </GameCardBodyHeader>
+              </GameCardBody>
+            </GameCardWarapping>
           </Link>
         ))}
       </div>

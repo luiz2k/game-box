@@ -1,7 +1,9 @@
 import { Header } from "@/modules/shared/components/Header/Header";
-import "@shared/styles/globals.css";
-
 import { Roboto } from "next/font/google";
+
+import "@shared/styles/globals.css";
+import { RegisterForm } from "@/modules/shared/components/Forms/RegisterForm/RegisterForm";
+import { LoginForm } from "@/modules/shared/components/Forms/LoginForm/LoginForm";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
@@ -19,6 +21,9 @@ export default function RootLayout({
         <Header />
 
         <main className="m-auto mt-10 w-full max-w-5xl">{children}</main>
+
+        <RegisterForm />
+        <LoginForm />
       </body>
     </html>
   );

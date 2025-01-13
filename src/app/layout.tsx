@@ -1,9 +1,11 @@
+import { LoginForm } from "@/modules/shared/components/Forms/LoginForm/LoginForm";
+import { RegisterForm } from "@/modules/shared/components/Forms/RegisterForm/RegisterForm";
 import { Header } from "@/modules/shared/components/Header/Header";
+
 import { Roboto } from "next/font/google";
+import { twMerge } from "tailwind-merge";
 
 import "@shared/styles/globals.css";
-import { RegisterForm } from "@/modules/shared/components/Forms/RegisterForm/RegisterForm";
-import { LoginForm } from "@/modules/shared/components/Forms/LoginForm/LoginForm";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
@@ -20,7 +22,9 @@ export default function RootLayout({
       <body className={twMerge("mt-4 px-3.5 text-white-1", roboto.className)}>
         <Header />
 
-        <main className="m-auto mt-10 w-full max-w-5xl">{children}</main>
+        <main className="m-auto mb-10 mt-10 grid w-full max-w-5xl gap-10">
+          {children}
+        </main>
 
         <RegisterForm />
         <LoginForm />

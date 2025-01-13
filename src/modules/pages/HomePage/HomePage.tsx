@@ -1,7 +1,15 @@
+import { SubscriptionCard } from "@/modules/shared/components/SubscriptionCard/SubscriptionCard";
+import { Cover } from "./components/Cover/Cover";
+import { PopularGames } from "./components/PopularGames/PopularGames";
+
 export function HomePage() {
   return (
     <>
-      <h1>Página &quot;/&quot;</h1>
+      <Cover />
+
+      <PopularGames />
+
+      <SubscriptionCard />
     </>
   );
 }

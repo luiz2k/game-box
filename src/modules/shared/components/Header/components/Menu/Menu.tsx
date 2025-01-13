@@ -39,7 +39,7 @@ export function Menu() {
       </button>
 
       {isOpen && (
-        <div className="absolute left-1/2 top-11 w-32 -translate-x-1/2 overflow-hidden rounded-2xl bg-accent-1 py-2">
+        <div className="absolute right-0 top-11 z-10 w-32 overflow-hidden rounded-2xl bg-accent-1 py-2">
           <ul>
             {!session && (
               <>

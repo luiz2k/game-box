@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className="bg-black-1">
-      <body className={`mt-4 px-3.5 text-white-1 ${roboto.className}`}>
+      <body className={twMerge("mt-4 px-3.5 text-white-1", roboto.className)}>
         <Header />
 
         <main className="m-auto mt-10 w-full max-w-5xl">{children}</main>

@@ -1,11 +1,13 @@
 "use client";
 
-import { useFormStore } from "@/modules/shared/stores/formStore";
-import { KeyRound, LogIn, LogOut, UserPen, UserRound } from "lucide-react";
+import { UserRound } from "lucide-react";
 import { useEffect, useState } from "react";
-import { MenuOption } from "./components/MenuOption/MenuOption";
 
-export function Menu() {
+type MenuProps = {
+  children: React.ReactNode;
+};
+
+export function Menu({ children }: MenuProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   // Fecha o menu se clicar fora
@@ -23,10 +25,6 @@ export function Menu() {
     return () => document.removeEventListener("click", documentEvent);
   }, [isOpen]);
 
-  const { handleLoginForm, handleRegisterForm } = useFormStore();
-
-  const session = false;
-
   return (
     <div className="relative">
       <button
@@ -38,41 +36,8 @@ export function Menu() {
         <UserRound className="size-6 text-white-1" />
       </button>
 
-      {isOpen && (
-        <div className="absolute right-0 top-11 z-10 w-32 overflow-hidden rounded-2xl bg-accent-1 py-2">
-          <ul>
-            {!session && (
-              <>
-                <li>
-                  <MenuOption
-                    icon={LogIn}
-                    name="Entrar"
-                    onClick={handleLoginForm}
-                  />
-                </li>
-                <li>
-                  <MenuOption
-                    icon={KeyRound}
-                    name="Registrar"
-                    onClick={handleRegisterForm}
-                  />
-                </li>
-              </>
-            )}
-
-            {session && (
-              <>
-                <li>
-                  <MenuOption icon={UserPen} name="Perfil" />
-                </li>
-                <li>
-                  <MenuOption icon={LogOut} name="Sair" />
-                </li>
-              </>
-            )}
-          </ul>
-        </div>
-      )}
+      {/* Receber o menu como filho para separar entre renderização de client e server */}
+      {isOpen && <>{children}</>}
     </div>
   );
 }

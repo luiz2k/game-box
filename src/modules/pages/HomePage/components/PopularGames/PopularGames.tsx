@@ -21,11 +21,7 @@ export function PopularGames() {
         {games.slice(0, 6).map((game) => (
           <Link key={game.id} title={game.title} href={`/jogos/${game.id}`}>
             <GameCardWarapping>
-              <GameCardImage
-                id={game.id}
-                imgSrc={game.cover}
-                alt={game.title}
-              />
+              <GameCardImage imgSrc={game.cover} alt={game.title} />
 
               <GameCardBody>
                 <GameCardBodyHeader>

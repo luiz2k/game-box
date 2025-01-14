@@ -14,9 +14,8 @@ export function GameCardWarapping({ children }: GameCardWarappingProps) {
 type GameCardImageProps = {
   imgSrc: string;
   alt: string;
-  id: number;
 };
-export function GameCardImage({ imgSrc, alt, id }: GameCardImageProps) {
+export function GameCardImage({ imgSrc, alt }: GameCardImageProps) {
   return (
     <Image
       src={imgSrc}
@@ -24,7 +23,6 @@ export function GameCardImage({ imgSrc, alt, id }: GameCardImageProps) {
       height={154.55}
       alt={alt}
       quality={100}
-      priority={id === 1}
       className="w-full overflow-hidden rounded-2xl"
     />
   );

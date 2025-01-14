@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { tv, VariantProps } from "tailwind-variants";
 
 const buttonTV = tv({
-  base: "flex h-12 items-center justify-center gap-1 rounded-full px-4 py-2 text-sm text-white-1 duration-200",
+  base: "flex h-12 items-center justify-center gap-1 rounded-full px-4 py-2 text-sm text-white-1 duration-200 disabled:cursor-not-allowed disabled:opacity-50",
   variants: {
     width: {
       fit: "w-fit",

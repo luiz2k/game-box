@@ -79,9 +79,9 @@ export function DialogHeaderDesc({
   children,
 }: DialogHeaderDescProps) {
   return (
-    <p className={twMerge("text-center text-sm text-white-1/50", className)}>
+    <div className={twMerge("text-center text-sm text-white-1/50", className)}>
       {children}
-    </p>
+    </div>
   );
 }
 

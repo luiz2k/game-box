@@ -3,7 +3,14 @@ import Image from "next/image";
 export function Cover() {
   return (
     <section className="relative overflow-hidden rounded-2xl">
-      <Image src={"/cover.png"} alt="Capa" width={1024} height={699} />
+      <Image
+        src={"/cover.png"}
+        alt="Capa"
+        width={1024}
+        height={699}
+        loading="eager"
+        priority={true}
+      />
 
       <div className="absolute left-[50%] top-5 w-full max-w-[25rem] -translate-x-[50%] space-y-2 text-center md:left-auto md:right-20 md:top-[9.375rem] md:translate-x-0 md:text-start">
         <div>

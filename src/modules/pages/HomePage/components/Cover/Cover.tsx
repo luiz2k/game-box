@@ -8,7 +8,6 @@ export function Cover() {
         alt="Capa"
         width={1024}
         height={699}
-        loading="eager"
         priority={true}
       />
 

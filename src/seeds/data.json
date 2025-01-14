@@ -1,0 +1,269 @@
+[
+  {
+    "id": 1,
+    "title": "Red Dead Redemption 2",
+    "genres": ["Ação", "Aventura"],
+    "developer": ["Rockstar Games"],
+    "distributor": ["Rockstar Games"],
+    "release_date": "2019-12-05",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg?t=1720558643",
+    "summary": "Arthur Morgan e a gangue Van der Linde são bandidos em fuga. Com agentes federais e os melhores caçadores de recompensas no seu encalço, a gangue precisa roubar, assaltar e lutar para sobreviver no impiedoso coração dos Estados Unidos. Conforme divisões internas profundas ameaçam despedaçar a gangue, Arthur deve fazer uma escolha entre os seus próprios ideais e a lealdade à gangue que o criou."
+  },
+  {
+    "id": 2,
+    "title": "Cyberpunk 2077",
+    "genres": ["RPG"],
+    "developer": ["CD PROJEKT RED"],
+    "distributor": ["CD PROJEKT RED"],
+    "release_date": "2020-12-09",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg?t=1726188854",
+    "summary": "Cyberpunk 2077 é um RPG de ação e aventura em mundo aberto ambientado na megalópole de Night City, onde você é um mercenário cyberpunk envolvido em uma intensa luta pela sobrevivência. Com diversas melhorias e conteúdo adicional gratuito, personalize o seu personagem e o seu estilo de jogo conforme aceita trabalhos, construa uma reputação e desbloqueie melhorias. Seus relacionamentos e suas escolhas moldarão a história e o mundo ao seu redor. Aqui nascem as lendas. Qual será a sua?"
+  },
+  {
+    "id": 3,
+    "title": "The Witcher 3: Wild Hunt",
+    "genres": ["RPG"],
+    "developer": ["CD PROJEKT RED"],
+    "distributor": ["CD PROJEKT RED"],
+    "release_date": "2015-05-18",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/292030/header.jpg?t=1726045366",
+    "summary": "Você é Geralt de Rívia, mercenário matador de monstros. O lugar é um continente devastado pela guerra e infestado de monstros que você pode explorar à vontade. Seu contrato atual? Encontrar Ciri, a Criança da Profecia — uma arma viva que pode alterar a forma do mundo."
+  },
+  {
+    "id": 4,
+    "title": "ELDEN RING",
+    "genres": ["Ação", "RPG"],
+    "developer": ["FromSoftware, Inc."],
+    "distributor": ["FromSoftware, Inc.", "Bandai Namco Entertainment"],
+    "release_date": "2022-02-24",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg?t=1726158298",
+    "summary": "O NOVO RPG DE AÇÃO E FANTASIA. Levante-se, Maculado, e seja guiado pela graça para portar o poder do Anel Prístino e se tornar um Lorde Prístino nas Terras Intermédias."
+  },
+  {
+    "id": 5,
+    "title": "Baldur's Gate 3",
+    "genres": ["Aventura", "RPG", "Estratégia"],
+    "developer": ["Larian Studios"],
+    "distributor": ["Larian Studios"],
+    "release_date": "2023-08-03",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1086940/header.jpg?t=1725654125",
+    "summary": "Reúna seu grupo e volte aos Reinos Esquecidos em uma história de amizade e traição, sacrifício e sobrevivência, e tentação pelo poder absoluto. Habilidades misteriosas despertam em você, semeadas por um parasita devorador de mentes no seu cérebro."
+  },
+  {
+    "id": 6,
+    "title": "Alien: Isolation",
+    "genres": ["Ação"],
+    "developer": [
+      "Creative Assembly",
+      "Feral Interactive (Mac)",
+      "Feral Interactive (Linux)"
+    ],
+    "distributor": [
+      "SEGA",
+      "Feral Interactive (Mac)",
+      "Feral Interactive (Linux)"
+    ],
+    "release_date": "2014-10-06",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/214490/header.jpg?t=1726768277",
+    "summary": "Alien: Isolation é um jogo eletrônico de ação-aventura e sobrevivência desenvolvido pela Creative Assembly e publicado pela Sega. Ele foi lançado originalmente para as plataformas Microsoft Windows, PlayStation 3, PlayStation 4, Xbox 360 e Xbox One. O jogo é baseado na série de filmes de terror de ficção científica Alien, e acontece quinze anos após os eventos do filme original Alien de 1979, seguindo a engenheira Amanda Ripley, filha da protagonista Ellen Ripley de Alien, enquanto ela investiga o desaparecimento de sua mãe."
+  },
+  {
+    "id": 7,
+    "title": "DEATH STRANDING DIRECTOR'S CUT",
+    "genres": ["Ação", "Aventura"],
+    "developer": ["KOJIMA PRODUCTIONS"],
+    "distributor": ["505 Games"],
+    "release_date": "2022-03-30",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1850570/header.jpg?t=1728989088",
+    "summary": "Do lendário diretor Hideo Kojima, surge uma experiência que desafia gêneros, ainda maior em DIRECTOR’S CUT. No futuro, um evento misterioso conhecido como Death Stranding abriu uma passagem entre os vivos e os mortos, resultando em criaturas grotescas do pós-vida andando pelo mundo arruinado, marcado por uma sociedade desolada."
+  },
+  {
+    "id": 8,
+    "title": "STAR WARS Jedi: Fallen Order™",
+    "genres": ["Ação", "Aventura"],
+    "developer": ["Respawn Entertainment"],
+    "distributor": ["Electronic Arts"],
+    "release_date": "2019-11-15",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1172380/header.jpg?t=1725901454",
+    "summary": "Prepare-se para cruzar a galáxia em Star Wars Jedi: Fallen Order, uma nova aventura em terceira pessoa cheia de ação da Respawn Entertainment. Este jogo para um jogador focado na narrativa coloca você na pele de um padawan que escapou por pouco do expurgo da Ordem 66, após os eventos do Episódio III – A Vingança dos Sith."
+  },
+  {
+    "id": 9,
+    "title": "Resident Evil",
+    "genres": ["Ação", "Aventura"],
+    "developer": ["CAPCOM Co., Ltd."],
+    "distributor": ["CAPCOM Co., Ltd."],
+    "release_date": "2015-01-20",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/304240/header.jpg?t=1709710949",
+    "summary": "Em 1998, uma equipe das forças especiais é enviada para investigar alguns assassinatos bizarros nos arredores de Raccoon City. Ao chegar lá, eles são atacados por um grupo de cachorros sanguinários e são forçados a buscar abrigo em uma mansão próxima. Mas o cheiro da morte paira no ar."
+  },
+  {
+    "id": 10,
+    "title": "Days Gone",
+    "genres": ["Ação", "Aventura"],
+    "developer": ["Bend Studio"],
+    "distributor": ["PlayStation Publishing LLC"],
+    "release_date": "2021-05-18",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1259420/header.jpg?t=1717621222",
+    "summary": "Entre na pele do antigo motociclista fora da lei Deacon St. John, um caçador de recompensas que tenta achar uma razão para viver numa terra cercada pela morte. Vasculhe assentamentos abandonados em busca de equipamentos para produzir itens e armas valiosas ou tente a sorte com outros sobreviventes que estão tentando ganhar a vida através de negociações justas... Ou algo mais sangrento."
+  },
+  {
+    "id": 11,
+    "title": "Lies of P",
+    "genres": ["Ação", "Aventura", "RPG"],
+    "developer": ["NEOWIZ"],
+    "distributor": ["NEOWIZ"],
+    "release_date": "2023-09-18",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1627720/header.jpg?t=1726714349",
+    "summary": "Você é um títere criado por Geppetto, preso numa teia de mentiras com monstros inimagináveis e figuras pouco confiáveis que ficarão entre você e os eventos no mundo de Lies of P. Uma voz misteriosa desperta você e guia seus passos pela atormentada cidade de Krat — um lugar outrora animado que foi envenenado pela loucura e sede de sangue. Em nosso soulslike, você deve adaptar suas armas e seu personagem para enfrentar horrores incalculáveis, desvendar os segredos insondáveis das elites da cidade e escolher entre confrontar as dificuldades com a verdade ou tecer mentiras para superá-las na jornada para encontrar a si mesmo."
+  },
+  {
+    "id": 12,
+    "title": "Fallout: New Vegas",
+    "genres": ["Ação", "RPG"],
+    "developer": ["Obsidian Entertainment"],
+    "distributor": ["Bethesda Softworks"],
+    "release_date": "2010-10-19",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/22380/header.jpg?t=1665072891",
+    "summary": "Bem-vindo a Vegas. New Vegas. É o tipo de cidade onde você cava sua própria cova antes de levar um tiro na cabeça e ser deixado para morrer... e isso antes que as coisas realmente fiquem feias. É uma cidade de sonhadores e desesperados sendo dilacerados por facções em guerra que disputam o controle total deste oásis no deserto. É um lugar onde o tipo certo de pessoa com o tipo certo de armamento pode realmente fazer um nome para si mesmo e fazer mais do que um ou dois inimigos ao longo do caminho."
+  },
+  {
+    "id": 13,
+    "title": "Sekiro™: Shadows Die Twice - GOTY Edition",
+    "genres": ["Ação", "Aventura"],
+    "developer": ["FromSoftware, Inc."],
+    "distributor": [
+      "Activision (Excluding Japan and Asia)",
+      "FromSoftware, Inc. (Japan)",
+      "方块游戏 (Asia)"
+    ],
+    "release_date": "2019-03-21",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/814380/header.jpg?t=1726158438",
+    "summary": "Em Sekiro™: Shadows Die Twice, você é o 'lobo de um braço só', um guerreiro desfigurado e desgraçado, resgatado da beira da morte. Jurado para proteger um jovem lorde descendente de uma antiga linhagem de sangue, você vira alvo de muitos inimigos perigosos, incluindo o temido clã Ashina. Quando o jovem lorde é capturado, você parte em uma jornada de redenção onde nada impedirá você, nem mesmo a própria morte."
+  },
+  {
+    "id": 14,
+    "title": "DARK SOULS™: REMASTERED",
+    "genres": ["Ação"],
+    "developer": ["QLOC", "FromSoftware, Inc."],
+    "distributor": ["FromSoftware, Inc.", "Bandai Namco Entertainment"],
+    "release_date": "2018-05-23",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/570940/header.jpg?t=1726158603",
+    "summary": "Dark Souls se passa primariamente no reino fictício de Lordran, onde os jogadores assumem o papel de um personagem denominado 'Chosen Undead' que, segundo lendas, seria responsável pela quebra de uma maldição que torna incapazes de morrer aqueles que são afligidos por uma misteriosa marca negra. O jogo é inspirado fortemente pela temática medieval, com a presença de deuses e seres fantásticos, inseridos em um mundo decadente e punitivo. A estrutura de apresentação da história é subjetiva, dando-se basicamente através da descrição de itens ou em interações com NPCs, possibilitando margem para diversas interpretações acerca de toda a mitologia presente no jogo."
+  },
+  {
+    "id": 15,
+    "title": "The Elder Scrolls V: Skyrim Special Edition",
+    "genres": ["RPG"],
+    "developer": ["Bethesda Game Studios"],
+    "distributor": ["Bethesda Softworks"],
+    "release_date": "2016-10-27",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/489830/header.jpg?t=1721923149",
+    "summary": "Vencedor de mais de 200 prémios de Jogo do Ano, The Elder Scrolls V: Skyrim Special Edition dá vida à fantasia épica com um nível de detalhe espantoso. A Special Edition inclui o jogo aclamado pela crítica e suplementos com novas funcionalidades como arte e efeitos remasterizados, raios volumétricos, profundidade de campo dinâmica, reflexos espaciais e muito mais."
+  },
+  {
+    "id": 16,
+    "title": "Resident Evil 4 (2005)",
+    "genres": ["Ação", "Aventura"],
+    "developer": ["Capcom"],
+    "distributor": ["Capcom"],
+    "release_date": "2014-02-28",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/254700/header.jpg?t=1700452857",
+    "summary": "Em resident evil 4, o agente especial Leon S. Kennedy é enviado em uma missão para resgatar a filha do presidente dos Estados Unidos, que foi raptada. Passando por uma cidade rural na Europa, ele enfrentará novas ameaças que vão além dos inimigos zumbis tradicionais dos outros capítulos da série. Leon combaterá terríveis criaturas infestadas por uma nova ameaça chamada Las Plagas, e enfrentará um agressivo grupo de inimigos que incluem aldeões controlados em conexão com Los Illuminados, o misterioso culto por trás da abdução."
+  },
+  {
+    "id": 17,
+    "title": "Tomb Raider",
+    "genres": ["Ação", "Aventura"],
+    "developer": [
+      "Crystal Dynamics",
+      "Eidos-Montréal",
+      "Feral Interactive (Mac)",
+      "Nixxes"
+    ],
+    "distributor": ["Crystal Dynamics", "Feral Interactive (Mac)"],
+    "release_date": "2013-03-05",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/203160/header.jpg?t=1710446431",
+    "summary": "Tomb Raider explora a intensa história de origem de Lara Croft, e sua ascensão de uma jovem mulher a uma sobrevivente experiente. Armada apenas com os seus instintos e a covercidade de ir além dos limites da resistência humana, Lara precisa lutar para desvendar a história sombria de uma ilha esquecida para fugir das suas garras. Baixe o trailer Turning Point para ver o começo da aventura épica de Lara."
+  },
+  {
+    "id": 18,
+    "title": "Grand Theft Auto V",
+    "genres": ["Ação", "Aventura"],
+    "developer": ["Rockstar North"],
+    "distributor": ["Rockstar Games"],
+    "release_date": "2013-09-17",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg?t=1726606628",
+    "summary": "Quando um malandro de rua, um ladrão de bancos aposentado e um psicopata aterrorizante se envolvem com alguns dos criminosos mais assustadores e loucos do submundo, o governo dos EUA e a indústria do entretenimento, eles devem realizar golpes ousados para sobreviver nessa cidade implacável onde não podem confiar em ninguém, nem mesmo um no outro."
+  },
+  {
+    "id": 19,
+    "title": "Marvel's Guardians of the Galaxy",
+    "genres": ["Ação", "Aventura"],
+    "developer": ["Eidos-Montréal"],
+    "distributor": ["Eidos Interactive Corp."],
+    "release_date": "2021-10-26",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1088850/header.jpg?t=1726597327",
+    "summary": "Embarque numa nova e empolgante viagem pelo cosmos em Guardiões da Galáxia da Marvel. Neste jogo de ação e aventura em terceira pessoa, você é o Senhor das Estrelas, que, graças à sua liderança ousada, porém questionável, reuniu uma tripulação excêntrica de heróis improváveis. Algum idiota (com certeza não foi você) desencadeou uma série de eventos catastróficos, e só você pode manter os imprevisíveis Guardiões unidos por tempo suficiente para impedir o colapso interplanetário absoluto. Use pistolas elementais, ataques coletivos, botas a jato... Vale tudo."
+  },
+  {
+    "id": 20,
+    "title": "Assassin's Creed® IV Black Flag™",
+    "genres": ["Ação", "Aventura"],
+    "developer": ["Ubisoft Montreal"],
+    "distributor": ["Ubisoft"],
+    "release_date": "2013-03-05",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/242050/header.jpg?t=1698852989",
+    "summary": "Assassin's Creed IV: Black Flag segue as aventuras de Edward James Kenway, um notável pirata e corsário que viveu nas Caraíbas durante a Época Dourada da Pirataria no início do século XVIII, pai de Haytham Kenway e avô de Ratonhnhaké:ton (Connor Kenway), os personagens jogáveis de Assassin's Creed III. A história de Edward começa quando este se vê acidentalmente no meio do eterno conflito entre Assassinos e Templários."
+  },
+  {
+    "id": 21,
+    "title": "Black Myth: Wukong",
+    "genres": ["Ação", "Aventura", "RPG"],
+    "developer": ["Game Science"],
+    "distributor": ["Game Science"],
+    "release_date": "2024-08-19",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg?t=1734426465",
+    "summary": "Black Myth: Wukong é um RPG de ação inspirado na mitologia chinesa. A história é baseada em 'Jornada para o Oeste', um dos Quatro Grandes Romances Clássicos da literatura do país. Você assume o papel do Predestinado e tem a responsabilidade de encarar os desafios e as maravilhas do mundo para desvendar a verdade obscura por trás de uma lenda gloriosa do passado."
+  },
+  {
+    "id": 22,
+    "title": "God of War",
+    "genres": ["Ação", "Aventura", "RPG"],
+    "developer": ["Santa Monica Studio", "Jetpack Interactive"],
+    "distributor": ["PlayStation Publishing LLC"],
+    "release_date": "2022-01-14",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1593500/header.jpg?t=1729030762",
+    "summary": "Com a vingança contra os deuses do Olimpo em um passado distante, Kratos agora vive como um mortal no reino dos deuses e monstros nórdicos. É nesse mundo duro e implacável que ele deve lutar para sobreviver... e ensinar seu filho a fazer o mesmo."
+  },
+  {
+    "id": 23,
+    "title": "Batman™: Arkham Knight",
+    "genres": ["Ação", "Aventura"],
+    "developer": ["Rocksteady Studios"],
+    "distributor": ["WB Games"],
+    "release_date": "2015-06-23",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/208650/header.jpg?t=1702934528",
+    "summary": "Batman™: Arkham Knight é a conclusão épica da trilogia Arkham da Rocksteady Studios. Desenvolvido exclusivamente para plataformas de última geração, Batman™: Arkham Knight apresenta o design exclusivo da Rocksteady para o Batmóvel. A inclusão muito esperada desse veículo lendário, combinada com a jogabilidade aclamada da série Arkham, oferece aos jogadores a experiência definitiva de jogar como Batman enquanto percorrem as ruas e voam pelo céu de Gotham City."
+  },
+  {
+    "id": 24,
+    "title": "Cuphead",
+    "genres": ["Ação", "Indie"],
+    "developer": ["Studio MDHR Entertainment Inc."],
+    "distributor": ["Studio MDHR Entertainment Inc"],
+    "release_date": "2017-09-29",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/268910/header.jpg?t=1709068852",
+    "summary": "Cuphead é um jogo de ação e tiros clássico, com enorme ênfase nas batalhas de chefes. Inspirado nas animações infantis da década de 1930, os visuais e efeitos sonoros foram minuciosamente recriados com as mesmíssimas técnicas dessa era, com destaque para desenhos feitos à mão, fundos em aquarela e gravações originais de jazz."
+  },
+  {
+    "id": 25,
+    "title": "Hollow Knight",
+    "genres": ["Ação"],
+    "developer": ["Team Cherry"],
+    "distributor": ["Team Cherry"],
+    "release_date": "2017-02-24",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/367520/header.jpg?t=1695270428",
+    "summary": "Hollow Knight é uma aventura de ação clássica em estilo 2D por um vasto mundo interligado. Explore cavernas serpenteantes, cidades antigas e ermos mortais; lute contra criaturas malignas e alie-se a insetos bizarros, e solucione mistérios antigos no centro do reino."
+  }
+]

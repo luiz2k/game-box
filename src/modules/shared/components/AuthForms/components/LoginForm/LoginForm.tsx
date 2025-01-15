@@ -77,7 +77,13 @@ export function LoginForm() {
       </DialogBody>
 
       <DialogFooter>
-        <Button variant="ghost" width="full" type="button" onClick={changeForm}>
+        <Button
+          variant="ghost"
+          width="full"
+          type="button"
+          onClick={changeForm}
+          disabled={isPending}
+        >
           Registrar
         </Button>
         <Button

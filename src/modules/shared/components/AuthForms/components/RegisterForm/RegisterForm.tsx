@@ -84,7 +84,13 @@ export function RegisterForm() {
       </DialogBody>
 
       <DialogFooter>
-        <Button variant="ghost" width="full" type="button" onClick={changeForm}>
+        <Button
+          variant="ghost"
+          width="full"
+          type="button"
+          onClick={changeForm}
+          disabled={isPending}
+        >
           Entrar
         </Button>
         <Button

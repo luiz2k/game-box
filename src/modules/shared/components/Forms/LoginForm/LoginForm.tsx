@@ -12,12 +12,12 @@ import {
   DialogWrapping,
 } from "../../Dialog/Dialog";
 import { FormInput } from "../../Input/Input";
-import { loginForm } from "./actions/loginAction";
+import { loginAction } from "./actions/loginAction";
 
 export function LoginForm() {
   const { loginFormIsOpen, handleLoginForm, changeForm } = useFormStore();
 
-  const [formState, formAction, isPending] = useActionState(loginForm, null);
+  const [formState, formAction, isPending] = useActionState(loginAction, null);
 
   return (
     <>

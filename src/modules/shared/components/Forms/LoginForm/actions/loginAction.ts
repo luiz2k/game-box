@@ -1,12 +1,12 @@
 "use server";
 
-import { prisma } from "@/modules/lib/prisma/prisma";
-import { loginSchema } from "../schemas/loginSchema";
-import { compare } from "bcryptjs";
 import { signIn } from "@/auth";
+import { prisma } from "@/modules/lib/prisma/prisma";
+import { compare } from "bcryptjs";
+import { loginSchema } from "../schemas/loginSchema";
 
 // Ação de logar um usuário
-export async function loginForm(_prev: unknown, formData: FormData) {
+export async function loginAction(_prev: unknown, formData: FormData) {
   try {
     // Converte os dados do formulário em um objeto
     const data = Object.fromEntries(formData);

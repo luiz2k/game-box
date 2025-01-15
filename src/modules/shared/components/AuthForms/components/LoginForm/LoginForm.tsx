@@ -1,8 +1,9 @@
 "use client";
 
-import { useActionState } from "react";
-import { useFormStore } from "../../../stores/formStore";
-import { Button } from "../../Button/Button";
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect } from "react";
+import { useFormStore } from "../../../../stores/formStore";
+import { Button } from "../../../Button/Button";
 import {
   DialogBody,
   DialogFooter,
@@ -10,24 +11,30 @@ import {
   DialogHeaderDesc,
   DialogHeaderTitle,
   DialogWrapping,
-} from "../../Dialog/Dialog";
-import { FormInput } from "../../Input/Input";
-import { registerAction } from "./actions/registerAction";
+} from "../../../Dialog/Dialog";
+import { FormInput } from "../../../Input/Input";
+import { loginAction } from "./actions/loginAction";
 
-// Formulário de registro
-export function RegisterForm() {
-  const { handleRegisterForm, changeForm } = useFormStore();
+// Formulário de login
+export function LoginForm() {
+  const { handleLoginForm, changeForm } = useFormStore();
 
-  const [formState, formAction, isPending] = useActionState(
-    registerAction,
-    null,
-  );
+  const [formState, formAction, isPending] = useActionState(loginAction, null);
+
+  const router = useRouter();
+
+  // Quando o usuário logar, fecha o formulário e recarrega a página
+  useEffect(() => {
+    if (formState?.messages?.success) {
+      handleLoginForm();
+      router.refresh();
+    }
+  }, [formState?.messages?.success, handleLoginForm, router]);
 
   return (
-    <DialogWrapping close={handleRegisterForm} action={formAction}>
+    <DialogWrapping close={handleLoginForm} action={formAction}>
       <DialogHeader>
-        <DialogHeaderTitle>Registro</DialogHeaderTitle>
-
+        <DialogHeaderTitle>Entrar</DialogHeaderTitle>
         <DialogHeaderDesc>
           {/* Exibe mensagens de sucesso ou erro do formulário */}
           {formState?.messages && (
@@ -43,26 +50,20 @@ export function RegisterForm() {
           )}
 
           {/* Se não houver mensagens, exibe a menssagem padrão */}
-          {!formState?.messages && <p>Crie uma conta e organize seus jogos.</p>}
+          {!formState?.messages && (
+            <p>Entre com seu e-mail e senha para acessar sua conta.</p>
+          )}
         </DialogHeaderDesc>
       </DialogHeader>
 
       <DialogBody>
-        <FormInput
-          label="Usuário"
-          name="username"
-          placeholder="Exemplo"
-          error={formState?.inputErrors?.username?.toString()}
-          defaultValue={formState?.inputValues?.username.toString()}
-          autoFocus
-          width="full"
-        />
         <FormInput
           label="E-mail"
           name="email"
           placeholder="@"
           error={formState?.inputErrors?.email?.toString()}
           defaultValue={formState?.inputValues?.email.toString()}
+          autoFocus
           width="full"
         />
         <FormInput
@@ -73,19 +74,11 @@ export function RegisterForm() {
           defaultValue={formState?.inputValues?.password.toString()}
           width="full"
         />
-        <FormInput
-          label="Confirmar senha"
-          name="confirmPassword"
-          placeholder="kwjd451q"
-          error={formState?.inputErrors?.confirmPassword?.toString()}
-          defaultValue={formState?.inputValues?.confirmPassword.toString()}
-          width="full"
-        />
       </DialogBody>
 
       <DialogFooter>
         <Button variant="ghost" width="full" type="button" onClick={changeForm}>
-          Entrar
+          Registrar
         </Button>
         <Button
           variant="primary"
@@ -93,7 +86,7 @@ export function RegisterForm() {
           type="submit"
           disabled={isPending}
         >
-          Registrar
+          Entrar
         </Button>
       </DialogFooter>
     </DialogWrapping>

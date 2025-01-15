@@ -1,8 +1,8 @@
 "use client";
 
 import { useFormStore } from "../../stores/formStore";
-import { LoginForm } from "./LoginForm/LoginForm";
-import { RegisterForm } from "./RegisterForm/RegisterForm";
+import { LoginForm } from "./components/LoginForm/LoginForm";
+import { RegisterForm } from "./components/RegisterForm/RegisterForm";
 
 export function AuthForms() {
   const { registerFormIsOpen, loginFormIsOpen } = useFormStore();

@@ -1,4 +1,4 @@
-import { AuthForms } from "@/modules/shared/components/Forms/AuthForms";
+import { AuthForms } from "@/modules/shared/components/AuthForms/AuthForms";
 import { Header } from "@/modules/shared/components/Header/Header";
 
 import { Roboto } from "next/font/google";

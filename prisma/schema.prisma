@@ -13,5 +13,11 @@ model User {
   email    String @unique @db.VarChar(255)
   password String @db.VarChar(60)
 
+  plan String @default("Free") @db.VarChar(25)
+
+  // Informações relacionadas ao Stripe 
+  stripeCustomerId         String @unique @map("stripe_customer_id")
+  stripeSubscriptionId     String @unique @map("stripe_subscription_id")
+
   @@map("users")
 }

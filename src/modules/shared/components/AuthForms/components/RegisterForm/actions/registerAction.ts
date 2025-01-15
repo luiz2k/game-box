@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/modules/lib/prisma/prisma";
+import { prisma } from "@/modules/shared/lib/prisma/prisma";
 import { hash } from "bcryptjs";
 import { registerSchema } from "../validations/registerSchema";
 

@@ -1,7 +1,7 @@
 "use server";
 
 import { signIn } from "@/auth";
-import { prisma } from "@/modules/lib/prisma/prisma";
+import { prisma } from "@/modules/shared/lib/prisma/prisma";
 import { compare } from "bcryptjs";
 import { loginSchema } from "../validations/loginSchema";
 

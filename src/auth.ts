@@ -22,4 +22,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      // Se o usuário acabou de logar, adicione os dados do usuário ao token
+      if (user) {
+        token.user = user;
+      }
+
+      // Mantém o token anterior
+      return token;
+    },
+    session: async ({ session, token }) => {
+      // Adicione os dados do token à sessão
+      session.user = token.user;
+
+      return session;
+    },
+  },
 });

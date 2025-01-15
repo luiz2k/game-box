@@ -1,5 +1,4 @@
-import { LoginForm } from "@/modules/shared/components/Forms/LoginForm/LoginForm";
-import { RegisterForm } from "@/modules/shared/components/Forms/RegisterForm/RegisterForm";
+import { AuthForms } from "@/modules/shared/components/Forms/AuthForms";
 import { Header } from "@/modules/shared/components/Header/Header";
 
 import { Roboto } from "next/font/google";
@@ -26,8 +25,7 @@ export default function RootLayout({
           {children}
         </main>
 
-        <RegisterForm />
-        <LoginForm />
+        <AuthForms />
       </body>
     </html>
   );

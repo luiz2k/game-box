@@ -3,6 +3,7 @@
 import { prisma } from "@/modules/shared/lib/prisma/prisma";
 import { hash } from "bcryptjs";
 import { registerSchema } from "../validations/registerSchema";
+import { stripeCreateCustomer } from "@/modules/shared/lib/stripe/stripe";
 
 // Ação de registrar um usuário
 export async function registerAction(_prev: unknown, formData: FormData) {
@@ -42,6 +43,9 @@ export async function registerAction(_prev: unknown, formData: FormData) {
       };
     }
 
+    // Cria o cliente no Stripe
+    const customer = await stripeCreateCustomer({ username, email });
+
     // Cria o hash da senha
     const hashedPassword = await hash(password, 10);
 
@@ -51,6 +55,8 @@ export async function registerAction(_prev: unknown, formData: FormData) {
         username,
         email,
         password: hashedPassword,
+        stripeCustomerId: customer.customerId,
+        stripeSubscriptionId: customer.subscriptionId,
       },
     });
 

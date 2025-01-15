@@ -1,6 +1,13 @@
 import { SubscriptionCard } from "@/modules/shared/components/SubscriptionCard/SubscriptionCard";
+import { getPlanInfos } from "@/modules/shared/utils/plains";
 
-export function SignatureInfo() {
+type SignatureInfoProps = {
+  plan: string;
+};
+
+export async function SignatureInfo({ plan }: SignatureInfoProps) {
+  const planInfos = getPlanInfos(plan);
+
   return (
     <div className="flex flex-col gap-4 min-[945px]:flex-row">
       <div className="min-w-[18.75rem] space-y-5 rounded-2xl bg-black-2 p-4">
@@ -8,19 +15,20 @@ export function SignatureInfo() {
 
         <div className="space-y-1 text-sm">
           <p>
-            <span className="font-bold">Plano atual:</span> Gratuito
+            <span className="font-bold">Plano atual:</span> {planInfos?.name}
           </p>
           <p>
-            <span className="font-bold">Caixas:</span> 1/2
+            <span className="font-bold">Caixas:</span> {planInfos?.boxLimit}
           </p>
           <p>
-            <span className="font-bold">Jogos por caixa:</span> 7
+            <span className="font-bold">Jogos por caixa:</span>{" "}
+            {planInfos?.gameLimit}
           </p>
         </div>
       </div>
 
       <div className="flex-grow">
-        <SubscriptionCard />
+        {planInfos?.name === "Free" && <SubscriptionCard />}
       </div>
     </div>
   );

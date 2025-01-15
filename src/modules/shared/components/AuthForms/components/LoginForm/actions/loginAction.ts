@@ -3,7 +3,7 @@
 import { signIn } from "@/auth";
 import { prisma } from "@/modules/lib/prisma/prisma";
 import { compare } from "bcryptjs";
-import { loginSchema } from "../schemas/loginSchema";
+import { loginSchema } from "../validations/loginSchema";
 
 // Ação de logar um usuário
 export async function loginAction(_prev: unknown, formData: FormData) {

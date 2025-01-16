@@ -39,7 +39,7 @@ export async function GamePage({ params }: GamePageProps) {
               {new Date(game.release_date).toLocaleDateString("pt-BR")}
             </li>
             <li>
-              <span className="font-bold">Genero:</span> {game.genres.join(", ")}
+              <span className="font-bold">Genero:</span> {game.genre.join(", ")}
             </li>
             <li>
               <span className="font-bold">Desenvolvedor:</span>{" "}

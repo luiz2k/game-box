@@ -46,7 +46,7 @@ export async function BoxPage({ params }: BoxPageProps) {
                 <GameCardBodyHeader>
                   <GameCardBodyHeaderTitle title={game.title} />
                   <GameCardBodyHeaderDesc>
-                    <p>{game.genres.join(", ")}</p>
+                    <p>{game.genre.join(", ")}</p>
                     <p>
                       {/* Faz a formatação da data para pt-BR */}
                       {new Date(game.release_date).toLocaleDateString("pt-BR", {

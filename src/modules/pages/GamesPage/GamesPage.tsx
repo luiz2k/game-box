@@ -35,7 +35,7 @@ export function GamesPage() {
                 <GameCardBodyHeader>
                   <GameCardBodyHeaderTitle title={game.title} />
                   <GameCardBodyHeaderDesc>
-                    <p>{game.genres.join(", ")}</p>
+                    <p>{game.genre.join(", ")}</p>
                     <p>
                       {new Date(game.release_date).toLocaleDateString("pt-BR")}
                     </p>

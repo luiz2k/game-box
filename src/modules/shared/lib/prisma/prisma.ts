@@ -20,3 +20,19 @@ export async function getUserById(id: number) {
 
   return user;
 }
+
+export async function findAllGames() {
+  const games = await prisma.game.findMany();
+
+  return games;
+}
+
+export async function findGameById(id: number) {
+  const game = await prisma.game.findUnique({
+    where: {
+      id: id,
+    },
+  });
+
+  return game;
+}

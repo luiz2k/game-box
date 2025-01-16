@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "Red Dead Redemption 2",
-    "genres": ["Ação", "Aventura"],
+    "genre": ["Ação", "Aventura"],
     "developer": ["Rockstar Games"],
     "distributor": ["Rockstar Games"],
     "release_date": "2019-12-05",
@@ -12,7 +12,7 @@
   {
     "id": 2,
     "title": "Cyberpunk 2077",
-    "genres": ["RPG"],
+    "genre": ["RPG"],
     "developer": ["CD PROJEKT RED"],
     "distributor": ["CD PROJEKT RED"],
     "release_date": "2020-12-09",
@@ -22,7 +22,7 @@
   {
     "id": 3,
     "title": "The Witcher 3: Wild Hunt",
-    "genres": ["RPG"],
+    "genre": ["RPG"],
     "developer": ["CD PROJEKT RED"],
     "distributor": ["CD PROJEKT RED"],
     "release_date": "2015-05-18",
@@ -32,7 +32,7 @@
   {
     "id": 4,
     "title": "ELDEN RING",
-    "genres": ["Ação", "RPG"],
+    "genre": ["Ação", "RPG"],
     "developer": ["FromSoftware, Inc."],
     "distributor": ["FromSoftware, Inc.", "Bandai Namco Entertainment"],
     "release_date": "2022-02-24",
@@ -42,7 +42,7 @@
   {
     "id": 5,
     "title": "Baldur's Gate 3",
-    "genres": ["Aventura", "RPG", "Estratégia"],
+    "genre": ["Aventura", "RPG", "Estratégia"],
     "developer": ["Larian Studios"],
     "distributor": ["Larian Studios"],
     "release_date": "2023-08-03",
@@ -52,7 +52,7 @@
   {
     "id": 6,
     "title": "Alien: Isolation",
-    "genres": ["Ação"],
+    "genre": ["Ação"],
     "developer": [
       "Creative Assembly",
       "Feral Interactive (Mac)",
@@ -70,17 +70,17 @@
   {
     "id": 7,
     "title": "DEATH STRANDING DIRECTOR'S CUT",
-    "genres": ["Ação", "Aventura"],
+    "genre": ["Ação", "Aventura"],
     "developer": ["KOJIMA PRODUCTIONS"],
     "distributor": ["505 Games"],
     "release_date": "2022-03-30",
     "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1850570/header.jpg?t=1728989088",
-    "summary": "Do lendário diretor Hideo Kojima, surge uma experiência que desafia gêneros, ainda maior em DIRECTOR’S CUT. No futuro, um evento misterioso conhecido como Death Stranding abriu uma passagem entre os vivos e os mortos, resultando em criaturas grotescas do pós-vida andando pelo mundo arruinado, marcado por uma sociedade desolada."
+    "summary": "Do lendário diretor Hideo Kojima, surge uma experiência que desafia gêneros, ainda maior em DIRECTOR'S CUT. No futuro, um evento misterioso conhecido como Death Stranding abriu uma passagem entre os vivos e os mortos, resultando em criaturas grotescas do pós-vida andando pelo mundo arruinado, marcado por uma sociedade desolada."
   },
   {
     "id": 8,
     "title": "STAR WARS Jedi: Fallen Order™",
-    "genres": ["Ação", "Aventura"],
+    "genre": ["Ação", "Aventura"],
     "developer": ["Respawn Entertainment"],
     "distributor": ["Electronic Arts"],
     "release_date": "2019-11-15",
@@ -90,7 +90,7 @@
   {
     "id": 9,
     "title": "Resident Evil",
-    "genres": ["Ação", "Aventura"],
+    "genre": ["Ação", "Aventura"],
     "developer": ["CAPCOM Co., Ltd."],
     "distributor": ["CAPCOM Co., Ltd."],
     "release_date": "2015-01-20",
@@ -100,7 +100,7 @@
   {
     "id": 10,
     "title": "Days Gone",
-    "genres": ["Ação", "Aventura"],
+    "genre": ["Ação", "Aventura"],
     "developer": ["Bend Studio"],
     "distributor": ["PlayStation Publishing LLC"],
     "release_date": "2021-05-18",
@@ -110,7 +110,7 @@
   {
     "id": 11,
     "title": "Lies of P",
-    "genres": ["Ação", "Aventura", "RPG"],
+    "genre": ["Ação", "Aventura", "RPG"],
     "developer": ["NEOWIZ"],
     "distributor": ["NEOWIZ"],
     "release_date": "2023-09-18",
@@ -120,7 +120,7 @@
   {
     "id": 12,
     "title": "Fallout: New Vegas",
-    "genres": ["Ação", "RPG"],
+    "genre": ["Ação", "RPG"],
     "developer": ["Obsidian Entertainment"],
     "distributor": ["Bethesda Softworks"],
     "release_date": "2010-10-19",
@@ -130,7 +130,7 @@
   {
     "id": 13,
     "title": "Sekiro™: Shadows Die Twice - GOTY Edition",
-    "genres": ["Ação", "Aventura"],
+    "genre": ["Ação", "Aventura"],
     "developer": ["FromSoftware, Inc."],
     "distributor": [
       "Activision (Excluding Japan and Asia)",
@@ -144,7 +144,7 @@
   {
     "id": 14,
     "title": "DARK SOULS™: REMASTERED",
-    "genres": ["Ação"],
+    "genre": ["Ação"],
     "developer": ["QLOC", "FromSoftware, Inc."],
     "distributor": ["FromSoftware, Inc.", "Bandai Namco Entertainment"],
     "release_date": "2018-05-23",
@@ -154,7 +154,7 @@
   {
     "id": 15,
     "title": "The Elder Scrolls V: Skyrim Special Edition",
-    "genres": ["RPG"],
+    "genre": ["RPG"],
     "developer": ["Bethesda Game Studios"],
     "distributor": ["Bethesda Softworks"],
     "release_date": "2016-10-27",
@@ -164,7 +164,7 @@
   {
     "id": 16,
     "title": "Resident Evil 4 (2005)",
-    "genres": ["Ação", "Aventura"],
+    "genre": ["Ação", "Aventura"],
     "developer": ["Capcom"],
     "distributor": ["Capcom"],
     "release_date": "2014-02-28",
@@ -174,7 +174,7 @@
   {
     "id": 17,
     "title": "Tomb Raider",
-    "genres": ["Ação", "Aventura"],
+    "genre": ["Ação", "Aventura"],
     "developer": [
       "Crystal Dynamics",
       "Eidos-Montréal",
@@ -189,7 +189,7 @@
   {
     "id": 18,
     "title": "Grand Theft Auto V",
-    "genres": ["Ação", "Aventura"],
+    "genre": ["Ação", "Aventura"],
     "developer": ["Rockstar North"],
     "distributor": ["Rockstar Games"],
     "release_date": "2013-09-17",
@@ -199,7 +199,7 @@
   {
     "id": 19,
     "title": "Marvel's Guardians of the Galaxy",
-    "genres": ["Ação", "Aventura"],
+    "genre": ["Ação", "Aventura"],
     "developer": ["Eidos-Montréal"],
     "distributor": ["Eidos Interactive Corp."],
     "release_date": "2021-10-26",
@@ -209,7 +209,7 @@
   {
     "id": 20,
     "title": "Assassin's Creed® IV Black Flag™",
-    "genres": ["Ação", "Aventura"],
+    "genre": ["Ação", "Aventura"],
     "developer": ["Ubisoft Montreal"],
     "distributor": ["Ubisoft"],
     "release_date": "2013-03-05",
@@ -219,7 +219,7 @@
   {
     "id": 21,
     "title": "Black Myth: Wukong",
-    "genres": ["Ação", "Aventura", "RPG"],
+    "genre": ["Ação", "Aventura", "RPG"],
     "developer": ["Game Science"],
     "distributor": ["Game Science"],
     "release_date": "2024-08-19",
@@ -229,7 +229,7 @@
   {
     "id": 22,
     "title": "God of War",
-    "genres": ["Ação", "Aventura", "RPG"],
+    "genre": ["Ação", "Aventura", "RPG"],
     "developer": ["Santa Monica Studio", "Jetpack Interactive"],
     "distributor": ["PlayStation Publishing LLC"],
     "release_date": "2022-01-14",
@@ -239,7 +239,7 @@
   {
     "id": 23,
     "title": "Batman™: Arkham Knight",
-    "genres": ["Ação", "Aventura"],
+    "genre": ["Ação", "Aventura"],
     "developer": ["Rocksteady Studios"],
     "distributor": ["WB Games"],
     "release_date": "2015-06-23",
@@ -249,7 +249,7 @@
   {
     "id": 24,
     "title": "Cuphead",
-    "genres": ["Ação", "Indie"],
+    "genre": ["Ação", "Indie"],
     "developer": ["Studio MDHR Entertainment Inc."],
     "distributor": ["Studio MDHR Entertainment Inc"],
     "release_date": "2017-09-29",
@@ -259,7 +259,7 @@
   {
     "id": 25,
     "title": "Hollow Knight",
-    "genres": ["Ação"],
+    "genre": ["Ação"],
     "developer": ["Team Cherry"],
     "distributor": ["Team Cherry"],
     "release_date": "2017-02-24",

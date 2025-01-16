@@ -7,7 +7,7 @@ export const prisma = globalForPrisma.prisma || new PrismaClient();
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
 // Obtém os dados do usuário pelo ID
-export async function getUserById(id: string) {
+export async function getUserById(id: number) {
   const user = await prisma.user.findUnique({
     where: {
       id: id,

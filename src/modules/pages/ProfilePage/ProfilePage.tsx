@@ -6,7 +6,7 @@ import { getUserById } from "@/modules/shared/lib/prisma/prisma";
 export async function ProfilePage() {
   const session = await auth();
 
-  const user = await getUserById(session?.user?.id as string);
+  const user = await getUserById(Number(session?.user?.id));
 
   return (
     <section className="space-y-10">

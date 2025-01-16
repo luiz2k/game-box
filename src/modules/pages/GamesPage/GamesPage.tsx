@@ -6,13 +6,12 @@ import {
   GameCardImage,
   GameCardWarapping,
 } from "@/modules/shared/components/GameCard/GameCard";
+import { findAllGames } from "@/modules/shared/lib/prisma/prisma";
 
-import gameData from "@/seeds/data.json";
 import Link from "next/link";
 
-export function GamesPage() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const games: any[] = gameData;
+export async function GamesPage() {
+  const games = await findAllGames();
 
   return (
     <section className="space-y-10">
@@ -25,11 +24,7 @@ export function GamesPage() {
         {games.map((game) => (
           <Link key={game.id} title={game.title} href={`/jogos/${game.id}`}>
             <GameCardWarapping>
-              <GameCardImage
-                id={game.id}
-                imgSrc={game.cover}
-                alt={game.title}
-              />
+              <GameCardImage imgSrc={game.cover} alt={game.title} />
 
               <GameCardBody>
                 <GameCardBodyHeader>

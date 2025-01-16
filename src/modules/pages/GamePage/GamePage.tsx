@@ -1,4 +1,4 @@
-import gameData from "@/seeds/data.json";
+import { findGameById } from "@/modules/shared/lib/prisma/prisma";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { AddToBox } from "./components/AddToBox/AddToBox";
@@ -10,10 +10,7 @@ type GamePageProps = {
 export async function GamePage({ params }: GamePageProps) {
   const { id } = await params;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const games: any[] = gameData;
-
-  const game = games.find((game) => game.id === Number(id));
+  const game = await findGameById(Number(id));
 
   if (!game) {
     return notFound();

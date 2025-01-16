@@ -1,17 +1,16 @@
 import {
-  GameCardWarapping,
-  GameCardImage,
   GameCardBody,
   GameCardBodyHeader,
-  GameCardBodyHeaderTitle,
   GameCardBodyHeaderDesc,
+  GameCardBodyHeaderTitle,
+  GameCardImage,
+  GameCardWarapping,
 } from "@/modules/shared/components/GameCard/GameCard";
+import { findAllGames } from "@/modules/shared/lib/prisma/prisma";
 import Link from "next/link";
-import gameData from "@/seeds/data.json";
 
-export function PopularGames() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const games: any[] = gameData;
+export async function PopularGames() {
+  const games = await findAllGames();
 
   return (
     <section className="space-y-5">

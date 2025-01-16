@@ -16,8 +16,76 @@ model User {
   plan String @default("Free") @db.VarChar(25)
 
   // Informações relacionadas ao Stripe 
-  stripeCustomerId         String @unique @map("stripe_customer_id")
-  stripeSubscriptionId     String @unique @map("stripe_subscription_id")
+  stripeCustomerId     String @unique @map("stripe_customer_id")
+  stripeSubscriptionId String @unique @map("stripe_subscription_id")
+
+  standardBox StandardBox[]
+  customBox   CustomBox[]
+  listedGame  ListedGame[]
 
   @@map("users")
+}
+
+model Game {
+  id           Int      @id @default(autoincrement())
+  title        String   @db.VarChar(50)
+  genre        String[] @db.VarChar(25)
+  developer    String[] @db.VarChar(50)
+  distributor  String[] @db.VarChar(50)
+  release_date DateTime
+  cover        String   @db.VarChar(98)
+  summary      String
+
+  standardBox StandardBox[]
+  listedGame  ListedGame[]
+
+  @@map("games")
+}
+
+enum Box {
+  FAVORITE
+  PLAYING
+  DROPPED
+  ABANDONED
+}
+
+model StandardBox {
+  User   User @relation(fields: [userId], references: [id])
+  userId Int  @map("user_id")
+
+  Game   Game @relation(fields: [gameId], references: [id])
+  gameId Int  @map("game_id")
+
+  box Box
+
+  @@id([userId, gameId])
+  @@map("standard_boxes")
+}
+
+model CustomBox {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(25)
+
+  User   User @relation(fields: [userId], references: [id])
+  userId Int  @map("user_id")
+
+  listedGame ListedGame[]
+
+  @@map("custom_boxes")
+}
+
+model ListedGame {
+  User   User @relation(fields: [userId], references: [id])
+  userId Int  @map("user_id")
+
+  Game   Game @relation(fields: [gameId], references: [id])
+  gameId Int  @map("game_id")
+
+  CustomBox   CustomBox @relation(fields: [customBoxId], references: [id])
+  customBoxId Int       @map("custom_box_id")
+
+  title String @db.VarChar(50)
+
+  @@id([userId, gameId, customBoxId])
+  @@map("listed_games")
 }

@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(cuid())
+  id       Int    @id @default(autoincrement())
   username String @db.VarChar(25)
   email    String @unique @db.VarChar(255)
   password String @db.VarChar(60)

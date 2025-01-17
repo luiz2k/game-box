@@ -53,6 +53,9 @@ export async function findAllStandardBoxByUserId(data: FindStandardBoxByName) {
       gameId: data.gameId,
       box: data.box,
     },
+    include: {
+      Game: true,
+    },
   });
 
   return standardBox;

@@ -58,7 +58,7 @@ model StandardBox {
 
   box Box
 
-  @@id([userId, gameId])
+  @@id([userId, gameId, box])
   @@map("standard_boxes")
 }
 

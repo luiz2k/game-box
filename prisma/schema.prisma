@@ -45,8 +45,8 @@ model Game {
 enum Box {
   FAVORITE
   PLAYING
-  DROPPED
   ABANDONED
+  FINISHED
 }
 
 model StandardBox {

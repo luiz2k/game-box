@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import {
   GameCardBody,
   GameCardBodyAction,
@@ -7,21 +8,39 @@ import {
   GameCardImage,
   GameCardWarapping,
 } from "@/modules/shared/components/GameCard/GameCard";
-import gameData from "@/seeds/data.json";
+import { standardBoxes } from "@/modules/shared/utils/standardBoxes";
+import { findAllStandardBoxByUserId } from "@/modules/shared/lib/prisma/prisma";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { DialogForm } from "./components/DialogForm/DialogForm";
 import { GameCardCustomAction } from "./components/GameCardCustomAction/GameCardCustomAction";
 
 type BoxPageProps = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ box: string }>;
 };
 
 export async function BoxPage({ params }: BoxPageProps) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { id } = await params;
+  const { box } = await params;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const games: any[] = gameData;
+  // Obtém a caixa padrão correspondente ao parâmetro
+  const standardBox = standardBoxes.find(
+    (standardBox) => standardBox.box === box.toUpperCase(),
+  );
+
+  // Se não encontrar a caixa padrão, retorna 404
+  if (!standardBox) {
+    notFound();
+  }
+
+  // Ontém o ID do usuário através da sessão
+  const session = await auth();
+  const userId = session?.user?.id;
+
+  // Busca todos os jogos listados na caixa
+  const games = await findAllStandardBoxByUserId({
+    userId: Number(userId),
+    box: standardBox.box,
+  });
 
   return (
     <section className="grid gap-10">
@@ -33,32 +52,38 @@ export async function BoxPage({ params }: BoxPageProps) {
       </div>
 
       <div className="grid grid-cols-[repeat(auto-fit,_minmax(245px,_1fr))] gap-4">
-        {games.slice(0, 5).map((game) => (
-          <Link key={game.id} title={game.title} href={`/jogos/${game.id}`}>
+        {games.map((game) => (
+          <Link
+            key={game.Game.id}
+            title={game.Game.title}
+            href={`/jogos/${game.Game.id}`}
+          >
             <GameCardWarapping>
-              <GameCardImage
-                id={game.id}
-                imgSrc={game.cover}
-                alt={game.title}
-              />
+              <GameCardImage imgSrc={game.Game.cover} alt={game.Game.title} />
 
               <GameCardBody>
                 <GameCardBodyHeader>
-                  <GameCardBodyHeaderTitle title={game.title} />
+                  <GameCardBodyHeaderTitle title={game.Game.title} />
                   <GameCardBodyHeaderDesc>
-                    <p>{game.genre.join(", ")}</p>
+                    <p>{game.Game.genre.join(", ")}</p>
                     <p>
-                      {/* Faz a formatação da data para pt-BR */}
-                      {new Date(game.release_date).toLocaleDateString("pt-BR", {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                      })}
+                      {/* Faz a formatação da data para pt-BR. EX: 01 de janeiro de 2022 */}
+                      {new Date(game.Game.release_date).toLocaleDateString(
+                        "pt-BR",
+                        {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        },
+                      )}
                     </p>
                   </GameCardBodyHeaderDesc>
                 </GameCardBodyHeader>
                 <GameCardBodyAction>
-                  <GameCardCustomAction title={game.title} />
+                  <GameCardCustomAction
+                    title={game.Game.title}
+                    gameId={game.Game.id}
+                  />
                 </GameCardBodyAction>
               </GameCardBody>
             </GameCardWarapping>
@@ -66,7 +91,7 @@ export async function BoxPage({ params }: BoxPageProps) {
         ))}
       </div>
 
-      <DialogForm />
+      <DialogForm userId={Number(userId)} standardBox={standardBox} />
     </section>
   );
 }

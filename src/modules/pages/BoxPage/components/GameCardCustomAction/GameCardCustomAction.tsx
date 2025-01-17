@@ -6,8 +6,12 @@ import { useDialogStore } from "../../stores/dialogStore";
 
 type GameCardCustomActionProps = {
   title: string;
+  gameId: number;
 };
-export function GameCardCustomAction({ title }: GameCardCustomActionProps) {
+export function GameCardCustomAction({
+  title,
+  gameId,
+}: GameCardCustomActionProps) {
   const { setGame, handleDialogForm } = useDialogStore();
 
   return (
@@ -15,7 +19,7 @@ export function GameCardCustomAction({ title }: GameCardCustomActionProps) {
       onClick={(event) => {
         event.preventDefault();
 
-        setGame({ id: 0, title: title });
+        setGame({ id: gameId, title: title });
         handleDialogForm();
       }}
     >

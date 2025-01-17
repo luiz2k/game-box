@@ -21,12 +21,14 @@ export async function getUserById(id: number) {
   return user;
 }
 
+// Busca todos os jogos
 export async function findAllGames() {
   const games = await prisma.game.findMany();
 
   return games;
 }
 
+// Busca um jogo pelo ID
 export async function findGameById(id: number) {
   const game = await prisma.game.findUnique({
     where: {

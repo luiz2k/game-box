@@ -2,22 +2,17 @@
 
 import { Button } from "@/modules/shared/components/Button/Button";
 import {
-  SidebarBody,
-  SidebarDesc,
   SidebarFooter,
-  SidebarHeader,
-  SidebarTitle,
   SidebarWrapping,
 } from "@/modules/shared/components/Sidebar/Sidebar";
 import { useState } from "react";
-import { BoxButtons } from "../BoxButtons/BoxButtons";
 
 type AddToBoxProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  game: any;
+  children: React.ReactNode;
 };
 
-export function AddToBox({ game }: AddToBoxProps) {
+// Responsável por abrir e fechar a sidebar
+export function ClientAndServerWrapper({ children }: AddToBoxProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   function close() {
@@ -39,17 +34,8 @@ export function AddToBox({ game }: AddToBoxProps) {
       {isOpen && (
         <>
           <SidebarWrapping close={close}>
-            <SidebarHeader>
-              <SidebarTitle>{game.title}</SidebarTitle>
-              <SidebarDesc>
-                Gerenciando as caixas que o jogo{" "}
-                <span className="font-bold">{game.title}</span> pertence.
-              </SidebarDesc>
-            </SidebarHeader>
-
-            <SidebarBody>
-              <BoxButtons />
-            </SidebarBody>
+            {/* Receber o conteúdo como filho para separar entre renderização de cliente e servidor */}
+            {children}
 
             <SidebarFooter>
               <Button

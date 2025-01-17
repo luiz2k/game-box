@@ -1,7 +1,7 @@
 import { findGameById } from "@/modules/shared/lib/prisma/prisma";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { AddToBox } from "./components/AddToBox/AddToBox";
+import { Sidebar } from "./components/Sidebar/Sidebar";
 
 type GamePageProps = {
   params: Promise<{ id: string }>;
@@ -10,6 +10,7 @@ type GamePageProps = {
 export async function GamePage({ params }: GamePageProps) {
   const { id } = await params;
 
+  // Busca o jogo pelo ID, se não encontrar, retorna 404
   const game = await findGameById(Number(id));
 
   if (!game) {
@@ -56,7 +57,7 @@ export async function GamePage({ params }: GamePageProps) {
         </div>
       </div>
 
-      <AddToBox game={game} />
+      <Sidebar game={game} />
     </section>
   );
 }

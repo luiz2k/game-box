@@ -84,8 +84,6 @@ model ListedGame {
   CustomBox   CustomBox @relation(fields: [customBoxId], references: [id])
   customBoxId Int       @map("custom_box_id")
 
-  title String @db.VarChar(50)
-
   @@id([userId, gameId, customBoxId])
   @@map("listed_games")
 }

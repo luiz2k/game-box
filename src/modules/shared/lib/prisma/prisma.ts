@@ -192,3 +192,16 @@ export async function addGameToCustomBox(data: AddGameToCustomBox) {
     },
   });
 }
+
+type DeleteCustomBox = {
+  boxId: number;
+  userId: number;
+};
+export async function deleteCustomBox(data: DeleteCustomBox) {
+  await prisma.customBox.delete({
+    where: {
+      id: data.boxId,
+      userId: data.userId,
+    },
+  });
+}

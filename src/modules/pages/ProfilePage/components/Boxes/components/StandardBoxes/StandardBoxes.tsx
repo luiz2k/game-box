@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { BoxCard } from "../../../BoxCard/BoxCard";
+import {
+  BoxCardHeader,
+  BoxCardHeaderContent,
+  BoxCardTitle,
+  BoxCardWrapper,
+} from "../../../BoxCard/BoxCard";
 
 export function StandardBoxes() {
   return (
@@ -8,16 +13,40 @@ export function StandardBoxes() {
 
       <div className="grid grid-cols-[repeat(auto-fit,_minmax(12.5rem,_1fr))] gap-4">
         <Link href={`/perfil/caixa/padrao/favorite`}>
-          <BoxCard title="Favorito" />
+          <BoxCardWrapper>
+            <BoxCardHeader>
+              <BoxCardHeaderContent title={"Favorito"} />
+            </BoxCardHeader>
+
+            <BoxCardTitle>Favorito</BoxCardTitle>
+          </BoxCardWrapper>
         </Link>
         <Link href={`/perfil/caixa/padrao/playing`}>
-          <BoxCard title="Jogado" />
+          <BoxCardWrapper>
+            <BoxCardHeader>
+              <BoxCardHeaderContent title="Jogando" />
+            </BoxCardHeader>
+
+            <BoxCardTitle>Jogando</BoxCardTitle>
+          </BoxCardWrapper>
         </Link>
         <Link href={`/perfil/caixa/padrao/abandoned`}>
-          <BoxCard title="Abandonado" />
+          <BoxCardWrapper>
+            <BoxCardHeader>
+              <BoxCardHeaderContent title="Abandonado" />
+            </BoxCardHeader>
+
+            <BoxCardTitle>Abandonado</BoxCardTitle>
+          </BoxCardWrapper>
         </Link>
         <Link href={`/perfil/caixa/padrao/finished`}>
-          <BoxCard title="Finalizado" />
+          <BoxCardWrapper>
+            <BoxCardHeader>
+              <BoxCardHeaderContent title="Finalizado" />
+            </BoxCardHeader>
+
+            <BoxCardTitle>Finalizado</BoxCardTitle>
+          </BoxCardWrapper>
         </Link>
       </div>
     </div>

@@ -1,6 +1,11 @@
 "use client";
 
-import { BoxCard } from "@/modules/pages/ProfilePage/components/BoxCard/BoxCard";
+import {
+  BoxCardHeader,
+  BoxCardHeaderContent,
+  BoxCardTitle,
+  BoxCardWrapper,
+} from "@/modules/pages/ProfilePage/components/BoxCard/BoxCard";
 import { Button } from "@/modules/shared/components/Button/Button";
 import {
   DialogBody,
@@ -44,11 +49,13 @@ export function CreateBox({ userId }: CreateBoxProps) {
   return (
     <>
       <button onClick={handleClose}>
-        <BoxCard
-          title="Criar nova caixa"
-          icon={Plus}
-          className="bg-accent-1 group-[&:hover]:bg-accent-2"
-        />
+        <BoxCardWrapper>
+          <BoxCardHeader className="bg-accent-1 group-[&:hover]:bg-accent-2">
+            <BoxCardHeaderContent icon={Plus} />
+          </BoxCardHeader>
+
+          <BoxCardTitle>Criar nova caixa</BoxCardTitle>
+        </BoxCardWrapper>
       </button>
 
       {isOpen && (

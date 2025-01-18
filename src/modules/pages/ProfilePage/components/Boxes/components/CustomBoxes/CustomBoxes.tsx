@@ -1,15 +1,23 @@
 import { auth } from "@/auth";
-import { CreateBox } from "./components/CreateBox/CreateBox";
-import { BoxCard } from "../../../BoxCard/BoxCard";
 import { findAllCustomBoxByUserId } from "@/modules/shared/lib/prisma/prisma";
 import Link from "next/link";
+import {
+  BoxCardHeader,
+  BoxCardHeaderAction,
+  BoxCardHeaderContent,
+  BoxCardTitle,
+  BoxCardWrapper,
+} from "../../../BoxCard/BoxCard";
+import { CreateBox } from "./components/CreateBox/CreateBox";
+import { Trash2 } from "lucide-react";
 
 export async function CustomBoxes() {
-  // Ontém o ID do usuário através da sessão
+  // Obtém o ID do usuário através da sessão
   const session = await auth();
-  const id = session?.user?.id;
+  const userId = session?.user?.id;
 
-  const customBoxes = await findAllCustomBoxByUserId(Number(id));
+  // Busca todas as caixas que o usuário criou
+  const customBoxes = await findAllCustomBoxByUserId(Number(userId));
 
   return (
     <div className="space-y-5">
@@ -18,11 +26,21 @@ export async function CustomBoxes() {
       <div className="grid grid-cols-[repeat(auto-fit,_minmax(12.5rem,_1fr))] gap-4">
         {customBoxes.map((box) => (
           <Link key={box.id} href={`/perfil/caixa/customizada/${box.id}`}>
-            <BoxCard key={box.id} title={box.name} />
+            <BoxCardWrapper>
+              <BoxCardHeader>
+                <BoxCardHeaderContent title={box.name} />
+
+                <BoxCardHeaderAction>
+                  <Trash2 />
+                </BoxCardHeaderAction>
+              </BoxCardHeader>
+
+              <BoxCardTitle>{box.name}</BoxCardTitle>
+            </BoxCardWrapper>
           </Link>
         ))}
 
-        <CreateBox userId={Number(id)} />
+        <CreateBox userId={Number(userId)} />
       </div>
     </div>
   );

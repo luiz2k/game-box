@@ -109,6 +109,29 @@ export async function createCustomBox(data: CreateCustomBox) {
   });
 }
 
+export async function findCustomBoxByUserId(boxId: number) {
+  const customBox = await prisma.customBox.findUnique({
+    where: {
+      id: boxId,
+    },
+  });
+
+  return customBox;
+}
+
+export async function findAllGameListedInBox(boxId: number) {
+  const games = await prisma.listedGame.findMany({
+    where: {
+      customBoxId: boxId,
+    },
+    include: {
+      Game: true,
+    },
+  });
+
+  return games;
+}
+
 export async function findAllCustomBoxByUserId(userId: number) {
   const customBox = await prisma.customBox.findMany({
     where: {

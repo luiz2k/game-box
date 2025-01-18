@@ -81,7 +81,7 @@ model ListedGame {
   Game   Game @relation(fields: [gameId], references: [id])
   gameId Int  @map("game_id")
 
-  CustomBox   CustomBox @relation(fields: [customBoxId], references: [id])
+  CustomBox   CustomBox @relation(fields: [customBoxId], references: [id], onDelete: Cascade)
   customBoxId Int       @map("custom_box_id")
 
   @@id([userId, gameId, customBoxId])

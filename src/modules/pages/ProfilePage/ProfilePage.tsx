@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
+import { getUserById } from "@/modules/shared/lib/prisma/prisma";
 import { Boxes } from "./components/Boxes/Boxes";
 import { SignatureInfo } from "./components/SignatureInfo/SignatureInfo";
-import { getUserById } from "@/modules/shared/lib/prisma/prisma";
 
 export async function ProfilePage() {
   const session = await auth();

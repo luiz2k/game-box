@@ -94,3 +94,78 @@ export async function removeGameToStandardBox(data: RemoveGameToBox) {
     },
   });
 }
+
+type CreateCustomBox = {
+  userId: number;
+  name: string;
+};
+
+export async function createCustomBox(data: CreateCustomBox) {
+  await prisma.customBox.create({
+    data: {
+      userId: data.userId,
+      name: data.name,
+    },
+  });
+}
+
+export async function findAllCustomBoxByUserId(userId: number) {
+  const customBox = await prisma.customBox.findMany({
+    where: {
+      userId: userId,
+    },
+  });
+
+  return customBox;
+}
+
+type FindAllListedGameByUserId = {
+  userId: number;
+  customBoxId?: number;
+  gameId?: number;
+};
+export async function findAllListedGameByUserId(
+  data: FindAllListedGameByUserId,
+) {
+  const games = await prisma.listedGame.findMany({
+    where: {
+      userId: data.userId,
+      customBoxId: data.customBoxId,
+      gameId: data.gameId,
+    },
+  });
+
+  return games;
+}
+
+type RemoveListedGameByUserId = {
+  userId: number;
+  gameId?: number;
+  customBoxId?: number;
+};
+
+export async function removeListedGameByUserId(data: RemoveListedGameByUserId) {
+  await prisma.listedGame.deleteMany({
+    where: {
+      userId: data.userId,
+      gameId: data.gameId,
+      customBoxId: data.customBoxId,
+    },
+  });
+}
+
+type AddGameToCustomBox = {
+  userId: number;
+  gameId: number;
+  customBoxId: number;
+};
+
+export async function addGameToCustomBox(data: AddGameToCustomBox) {
+  await prisma.listedGame.createMany({
+    data: {
+      userId: data.userId,
+      gameId: data.gameId,
+      customBoxId: data.customBoxId,
+    },
+  });
+}

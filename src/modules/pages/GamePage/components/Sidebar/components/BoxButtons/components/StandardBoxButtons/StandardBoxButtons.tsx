@@ -61,7 +61,7 @@ export async function StandardBoxButtons({ gameId }: StandardBoxButtonsProps) {
     <div className="space-y-2">
       <h2 className="font-bold">Caixas padrão</h2>
 
-      <ul className="scroll max-h-40 space-y-2 overflow-y-auto pr-2">
+      <ul className="scroll max-h-[13.5rem] space-y-2 overflow-y-auto pr-2">
         {boxes.map((box) => (
           <li key={box.box}>
             <Button

@@ -44,7 +44,7 @@ export async function CustomBoxButtons({ gameId }: CustomBoxButtonsProps) {
     <div className="space-y-2">
       <h2 className="font-bold">Suas caixas</h2>
 
-      <ul className="scroll max-h-40 space-y-2 overflow-y-auto pr-2">
+      <ul className="scroll max-h-[13.5rem] space-y-2 overflow-y-auto pr-2">
         {theGameIsListed.map((box) => (
           <li key={box.id}>
             <Button

@@ -17,28 +17,42 @@ type RemoveGameToStandardBoxAction = {
 export async function removeGameToStandardBoxAction(
   data: RemoveGameToStandardBoxAction,
 ) {
-  // Verifica se o jogo está dentro da caixa, se não, retorna
-  const standardBox = await findAllStandardBoxByUserId({
-    userId: data.userId,
-    gameId: data.gameId,
-    box: data.box,
-  });
+  try {
+    // Verifica se o jogo está dentro da caixa, se não, retorna
+    const standardBox = await findAllStandardBoxByUserId({
+      userId: data.userId,
+      gameId: data.gameId,
+      box: data.box,
+    });
 
-  if (standardBox.length === 0) {
+    if (standardBox.length === 0) {
+      return {
+        messages: {
+          error: "Jogo não encontrado na caixa.",
+        },
+      };
+    }
+
+    // Remove o jogo da caixa
+    await removeGameToStandardBox({
+      userId: data.userId,
+      gameId: data.gameId,
+      box: data.box,
+    });
+
+    // Atualiza a página
+    revalidatePath(`/perfil/caixa/padrao/${data.box.toLocaleLowerCase()}`);
+
     return {
       messages: {
-        error: "Jogo não encontrado na caixa.",
+        success: "Jogo removido com sucesso.",
+      },
+    };
+  } catch {
+    return {
+      messages: {
+        error: "Ocorreu um erro ao remover o jogo, Tente novamente.",
       },
     };
   }
-
-  // Remove o jogo da caixa
-  await removeGameToStandardBox({
-    userId: data.userId,
-    gameId: data.gameId,
-    box: data.box,
-  });
-
-  // Atualiza a página
-  revalidatePath(`/perfil/caixa/padrao/${data.box.toLocaleLowerCase()}`);
 }

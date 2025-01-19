@@ -1,4 +1,3 @@
-import { auth } from "@/auth";
 import {
   GameCardBody,
   GameCardBodyAction,
@@ -8,24 +7,25 @@ import {
   GameCardImage,
   GameCardWarapping,
 } from "@/modules/shared/components/GameCard/GameCard";
-import { standardBoxes } from "@/modules/shared/utils/standardBoxes";
+import { PageTitle } from "@/modules/shared/components/PageTitle/PageTitle";
 import { findAllStandardBoxByUserId } from "@/modules/shared/lib/prisma/prisma";
+import { authSession } from "@/modules/shared/utils/session";
+import { standardBoxes } from "@/modules/shared/utils/standardBoxes";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DialogForm } from "./components/DialogForm/DialogForm";
 import { GameCardCustomAction } from "./components/GameCardCustomAction/GameCardCustomAction";
-import { PageTitle } from "@/modules/shared/components/PageTitle/PageTitle";
 
 type BoxPageProps = {
-  params: Promise<{ box: string }>;
+  params: Promise<{ boxName: string }>;
 };
 
 export async function StandardBoxPage({ params }: BoxPageProps) {
-  const { box } = await params;
+  const { boxName } = await params;
 
   // Obtém as informações sobre a caixa padrão correspondente ao parâmetro
   const standardBox = standardBoxes.find(
-    (standardBox) => standardBox.box === box.toUpperCase(),
+    (standardBox) => standardBox.box === boxName.toUpperCase(),
   );
 
   // Se não encontrar a caixa padrão, retorna 404
@@ -33,13 +33,12 @@ export async function StandardBoxPage({ params }: BoxPageProps) {
     notFound();
   }
 
-  // Ontém o ID do usuário através da sessão
-  const session = await auth();
-  const userId = session?.user?.id;
+  // Obtém os dados da sessão do usuário
+  const session = await authSession();
 
   // Busca todos os jogos listados na caixa
   const games = await findAllStandardBoxByUserId({
-    userId: Number(userId),
+    userId: session.id,
     box: standardBox.box,
   });
 
@@ -104,7 +103,7 @@ export async function StandardBoxPage({ params }: BoxPageProps) {
         )}
       </div>
 
-      <DialogForm userId={Number(userId)} standardBox={standardBox} />
+      <DialogForm userId={session.id} standardBox={standardBox} />
     </section>
   );
 }

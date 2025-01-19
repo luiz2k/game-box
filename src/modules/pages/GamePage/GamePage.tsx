@@ -10,9 +10,15 @@ type GamePageProps = {
 export async function GamePage({ params }: GamePageProps) {
   const { id } = await params;
 
-  // Busca o jogo pelo ID, se não encontrar, retorna 404
-  const game = await findGameById(Number(id));
+  // Se o ID for NaN, retorna 404
+  if (isNaN(+id)) {
+    return notFound();
+  }
 
+  // Busca o jogo pelo ID, se não encontrar, retorna 404
+  const game = await findGameById(+id);
+
+  // Se o jogo for undefined, retorna 404
   if (!game) {
     return notFound();
   }

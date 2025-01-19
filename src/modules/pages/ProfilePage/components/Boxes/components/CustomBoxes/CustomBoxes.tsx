@@ -10,19 +10,14 @@ import {
 import { BoxCardHeaderActionCustom } from "./components/BoxCardHeaderActionCustom/BoxCardHeaderActionCustom";
 import { CreateBox } from "./components/CreateBox/CreateBox";
 import { DeleteBox } from "./components/DeleteBox/DeleteBox";
+import { authSession } from "@/modules/shared/utils/session";
 
 export async function CustomBoxes() {
-  // Obtém o ID do usuário através da sessão
-  // Se não encontrar, retorna null
-  const session = await auth();
-  const userId = session?.user?.id;
-
-  if (!userId) {
-    return null;
-  }
+  // Obtém os dados da sessão do usuário
+  const session = await authSession();
 
   // Busca todas as caixas que o usuário criou
-  const boxes = await findAllCustomBoxByUserId(Number(userId));
+  const boxes = await findAllCustomBoxByUserId(session.id);
 
   return (
     <div className="grid gap-5">
@@ -43,10 +38,10 @@ export async function CustomBoxes() {
           </Link>
         ))}
 
-        <CreateBox userId={userId} />
+        <CreateBox userId={session.id} />
       </div>
 
-      <DeleteBox userId={userId} />
+      <DeleteBox userId={session.id} />
     </div>
   );
 }

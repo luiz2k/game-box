@@ -1,4 +1,3 @@
-import { auth } from "@/auth";
 import {
   GameCardBody,
   GameCardBodyAction,
@@ -13,6 +12,7 @@ import {
   findAllGameListedInBox,
   findCustomBoxByUserId,
 } from "@/modules/shared/lib/prisma/prisma";
+import { authSession } from "@/modules/shared/utils/session";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DialogForm } from "./components/DialogForm/DialogForm";
@@ -20,19 +20,23 @@ import { GameCardCustomAction } from "./components/GameCardCustomAction/GameCard
 
 type CustomBoxPageProps = {
   params: Promise<{
-    box: string;
+    boxId: string;
   }>;
 };
 
 export async function CustomBoxPage({ params }: CustomBoxPageProps) {
-  const { box: boxId } = await params;
+  const { boxId } = await params;
 
-  // Ontém o ID do usuário através da sessão
-  const session = await auth();
-  const userId = session?.user?.id;
+  // Se o ID for NaN, retorna 404
+  if (isNaN(+boxId)) {
+    return notFound();
+  }
+
+  // Obtém os dados da sessão do usuário
+  const session = await authSession();
 
   // Busca informações sobre a caixa
-  const customBox = await findCustomBoxByUserId(Number(boxId));
+  const customBox = await findCustomBoxByUserId(session.id);
 
   // Se não encontrar a caixa, retorna 404
   if (!customBox) {
@@ -40,7 +44,7 @@ export async function CustomBoxPage({ params }: CustomBoxPageProps) {
   }
 
   // Busca todos os jogos listados na caixa
-  const games = await findAllGameListedInBox(Number(boxId));
+  const games = await findAllGameListedInBox(session.id);
 
   return (
     <section className="grid gap-10">
@@ -103,7 +107,7 @@ export async function CustomBoxPage({ params }: CustomBoxPageProps) {
         )}
       </div>
 
-      <DialogForm customBox={customBox!} userId={Number(userId)} />
+      <DialogForm customBox={customBox} userId={session.id} />
     </section>
   );
 }

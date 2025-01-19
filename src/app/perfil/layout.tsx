@@ -1,5 +1,4 @@
-import { auth } from "@/auth";
-import { redirect } from "next/navigation";
+import { authSession } from "@/modules/shared/utils/session";
 
 export default async function Layout({
   children,
@@ -7,12 +6,7 @@ export default async function Layout({
   children: React.ReactNode;
 }>) {
   // Bloqueia o acesso se o usuário não estiver autenticado
-  const session = await auth();
-
-  if (!session) {
-    // Redireciona para a página inicial
-    redirect("/");
-  }
+  await authSession();
 
   return children;
 }

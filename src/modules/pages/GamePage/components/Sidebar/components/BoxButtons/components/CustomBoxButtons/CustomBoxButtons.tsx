@@ -1,9 +1,9 @@
-import { auth } from "@/auth";
 import { Button } from "@/modules/shared/components/Button/Button";
 import {
   findAllCustomBoxByUserId,
   findAllListedGameByUserId,
 } from "@/modules/shared/lib/prisma/prisma";
+import { authSession } from "@/modules/shared/utils/session";
 import { SquarePlus, Trash2 } from "lucide-react";
 import { revalidatePath } from "next/cache";
 import { addGameToCustomBoxAction } from "./actions/addGameToCustomBoxAction";
@@ -14,17 +14,16 @@ type CustomBoxButtonsProps = {
 };
 
 export async function CustomBoxButtons({ gameId }: CustomBoxButtonsProps) {
-  // Obtem o ID do usuário através da sua sessão
-  const session = await auth();
-  const userId = Number(session?.user?.id);
+  // Obtém os dados da sessão do usuário
+  const session = await authSession();
 
   // Obtem as caixas customizadas do usuário
-  const customBoxes = await findAllCustomBoxByUserId(userId);
+  const customBoxes = await findAllCustomBoxByUserId(session.id);
 
   // Obtem as caixas onde o jogo foi listado
   const listedGames = await findAllListedGameByUserId({
-    userId,
-    gameId: Number(gameId),
+    userId: session.id,
+    gameId: gameId,
   });
 
   // Verifica em quais caixa o jogo foi listado
@@ -59,14 +58,14 @@ export async function CustomBoxButtons({ gameId }: CustomBoxButtonsProps) {
                 if (box.constains) {
                   // Remove o jogo da caixa
                   await removeGameToCustomBoxAction({
-                    userId: userId,
+                    userId: session.id,
                     gameId: gameId,
                     customBoxId: box.id,
                   });
                 } else {
                   // Adiciona o jogo na caixa
                   await addGameToCustomBoxAction({
-                    userId: userId,
+                    userId: session.id,
                     gameId: gameId,
                     customBoxId: box.id,
                   });

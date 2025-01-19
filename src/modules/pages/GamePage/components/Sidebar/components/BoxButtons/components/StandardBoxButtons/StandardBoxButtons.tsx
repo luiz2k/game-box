@@ -1,8 +1,8 @@
-import { auth } from "@/auth";
 import { Button } from "@/modules/shared/components/Button/Button";
 import { findAllStandardBoxByUserId } from "@/modules/shared/lib/prisma/prisma";
 import { SquarePlus, Trash2 } from "lucide-react";
 
+import { authSession } from "@/modules/shared/utils/session";
 import { standardBoxes } from "@/modules/shared/utils/standardBoxes";
 import { revalidatePath } from "next/cache";
 import { addGameToStandardBoxAction } from "./actions/addGameToStandardBoxAction";
@@ -13,13 +13,12 @@ type StandardBoxButtonsProps = {
 };
 
 export async function StandardBoxButtons({ gameId }: StandardBoxButtonsProps) {
-  // Obtem o ID do usuário através da sua sessão
-  const session = await auth();
-  const userId = Number(session?.user?.id);
+  // Obtém os dados da sessão do usuário
+  const session = await authSession();
 
   // Busca as caixas padrão onde o jogo foi listado
   const gamesInTheBox = await findAllStandardBoxByUserId({
-    userId: Number(session?.user?.id),
+    userId: session.id,
     gameId: gameId,
   });
 
@@ -65,14 +64,14 @@ export async function StandardBoxButtons({ gameId }: StandardBoxButtonsProps) {
                 if (box.contains) {
                   // Remove o jogo da caixa
                   await removeGameToStandardBoxAction({
-                    userId: userId,
+                    userId: session.id,
                     gameId: gameId,
                     box: box.box,
                   });
                 } else {
                   // Adiciona o jogo na caixa
                   await addGameToStandardBoxAction({
-                    userId: userId,
+                    userId: session.id,
                     gameId: gameId,
                     box: box.box,
                   });

@@ -21,7 +21,7 @@ import { useActionState, useEffect, useState } from "react";
 import { createBoxAction } from "./actions/createBoxAction";
 
 type HandleDialogRenderingProps = {
-  userId: string;
+  userId: number;
   onClose: () => void;
 };
 
@@ -83,7 +83,7 @@ function HandleDialogRendering({
 }
 
 type CreateBoxProps = {
-  userId: string;
+  userId: number;
 };
 
 export function CreateBox({ userId }: CreateBoxProps) {

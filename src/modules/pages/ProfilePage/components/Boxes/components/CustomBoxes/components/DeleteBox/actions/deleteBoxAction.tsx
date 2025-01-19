@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 
 type DeleteCustomBoxAction = {
   boxId: number;
-  userId: string;
+  userId: number;
 };
 
 // Ação para apagar uma caixa customizada
@@ -17,7 +17,7 @@ export async function deleteBoxAction({
     // Deleta a caixa
     await deleteCustomBox({
       boxId: boxId,
-      userId: Number(userId),
+      userId: userId,
     });
 
     // Atualiza a página

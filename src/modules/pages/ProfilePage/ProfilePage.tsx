@@ -1,13 +1,20 @@
-import { auth } from "@/auth";
+import { PageTitle } from "@/modules/shared/components/PageTitle/PageTitle";
 import { getUserById } from "@/modules/shared/lib/prisma/prisma";
+import { authSession } from "@/modules/shared/utils/session";
+import { redirect } from "next/navigation";
 import { Boxes } from "./components/Boxes/Boxes";
 import { SignatureInfo } from "./components/SignatureInfo/SignatureInfo";
-import { PageTitle } from "@/modules/shared/components/PageTitle/PageTitle";
 
 export async function ProfilePage() {
-  const session = await auth();
+  // Obtém os dados da sessão do usuário
+  const session = await authSession();
 
-  const user = await getUserById(Number(session?.user?.id));
+  // Obtém os dados do usuário pelo ID, se não encontrar, redireciona para a página inicial
+  const user = await getUserById(session.id);
+
+  if (!user) {
+    return redirect("/");
+  }
 
   return (
     <section className="space-y-10">
@@ -15,8 +22,7 @@ export async function ProfilePage() {
         title="Perfil"
         desc={
           <>
-            Bem-vindo{" "}
-            <span className="font-bold">{session?.user?.username}</span>.
+            Bem-vindo <span className="font-bold">{session.username}</span>.
           </>
         }
       />

@@ -6,9 +6,10 @@ import { createBoxSchema } from "../../validations/createBoxSchema";
 
 type CreateBoxAction = {
   formData: FormData;
-  userId: string;
+  userId: number;
 };
 
+// Ação de criar uma caixa
 export async function createBoxAction({ formData, userId }: CreateBoxAction) {
   try {
     // Converte os dados do formulário em um objeto
@@ -27,11 +28,13 @@ export async function createBoxAction({ formData, userId }: CreateBoxAction) {
       };
     }
 
+    // Cria uma nova caixa
     await createCustomBox({
-      userId: Number(userId),
+      userId: userId,
       name: formData.get("name") as string,
     });
 
+    // Atualiza as informações da página
     revalidatePath(`/perfil`);
 
     return {

@@ -14,7 +14,7 @@ import { useDeleteBoxStore } from "./stores/deleteBoxStore";
 import { deleteBoxAction } from "./actions/deleteBoxAction";
 
 type HandleDialogRenderingProps = {
-  userId: string;
+  userId: number;
 };
 
 // Formulário para apagar uma caixa
@@ -74,7 +74,7 @@ function HandleDialogRendering({ userId }: HandleDialogRenderingProps) {
 }
 
 type DialogFormProps = {
-  userId: string;
+  userId: number;
 };
 
 export function DeleteBox({ userId }: DialogFormProps) {

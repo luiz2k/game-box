@@ -1,5 +1,5 @@
-import { auth } from "@/auth";
 import { findAllCustomBoxByUserId } from "@/modules/shared/lib/prisma/prisma";
+import { authSession } from "@/modules/shared/utils/session";
 import Link from "next/link";
 import {
   BoxCardHeader,
@@ -10,7 +10,6 @@ import {
 import { BoxCardHeaderActionCustom } from "./components/BoxCardHeaderActionCustom/BoxCardHeaderActionCustom";
 import { CreateBox } from "./components/CreateBox/CreateBox";
 import { DeleteBox } from "./components/DeleteBox/DeleteBox";
-import { authSession } from "@/modules/shared/utils/session";
 
 export async function CustomBoxes() {
   // Obtém os dados da sessão do usuário

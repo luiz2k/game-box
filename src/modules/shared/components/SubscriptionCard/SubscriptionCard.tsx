@@ -1,8 +1,9 @@
+import { auth } from "@/auth";
 import { Check } from "lucide-react";
 import { Button } from "../Button/Button";
 
-export function SubscriptionCard() {
-  const session = true;
+export async function SubscriptionCard() {
+  const session = await auth();
 
   return (
     <div className="space-y-5 rounded-2xl bg-black-2 p-4">

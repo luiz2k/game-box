@@ -6,6 +6,7 @@ import {
   GameCardImage,
   GameCardWarapping,
 } from "@/modules/shared/components/GameCard/GameCard";
+import { PageTitle } from "@/modules/shared/components/PageTitle/PageTitle";
 import { findAllGames } from "@/modules/shared/lib/prisma/prisma";
 
 import Link from "next/link";
@@ -15,10 +16,7 @@ export async function GamesPage() {
 
   return (
     <section className="space-y-10">
-      <div className="space-y-1">
-        <h1 className="text-center text-4xl font-bold">Jogos</h1>
-        <p className="text-center">Jogos disponíveis</p>
-      </div>
+      <PageTitle title="Jogos" desc="Todos os jogos listados na plataforma." />
 
       <div className="grid grid-cols-[repeat(auto-fit,_minmax(245px,_1fr))] gap-4">
         {games.map((game) => (

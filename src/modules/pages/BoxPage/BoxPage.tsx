@@ -14,6 +14,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DialogForm } from "./components/DialogForm/DialogForm";
 import { GameCardCustomAction } from "./components/GameCardCustomAction/GameCardCustomAction";
+import { PageTitle } from "@/modules/shared/components/PageTitle/PageTitle";
 
 type BoxPageProps = {
   params: Promise<{ box: string }>;
@@ -44,13 +45,15 @@ export async function BoxPage({ params }: BoxPageProps) {
 
   return (
     <section className="grid gap-10">
-      <div className="space-y-1">
-        <h1 className="text-center text-4xl font-bold">{standardBox.name}</h1>
-        <p className="text-center text-white-1/50">
-          Jogos listados na caixa{" "}
-          <span className="font-bold">{standardBox.name}</span>.
-        </p>
-      </div>
+      <PageTitle
+        title={standardBox.name}
+        desc={
+          <>
+            Jogos listados na caixa{" "}
+            <span className="font-bold">{standardBox.name}</span>
+          </>
+        }
+      />
 
       <div className="grid grid-cols-[repeat(auto-fit,_minmax(245px,_1fr))] gap-4">
         {games.length > 0 ? (

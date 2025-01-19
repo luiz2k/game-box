@@ -2,11 +2,11 @@ import { auth } from "@/auth";
 import { Button } from "@/modules/shared/components/Button/Button";
 import { findAllStandardBoxByUserId } from "@/modules/shared/lib/prisma/prisma";
 import { Box } from "@prisma/client";
-import { Minus, Plus } from "lucide-react";
+import { SquarePlus, Trash2 } from "lucide-react";
 
 import { revalidatePath } from "next/cache";
-import { removeGameToStandardBoxAction } from "./actions/removeGameToStandardBoxAction";
 import { addGameToStandardBoxAction } from "./actions/addGameToStandardBoxAction";
+import { removeGameToStandardBoxAction } from "./actions/removeGameToStandardBoxAction";
 
 type StandardBoxButtonsProps = {
   gameId: number;
@@ -68,7 +68,7 @@ export async function StandardBoxButtons({ gameId }: StandardBoxButtonsProps) {
               type="button"
               variant={box.constains ? "ghost" : "primary"}
               width="full"
-              rightIcon={box.constains ? Minus : Plus}
+              rightIcon={box.constains ? Trash2 : SquarePlus}
               space="between"
               onClick={async () => {
                 "use server";

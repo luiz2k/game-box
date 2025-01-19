@@ -4,10 +4,10 @@ import {
   findAllCustomBoxByUserId,
   findAllListedGameByUserId,
 } from "@/modules/shared/lib/prisma/prisma";
-import { Minus, Plus } from "lucide-react";
-import { removeGameToCustomBoxAction } from "./actions/removeGameToCustomBoxAction";
+import { SquarePlus, Trash2 } from "lucide-react";
 import { revalidatePath } from "next/cache";
 import { addGameToCustomBoxAction } from "./actions/addGameToCustomBoxAction";
+import { removeGameToCustomBoxAction } from "./actions/removeGameToCustomBoxAction";
 
 type CustomBoxButtonsProps = {
   gameId: number;
@@ -51,7 +51,7 @@ export async function CustomBoxButtons({ gameId }: CustomBoxButtonsProps) {
               type="button"
               variant={box.constains ? "ghost" : "primary"}
               width="full"
-              rightIcon={box.constains ? Minus : Plus}
+              rightIcon={box.constains ? Trash2 : SquarePlus}
               space="between"
               onClick={async () => {
                 "use server";

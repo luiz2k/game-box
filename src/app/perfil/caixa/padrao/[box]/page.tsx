@@ -1,3 +1,3 @@
-import { BoxPage } from "@/modules/pages/BoxPage/BoxPage";
+import { StandardBoxPage } from "@/modules/pages/StandardBoxPage/StandardBoxPage";
 
-export default BoxPage;
+export default StandardBoxPage;

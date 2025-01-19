@@ -20,7 +20,7 @@ type BoxPageProps = {
   params: Promise<{ box: string }>;
 };
 
-export async function BoxPage({ params }: BoxPageProps) {
+export async function StandardBoxPage({ params }: BoxPageProps) {
   const { box } = await params;
 
   // Obtém as informações sobre a caixa padrão correspondente ao parâmetro
@@ -50,7 +50,7 @@ export async function BoxPage({ params }: BoxPageProps) {
         desc={
           <>
             Jogos listados na caixa{" "}
-            <span className="font-bold">{standardBox.name}</span>
+            <span className="font-bold">{standardBox.name}</span>.
           </>
         }
       />

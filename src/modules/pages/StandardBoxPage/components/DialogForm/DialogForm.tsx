@@ -10,9 +10,9 @@ import {
   DialogWrapping,
 } from "@/modules/shared/components/Dialog/Dialog";
 import { Box } from "@prisma/client";
+import { useActionState, useEffect } from "react";
 import { useDialogStore } from "../../stores/dialogStore";
 import { removeGameToStandardBoxAction } from "./actions/removeGameToStandardBoxAction";
-import { useState } from "react";
 
 type DialogFormProps = {
   userId: number;
@@ -26,48 +26,45 @@ type DialogFormProps = {
 export function DialogForm({ userId, standardBox }: DialogFormProps) {
   const { game, dialogFormIsOpen, handleDialogForm } = useDialogStore();
 
-  const [errorMessage, setErrorMessage] = useState<string>("");
-
-  // Lida com o submit do formulário
-  const handleSubmit = async () => {
-    // Remove o jogo da caixa
-    const res = await removeGameToStandardBoxAction({
-      userId: userId,
-      gameId: game.id,
-      box: standardBox.box,
-    });
-
-    // Se houver erro, mostra o erro
-    if (res?.messages.error) {
-      setErrorMessage(res.messages.error);
-    }
-
-    // Fecha o formulário
-    handleDialogForm();
-  };
+  const [formState, formAction] = useActionState(
+    async () =>
+      await removeGameToStandardBoxAction({
+        userId: userId,
+        gameId: game.id,
+        box: standardBox.box,
+      }),
+    null,
+  );
 
   // Lida com o fechamento do formulário
-  const handleCloseForm = () => {
+  const handleDialogClosing = () => {
+    // Se houver menssagem de erro, limpa
+    if (formState?.messages.error) {
+      formState.messages.error = "";
+    }
+
     // Fecha o formulário
     handleDialogForm();
-
-    // Limpa o erro se houver
-    if (errorMessage) {
-      setErrorMessage("");
-    }
   };
+
+  // Fecha o formulário ao receber um sucesso
+  useEffect(() => {
+    if (formState?.messages.success) {
+      handleDialogForm();
+    }
+  }, [formState?.messages.success, handleDialogForm]);
 
   return (
     <>
       {dialogFormIsOpen && (
-        <DialogWrapping close={handleDialogForm} action={handleSubmit}>
+        <DialogWrapping close={handleDialogClosing} action={formAction}>
           <DialogHeader>
             <DialogHeaderTitle className="text-left">
               {game.title}
             </DialogHeaderTitle>
-            {errorMessage && (
+            {formState?.messages.error && (
               <DialogHeaderDesc className="text-left">
-                <p className="text-red-600">{errorMessage}</p>
+                <p className="text-red-600">{formState.messages.error}</p>
               </DialogHeaderDesc>
             )}
           </DialogHeader>
@@ -83,7 +80,7 @@ export function DialogForm({ userId, standardBox }: DialogFormProps) {
               variant="ghost"
               width="full"
               type="button"
-              onClick={handleCloseForm}
+              onClick={handleDialogClosing}
             >
               Cancelar
             </Button>

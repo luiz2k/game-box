@@ -22,7 +22,7 @@ type BoxPageProps = {
 export async function BoxPage({ params }: BoxPageProps) {
   const { box } = await params;
 
-  // Obtém a caixa padrão correspondente ao parâmetro
+  // Obtém as informações sobre a caixa padrão correspondente ao parâmetro
   const standardBox = standardBoxes.find(
     (standardBox) => standardBox.box === box.toUpperCase(),
   );
@@ -45,50 +45,60 @@ export async function BoxPage({ params }: BoxPageProps) {
   return (
     <section className="grid gap-10">
       <div className="space-y-1">
-        <h1 className="text-center text-4xl font-bold">Jogos</h1>
-        <p className="text-center">
-          Jogos dentro da caixa <span className="font-bold">Exemplo</span>.
+        <h1 className="text-center text-4xl font-bold">{standardBox.name}</h1>
+        <p className="text-center text-white-1/50">
+          Jogos listados na caixa{" "}
+          <span className="font-bold">{standardBox.name}</span>.
         </p>
       </div>
 
       <div className="grid grid-cols-[repeat(auto-fit,_minmax(245px,_1fr))] gap-4">
-        {games.map((game) => (
-          <Link
-            key={game.Game.id}
-            title={game.Game.title}
-            href={`/jogos/${game.Game.id}`}
-          >
-            <GameCardWarapping>
-              <GameCardImage imgSrc={game.Game.cover} alt={game.Game.title} />
-
-              <GameCardBody>
-                <GameCardBodyHeader>
-                  <GameCardBodyHeaderTitle title={game.Game.title} />
-                  <GameCardBodyHeaderDesc>
-                    <p>{game.Game.genre.join(", ")}</p>
-                    <p>
-                      {/* Faz a formatação da data para pt-BR. EX: 01 de janeiro de 2022 */}
-                      {new Date(game.Game.release_date).toLocaleDateString(
-                        "pt-BR",
-                        {
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric",
-                        },
-                      )}
-                    </p>
-                  </GameCardBodyHeaderDesc>
-                </GameCardBodyHeader>
-                <GameCardBodyAction>
-                  <GameCardCustomAction
-                    title={game.Game.title}
-                    gameId={game.Game.id}
+        {games.length > 0 ? (
+          <>
+            {games.map((game) => (
+              <Link
+                key={game.Game.id}
+                title={game.Game.title}
+                href={`/jogos/${game.Game.id}`}
+              >
+                <GameCardWarapping>
+                  <GameCardImage
+                    imgSrc={game.Game.cover}
+                    alt={game.Game.title}
                   />
-                </GameCardBodyAction>
-              </GameCardBody>
-            </GameCardWarapping>
-          </Link>
-        ))}
+
+                  <GameCardBody>
+                    <GameCardBodyHeader>
+                      <GameCardBodyHeaderTitle title={game.Game.title} />
+                      <GameCardBodyHeaderDesc>
+                        <p>{game.Game.genre.join(", ")}</p>
+                        <p>
+                          {/* Faz a formatação da data para pt-BR. EX: 01 de janeiro de 2022 */}
+                          {new Date(game.Game.release_date).toLocaleDateString(
+                            "pt-BR",
+                            {
+                              day: "numeric",
+                              month: "long",
+                              year: "numeric",
+                            },
+                          )}
+                        </p>
+                      </GameCardBodyHeaderDesc>
+                    </GameCardBodyHeader>
+                    <GameCardBodyAction>
+                      <GameCardCustomAction
+                        title={game.Game.title}
+                        gameId={game.Game.id}
+                      />
+                    </GameCardBodyAction>
+                  </GameCardBody>
+                </GameCardWarapping>
+              </Link>
+            ))}
+          </>
+        ) : (
+          <p className="text-center">Nenhum jogo foi listado nesta caixa.</p>
+        )}
       </div>
 
       <DialogForm userId={Number(userId)} standardBox={standardBox} />

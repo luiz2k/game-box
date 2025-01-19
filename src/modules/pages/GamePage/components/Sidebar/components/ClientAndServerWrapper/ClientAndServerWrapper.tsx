@@ -27,7 +27,7 @@ export function ClientAndServerWrapper({ children }: AddToBoxProps) {
           variant="primary"
           onClick={() => setIsOpen((prev) => !prev)}
         >
-          Adicionar na caixa
+          Gerenciar caixa
         </Button>
       </div>
 

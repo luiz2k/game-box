@@ -1,9 +1,9 @@
 import { auth } from "@/auth";
 import { Button } from "@/modules/shared/components/Button/Button";
 import { findAllStandardBoxByUserId } from "@/modules/shared/lib/prisma/prisma";
-import { Box } from "@prisma/client";
 import { SquarePlus, Trash2 } from "lucide-react";
 
+import { standardBoxes } from "@/modules/shared/utils/standardBoxes";
 import { revalidatePath } from "next/cache";
 import { addGameToStandardBoxAction } from "./actions/addGameToStandardBoxAction";
 import { removeGameToStandardBoxAction } from "./actions/removeGameToStandardBoxAction";
@@ -17,44 +17,33 @@ export async function StandardBoxButtons({ gameId }: StandardBoxButtonsProps) {
   const session = await auth();
   const userId = Number(session?.user?.id);
 
-  // Busca em qual caixa padrão o jogo foi adicionado
-  const standardBoxes = await findAllStandardBoxByUserId({
+  // Busca as caixas padrão onde o jogo foi listado
+  const gamesInTheBox = await findAllStandardBoxByUserId({
     userId: Number(session?.user?.id),
     gameId: gameId,
   });
 
-  // Informações adicionais sobre as caixas padrão
-  const boxes = [
-    {
-      box: Box.FAVORITE,
-      name: "Favorito",
-      constains: false,
-    },
-    {
-      box: Box.PLAYING,
-      name: "Jogado",
-      constains: false,
-    },
-    {
-      box: Box.ABANDONED,
-      name: "Abandonado",
+  // Obtém todas as caixas padrão disponíveis
+  const boxes = standardBoxes;
 
-      constains: false,
-    },
-    {
-      box: Box.FINISHED,
-      name: "Finalizado",
-      constains: false,
-    },
-  ];
+  // Lista em quais caixas o jogo foi listado
+  const listedInTheBox = boxes.map((box) => {
+    // Verifica se o jogo foi listado na caixa
+    const contains = gamesInTheBox.some((list) => list.box === box.box);
 
-  // Verifica se o jogo já foi adicionado nas caixas padrão
-  boxes.forEach((box) => {
-    standardBoxes.forEach((standardBox) => {
-      if (box.box === standardBox.box) {
-        box.constains = true;
-      }
-    });
+    // Marca o jogo como listado
+    if (contains) {
+      return {
+        ...box,
+        contains,
+      };
+    }
+
+    // Marca o jogo como não listado
+    return {
+      ...box,
+      contains,
+    };
   });
 
   return (
@@ -62,18 +51,18 @@ export async function StandardBoxButtons({ gameId }: StandardBoxButtonsProps) {
       <h2 className="font-bold">Caixas padrão</h2>
 
       <ul className="scroll max-h-[13.5rem] space-y-2 overflow-y-auto pr-2">
-        {boxes.map((box) => (
+        {listedInTheBox.map((box) => (
           <li key={box.box}>
             <Button
               type="button"
-              variant={box.constains ? "ghost" : "primary"}
+              variant={box.contains ? "ghost" : "primary"}
               width="full"
-              rightIcon={box.constains ? Trash2 : SquarePlus}
+              rightIcon={box.contains ? Trash2 : SquarePlus}
               space="between"
               onClick={async () => {
                 "use server";
 
-                if (box.constains) {
+                if (box.contains) {
                   // Remove o jogo da caixa
                   await removeGameToStandardBoxAction({
                     userId: userId,

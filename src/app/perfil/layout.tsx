@@ -10,6 +10,7 @@ export default async function Layout({
   const session = await auth();
 
   if (!session) {
+    // Redireciona para a página inicial
     redirect("/");
   }
 

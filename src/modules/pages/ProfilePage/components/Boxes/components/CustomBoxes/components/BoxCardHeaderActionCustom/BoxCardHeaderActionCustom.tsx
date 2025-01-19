@@ -2,7 +2,7 @@
 
 import { BoxCardHeaderAction } from "@/modules/pages/ProfilePage/components/BoxCard/BoxCard";
 import { Trash2 } from "lucide-react";
-import { useDeleteCustomBoxDialogStore } from "../../../stores/deleteCustomBoxStore";
+import { useDeleteBoxStore } from "../DeleteBox/stores/deleteBoxStore";
 
 type BoxCardHeaderActionCustomProps = {
   id: number;
@@ -13,17 +13,23 @@ export function BoxCardHeaderActionCustom({
   id,
   name,
 }: BoxCardHeaderActionCustomProps) {
-  const { handleDialogForm, setBox } = useDeleteCustomBoxDialogStore();
+  const { setIsOpen, setBox } = useDeleteBoxStore();
+
+  // Abre o formulário de exclusão de jogo
+  const handleBoxCardAction = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.preventDefault();
+
+    // Define os dados do jogo que será excluído
+    setBox({ id: id, name: name });
+
+    // Abre o formulário
+    setIsOpen();
+  };
 
   return (
-    <BoxCardHeaderAction
-      onClick={(event) => {
-        event.preventDefault();
-
-        setBox({ id: id, name: name });
-        handleDialogForm();
-      }}
-    >
+    <BoxCardHeaderAction type="button" onClick={handleBoxCardAction}>
       <Trash2 />
     </BoxCardHeaderAction>
   );

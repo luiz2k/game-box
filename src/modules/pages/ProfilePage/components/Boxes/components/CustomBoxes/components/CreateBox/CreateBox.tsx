@@ -17,38 +17,82 @@ import {
 } from "@/modules/shared/components/Dialog/Dialog";
 import { FormInput } from "@/modules/shared/components/Input/Input";
 import { Plus } from "lucide-react";
-import { useState } from "react";
-import { createBoxAction } from "../actions/createBoxAction";
+import { useActionState, useEffect, useState } from "react";
+import { createBoxAction } from "./actions/createBoxAction";
 
-type CreateBoxProps = {
-  userId: number;
+type HandleDialogRenderingProps = {
+  userId: string;
+  onClose: () => void;
 };
-export function CreateBox({ userId }: CreateBoxProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const handleClose = () => {
-    setIsOpen((prev) => !prev);
-  };
+// Formulário para criar uma caixa
+function HandleDialogRendering({
+  userId,
+  onClose,
+}: HandleDialogRenderingProps) {
+  // Lida com o submit do formulário
+  const [formState, formAction] = useActionState(
+    async (_prev: unknown, formData: FormData) =>
+      await createBoxAction({ formData, userId }),
+    null,
+  );
 
-  const handleAction = async (formData: FormData) => {
-    const name = formData.get("name") as string;
-
-    const res = await createBoxAction({
-      userId: userId,
-      name: name,
-    });
-
-    if (res?.messages.error) {
-      setErrorMessage(res.messages.error);
+  // Quando criar a caixa com sucesso, fecha o formulário
+  useEffect(() => {
+    if (formState?.messages.success) {
+      onClose();
     }
-
-    handleClose();
-  };
+  }, [formState?.messages.success, onClose]);
 
   return (
     <>
-      <button onClick={handleClose}>
+      <DialogWrapping close={onClose} action={formAction}>
+        <DialogHeader>
+          <DialogHeaderTitle className="text-left">
+            Criando uma nova caixa
+          </DialogHeaderTitle>
+          {formState?.messages.error && (
+            <DialogHeaderDesc className="text-left">
+              <p className="text-red-600">{formState?.messages.error}</p>
+            </DialogHeaderDesc>
+          )}
+        </DialogHeader>
+
+        <DialogBody>
+          <FormInput
+            width="full"
+            name="name"
+            label="Nome da caixa"
+            error={formState?.inputErrors?.name?.toString() || ""}
+            defaultValue={formState?.inputValues?.name.toString() || ""}
+          />
+        </DialogBody>
+
+        <DialogFooter>
+          <Button variant="ghost" width="full" type="button" onClick={onClose}>
+            Cancelar
+          </Button>
+
+          <Button variant="primary" width="full" type="submit">
+            Confirmar
+          </Button>
+        </DialogFooter>
+      </DialogWrapping>
+    </>
+  );
+}
+
+type CreateBoxProps = {
+  userId: string;
+};
+
+export function CreateBox({ userId }: CreateBoxProps) {
+  // Lida com a visualização do formulário
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  return (
+    <>
+      <button onClick={() => setIsOpen(true)}>
         <BoxCardWrapper>
           <BoxCardHeader className="bg-accent-1 group-[&:hover]:bg-accent-2">
             <BoxCardHeaderContent icon={Plus} />
@@ -59,37 +103,10 @@ export function CreateBox({ userId }: CreateBoxProps) {
       </button>
 
       {isOpen && (
-        <DialogWrapping close={handleClose} action={handleAction}>
-          <DialogHeader>
-            <DialogHeaderTitle className="text-left">
-              Criando uma nova caixa
-            </DialogHeaderTitle>
-            {errorMessage && (
-              <DialogHeaderDesc className="text-left">
-                <p className="text-red-600">{errorMessage}</p>
-              </DialogHeaderDesc>
-            )}
-          </DialogHeader>
-
-          <DialogBody>
-            <FormInput width="full" name="name" label="Nome da caixa" />
-          </DialogBody>
-
-          <DialogFooter>
-            <Button
-              variant="ghost"
-              width="full"
-              type="button"
-              onClick={handleClose}
-            >
-              Cancelar
-            </Button>
-
-            <Button variant="primary" width="full" type="submit">
-              Confirmar
-            </Button>
-          </DialogFooter>
-        </DialogWrapping>
+        <HandleDialogRendering
+          userId={userId}
+          onClose={() => setIsOpen(false)}
+        />
       )}
     </>
   );

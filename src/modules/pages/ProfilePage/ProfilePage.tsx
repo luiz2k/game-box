@@ -27,7 +27,7 @@ export async function ProfilePage() {
         }
       />
 
-      {user && <SignatureInfo plan={user.plan} />}
+      <SignatureInfo plan={user.plan} />
 
       <Boxes />
     </section>

@@ -4,9 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { tv } from "tailwind-variants";
 
-type NavAnchorProps = {
+type NavAnchorProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string;
   children: string;
+  ref?: React.RefObject<HTMLAnchorElement>;
 };
 
 const NavAnchorTv = tv({
@@ -32,13 +33,18 @@ const handleAnchorHighlight = (pathname: string, href: string) => {
   return currentPage;
 };
 
-export function NavAnchor({ href, children }: NavAnchorProps) {
+export function NavAnchor({ href, children, ref, ...rest }: NavAnchorProps) {
   const pathname = usePathname();
 
   const anchorHighlight = handleAnchorHighlight(pathname, href);
 
   return (
-    <Link href={href} className={NavAnchorTv({ highlight: anchorHighlight })}>
+    <Link
+      href={href}
+      className={NavAnchorTv({ highlight: anchorHighlight })}
+      ref={ref}
+      {...rest}
+    >
       {children}
     </Link>
   );

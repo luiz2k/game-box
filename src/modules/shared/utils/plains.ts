@@ -7,8 +7,8 @@ const plans = [
   },
   {
     name: "Premium",
-    boxLimit: "Unlimited",
-    gameLimit: "Unlimited",
+    boxLimit: Infinity,
+    gameLimit: Infinity,
   },
 ];
 

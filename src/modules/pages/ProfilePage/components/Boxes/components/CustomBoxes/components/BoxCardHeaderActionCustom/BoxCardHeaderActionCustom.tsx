@@ -13,7 +13,7 @@ export function BoxCardHeaderActionCustom({
   id,
   name,
 }: BoxCardHeaderActionCustomProps) {
-  const { setIsOpen, setBox } = useDeleteBoxStore();
+  const { handleIsOpen, setBox } = useDeleteBoxStore();
 
   // Abre o formulário de exclusão de jogo
   const handleBoxCardAction = (
@@ -25,7 +25,7 @@ export function BoxCardHeaderActionCustom({
     setBox({ id: id, name: name });
 
     // Abre o formulário
-    setIsOpen();
+    handleIsOpen();
   };
 
   return (

@@ -23,7 +23,7 @@ type DialogFormProps = {
 
 // Formulário para remover um jogo de uma caixa padrão
 export function DialogForm({ userId, customBox }: DialogFormProps) {
-  const { game, dialogFormIsOpen, handleDialogForm } = useDialogStore();
+  const { game, isOpen, handleIsOpen } = useDialogStore();
 
   const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -42,13 +42,13 @@ export function DialogForm({ userId, customBox }: DialogFormProps) {
     }
 
     // Fecha o formulário
-    handleDialogForm();
+    handleIsOpen();
   };
 
   // Lida com o fechamento do formulário
   const handleCloseForm = () => {
     // Fecha o formulário
-    handleDialogForm();
+    handleIsOpen();
 
     // Limpa o erro se houver
     if (errorMessage) {
@@ -58,8 +58,8 @@ export function DialogForm({ userId, customBox }: DialogFormProps) {
 
   return (
     <>
-      {dialogFormIsOpen && (
-        <DialogWrapping close={handleDialogForm} action={handleSubmit}>
+      {isOpen && (
+        <DialogWrapping close={handleIsOpen} action={handleSubmit}>
           <DialogHeader>
             <DialogHeaderTitle className="text-left">
               {game.title}

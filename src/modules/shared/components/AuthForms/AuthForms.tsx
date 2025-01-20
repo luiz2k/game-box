@@ -1,16 +1,16 @@
 "use client";
 
-import { useFormStore } from "../../stores/formStore";
+import { useAuthFormsStore } from "../../stores/authFormsStore";
 import { LoginForm } from "./components/LoginForm/LoginForm";
 import { RegisterForm } from "./components/RegisterForm/RegisterForm";
 
 export function AuthForms() {
-  const { registerFormIsOpen, loginFormIsOpen } = useFormStore();
+  const { registerIsOpen, loginIsOpen } = useAuthFormsStore();
 
   return (
     <>
-      {registerFormIsOpen && <RegisterForm />}
-      {loginFormIsOpen && <LoginForm />}
+      {registerIsOpen && <RegisterForm />}
+      {loginIsOpen && <LoginForm />}
     </>
   );
 }

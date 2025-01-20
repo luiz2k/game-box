@@ -7,7 +7,7 @@ type DeleteBoxStore = {
   };
   setBox: ({ id, name }: { id: number; name: string }) => void;
   isOpen: boolean;
-  setIsOpen: () => void;
+  handleIsOpen: () => void;
 };
 
 // Responsavel por controlar a visibilidade dos formulário de exclusão de jogo
@@ -15,5 +15,5 @@ export const useDeleteBoxStore = create<DeleteBoxStore>()((set) => ({
   box: { id: 0, name: "" },
   setBox: ({ id, name }) => set({ box: { id: id, name: name } }),
   isOpen: false,
-  setIsOpen: () => set((state) => ({ isOpen: !state.isOpen })),
+  handleIsOpen: () => set((state) => ({ isOpen: !state.isOpen })),
 }));

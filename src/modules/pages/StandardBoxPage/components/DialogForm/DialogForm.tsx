@@ -24,7 +24,7 @@ type DialogFormProps = {
 
 // Formulário para remover um jogo de uma caixa padrão
 export function DialogForm({ userId, standardBox }: DialogFormProps) {
-  const { game, dialogFormIsOpen, handleDialogForm } = useDialogStore();
+  const { game, isOpen, handleIsOpen } = useDialogStore();
 
   const [formState, formAction] = useActionState(
     async () =>
@@ -44,19 +44,19 @@ export function DialogForm({ userId, standardBox }: DialogFormProps) {
     }
 
     // Fecha o formulário
-    handleDialogForm();
+    handleIsOpen();
   };
 
   // Fecha o formulário ao receber um sucesso
   useEffect(() => {
     if (formState?.messages.success) {
-      handleDialogForm();
+      handleIsOpen();
     }
-  }, [formState?.messages.success, handleDialogForm]);
+  }, [formState?.messages.success, handleIsOpen]);
 
   return (
     <>
-      {dialogFormIsOpen && (
+      {isOpen && (
         <DialogWrapping close={handleDialogClosing} action={formAction}>
           <DialogHeader>
             <DialogHeaderTitle className="text-left">

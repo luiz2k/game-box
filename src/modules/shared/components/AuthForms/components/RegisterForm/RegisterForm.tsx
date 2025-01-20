@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { useFormStore } from "../../../../stores/formStore";
+import { useAuthFormsStore } from "../../../../stores/authFormsStore";
 import { Button } from "../../../Button/Button";
 import {
   DialogBody,
@@ -16,7 +16,7 @@ import { registerAction } from "./actions/registerAction";
 
 // Formulário de registro
 export function RegisterForm() {
-  const { handleRegisterForm, changeForm } = useFormStore();
+  const { handleRegisterIsOpen, changeForm } = useAuthFormsStore();
 
   const [formState, formAction, isPending] = useActionState(
     registerAction,
@@ -24,7 +24,7 @@ export function RegisterForm() {
   );
 
   return (
-    <DialogWrapping close={handleRegisterForm} action={formAction}>
+    <DialogWrapping close={handleRegisterIsOpen} action={formAction}>
       <DialogHeader>
         <DialogHeaderTitle>Registro</DialogHeaderTitle>
 

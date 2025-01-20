@@ -12,7 +12,7 @@ export function GameCardCustomAction({
   title,
   gameId,
 }: GameCardCustomActionProps) {
-  const { setGame, handleDialogForm } = useDialogStore();
+  const { setGame, handleIsOpen } = useDialogStore();
 
   return (
     <GameCardBodyActionButton
@@ -20,7 +20,7 @@ export function GameCardCustomAction({
         event.preventDefault();
 
         setGame({ id: gameId, title: title });
-        handleDialogForm();
+        handleIsOpen();
       }}
     >
       <Trash2 />

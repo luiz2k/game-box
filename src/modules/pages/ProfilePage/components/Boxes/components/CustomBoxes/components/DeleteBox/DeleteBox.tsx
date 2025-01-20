@@ -20,7 +20,7 @@ type HandleDialogRenderingProps = {
 // Formulário para apagar uma caixa
 function HandleDialogRendering({ userId }: HandleDialogRenderingProps) {
   // Lida com a visualização do formulário
-  const { box, setIsOpen } = useDeleteBoxStore();
+  const { box, handleIsOpen } = useDeleteBoxStore();
 
   // Lida com o submit do formulário
   const [formState, formAction] = useActionState(
@@ -31,13 +31,13 @@ function HandleDialogRendering({ userId }: HandleDialogRenderingProps) {
   // Quando remover a caixa com sucesso, fecha o formulário
   useEffect(() => {
     if (formState?.messages.success) {
-      setIsOpen();
+      handleIsOpen();
     }
-  }, [formState?.messages.success, setIsOpen]);
+  }, [formState?.messages.success, handleIsOpen]);
 
   return (
     <>
-      <DialogWrapping close={setIsOpen} action={formAction}>
+      <DialogWrapping close={handleIsOpen} action={formAction}>
         <DialogHeader>
           <DialogHeaderTitle className="text-left">
             {box.name}
@@ -59,7 +59,7 @@ function HandleDialogRendering({ userId }: HandleDialogRenderingProps) {
             variant="ghost"
             width="full"
             type="button"
-            onClick={setIsOpen}
+            onClick={handleIsOpen}
           >
             Cancelar
           </Button>

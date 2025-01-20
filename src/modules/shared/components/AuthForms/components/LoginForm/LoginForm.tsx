@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
-import { useFormStore } from "../../../../stores/formStore";
+import { useAuthFormsStore } from "../../../../stores/authFormsStore";
 import { Button } from "../../../Button/Button";
 import {
   DialogBody,
@@ -17,7 +17,7 @@ import { loginAction } from "./actions/loginAction";
 
 // Formulário de login
 export function LoginForm() {
-  const { handleLoginForm, changeForm } = useFormStore();
+  const { handleLoginIsOpen, changeForm } = useAuthFormsStore();
 
   const [formState, formAction, isPending] = useActionState(loginAction, null);
 
@@ -26,13 +26,13 @@ export function LoginForm() {
   // Quando o usuário logar, fecha o formulário e recarrega a página
   useEffect(() => {
     if (formState?.messages?.success) {
-      handleLoginForm();
+      handleLoginIsOpen();
       router.refresh();
     }
-  }, [formState?.messages?.success, handleLoginForm, router]);
+  }, [formState?.messages?.success, handleLoginIsOpen, router]);
 
   return (
-    <DialogWrapping close={handleLoginForm} action={formAction}>
+    <DialogWrapping close={handleLoginIsOpen} action={formAction}>
       <DialogHeader>
         <DialogHeaderTitle>Entrar</DialogHeaderTitle>
         <DialogHeaderDesc>

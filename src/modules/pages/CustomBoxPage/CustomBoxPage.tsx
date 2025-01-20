@@ -36,7 +36,7 @@ export async function CustomBoxPage({ params }: CustomBoxPageProps) {
   const session = await authSession();
 
   // Busca informações sobre a caixa
-  const customBox = await findCustomBoxByUserId(session.id);
+  const customBox = await findCustomBoxByUserId(+boxId);
 
   // Se não encontrar a caixa, retorna 404
   if (!customBox) {
@@ -44,7 +44,7 @@ export async function CustomBoxPage({ params }: CustomBoxPageProps) {
   }
 
   // Busca todos os jogos listados na caixa
-  const games = await findAllGameListedInBox(session.id);
+  const games = await findAllGameListedInBox(+boxId);
 
   return (
     <section className="grid gap-10">

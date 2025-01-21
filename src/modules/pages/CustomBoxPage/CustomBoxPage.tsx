@@ -15,6 +15,7 @@ import { DialogForm } from "./components/DialogForm/DialogForm";
 import { GameCardCustomAction } from "./components/GameCardCustomAction/GameCardCustomAction";
 import { findCustomBoxByUserId } from "@/modules/shared/lib/prisma/customBox";
 import { findAllListedGameByUserId } from "@/modules/shared/lib/prisma/listedGame";
+import { gameColumnStyle } from "@/modules/shared/utils/gameColumnStyle";
 
 type CustomBoxPageProps = {
   params: Promise<{
@@ -50,6 +51,8 @@ export async function CustomBoxPage({ params }: CustomBoxPageProps) {
     boxId: +boxId,
   });
 
+  const columnStyles = gameColumnStyle(games.length);
+
   return (
     <section className="grid gap-10">
       <PageTitle
@@ -62,54 +65,51 @@ export async function CustomBoxPage({ params }: CustomBoxPageProps) {
         }
       />
 
-      <div className="grid grid-cols-[repeat(auto-fit,_minmax(245px,_1fr))] gap-4">
-        {games.length > 0 ? (
-          <>
-            {games.map((game) => (
-              <Link
-                key={game.Game.id}
-                title={game.Game.title}
-                href={`/jogos/${game.Game.id}`}
-              >
-                <GameCardWarapping>
-                  <GameCardImage
-                    imgSrc={game.Game.cover}
-                    alt={game.Game.title}
-                  />
+      {games.length > 0 ? (
+        <div className={columnStyles}>
+          {games.map((game) => (
+            <Link
+              key={game.Game.id}
+              title={game.Game.title}
+              href={`/jogos/${game.Game.id}`}
+            >
+              <GameCardWarapping>
+                <GameCardImage imgSrc={game.Game.cover} alt={game.Game.title} />
 
-                  <GameCardBody>
-                    <GameCardBodyHeader>
-                      <GameCardBodyHeaderTitle title={game.Game.title} />
-                      <GameCardBodyHeaderDesc>
-                        <p>{game.Game.genre.join(", ")}</p>
-                        <p>
-                          {/* Faz a formatação da data para pt-BR. EX: 01 de janeiro de 2022 */}
-                          {new Date(game.Game.release_date).toLocaleDateString(
-                            "pt-BR",
-                            {
-                              day: "numeric",
-                              month: "long",
-                              year: "numeric",
-                            },
-                          )}
-                        </p>
-                      </GameCardBodyHeaderDesc>
-                    </GameCardBodyHeader>
-                    <GameCardBodyAction>
-                      <GameCardCustomAction
-                        title={game.Game.title}
-                        gameId={game.Game.id}
-                      />
-                    </GameCardBodyAction>
-                  </GameCardBody>
-                </GameCardWarapping>
-              </Link>
-            ))}
-          </>
-        ) : (
+                <GameCardBody>
+                  <GameCardBodyHeader>
+                    <GameCardBodyHeaderTitle title={game.Game.title} />
+                    <GameCardBodyHeaderDesc>
+                      <p>{game.Game.genre.join(", ")}</p>
+                      <p>
+                        {/* Faz a formatação da data para pt-BR. EX: 01 de janeiro de 2022 */}
+                        {new Date(game.Game.release_date).toLocaleDateString(
+                          "pt-BR",
+                          {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                          },
+                        )}
+                      </p>
+                    </GameCardBodyHeaderDesc>
+                  </GameCardBodyHeader>
+                  <GameCardBodyAction>
+                    <GameCardCustomAction
+                      title={game.Game.title}
+                      gameId={game.Game.id}
+                    />
+                  </GameCardBodyAction>
+                </GameCardBody>
+              </GameCardWarapping>
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <div>
           <p className="text-center">Nenhum jogo foi listado nesta caixa.</p>
-        )}
-      </div>
+        </div>
+      )}
 
       <DialogForm customBox={customBox} userId={session.id} />
     </section>

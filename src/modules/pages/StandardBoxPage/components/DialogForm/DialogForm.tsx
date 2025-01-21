@@ -14,7 +14,7 @@ import { useActionState, useEffect } from "react";
 import { useDialogStore } from "../../stores/dialogStore";
 import { removeGameToStandardBoxAction } from "./actions/removeGameToStandardBoxAction";
 
-type DialogFormProps = {
+type HandleDialogRendering = {
   userId: number;
   standardBox: {
     box: Box;
@@ -23,8 +23,11 @@ type DialogFormProps = {
 };
 
 // Formulário para remover um jogo de uma caixa padrão
-export function DialogForm({ userId, standardBox }: DialogFormProps) {
-  const { game, isOpen, handleIsOpen } = useDialogStore();
+export function HandleDialogRendering({
+  userId,
+  standardBox,
+}: DialogFormProps) {
+  const { game, handleIsOpen } = useDialogStore();
 
   const [formState, formAction] = useActionState(
     async () =>
@@ -55,41 +58,58 @@ export function DialogForm({ userId, standardBox }: DialogFormProps) {
   }, [formState?.messages.success, handleIsOpen]);
 
   return (
+    <DialogWrapping close={handleDialogClosing} action={formAction}>
+      <DialogHeader>
+        <DialogHeaderTitle className="text-left">
+          {game.title}
+        </DialogHeaderTitle>
+        {formState?.messages.error && (
+          <DialogHeaderDesc className="text-left">
+            <p className="text-red-600">{formState.messages.error}</p>
+          </DialogHeaderDesc>
+        )}
+      </DialogHeader>
+
+      <DialogBody>
+        Tem certeza que deseja remover o jogo{" "}
+        <span className="font-bold">{game.title}</span> da caixa{" "}
+        <span className="font-bold">{standardBox.name}</span>?
+      </DialogBody>
+
+      <DialogFooter>
+        <Button
+          variant="ghost"
+          width="full"
+          type="button"
+          onClick={handleDialogClosing}
+        >
+          Cancelar
+        </Button>
+
+        <Button variant="primary" width="full" type="submit">
+          Confirmar
+        </Button>
+      </DialogFooter>
+    </DialogWrapping>
+  );
+}
+
+type DialogFormProps = {
+  userId: number;
+  standardBox: {
+    box: Box;
+    name: string;
+  };
+};
+
+// Formulário para remover um jogo de uma caixa padrão
+export function DialogForm({ userId, standardBox }: DialogFormProps) {
+  const { isOpen } = useDialogStore();
+
+  return (
     <>
       {isOpen && (
-        <DialogWrapping close={handleDialogClosing} action={formAction}>
-          <DialogHeader>
-            <DialogHeaderTitle className="text-left">
-              {game.title}
-            </DialogHeaderTitle>
-            {formState?.messages.error && (
-              <DialogHeaderDesc className="text-left">
-                <p className="text-red-600">{formState.messages.error}</p>
-              </DialogHeaderDesc>
-            )}
-          </DialogHeader>
-
-          <DialogBody>
-            Tem certeza que deseja remover o jogo{" "}
-            <span className="font-bold">{game.title}</span> da caixa{" "}
-            <span className="font-bold">{standardBox.name}</span>?
-          </DialogBody>
-
-          <DialogFooter>
-            <Button
-              variant="ghost"
-              width="full"
-              type="button"
-              onClick={handleDialogClosing}
-            >
-              Cancelar
-            </Button>
-
-            <Button variant="primary" width="full" type="submit">
-              Confirmar
-            </Button>
-          </DialogFooter>
-        </DialogWrapping>
+        <HandleDialogRendering userId={userId} standardBox={standardBox} />
       )}
     </>
   );

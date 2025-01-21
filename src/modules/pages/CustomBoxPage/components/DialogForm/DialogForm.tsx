@@ -13,7 +13,7 @@ import { useState } from "react";
 import { removeGameToCustomBoxAction } from "./actions/removeGameToCustomBoxAction";
 import { useDialogStore } from "../../stores/dialogStore";
 
-type DialogFormProps = {
+type HandleDialogRendering = {
   userId: number;
   customBox: {
     id: number;
@@ -22,7 +22,7 @@ type DialogFormProps = {
 };
 
 // Formulário para remover um jogo de uma caixa padrão
-export function DialogForm({ userId, customBox }: DialogFormProps) {
+export function HandleDialogRendering({ userId, customBox }: DialogFormProps) {
   const { game, isOpen, handleIsOpen } = useDialogStore();
 
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -49,11 +49,6 @@ export function DialogForm({ userId, customBox }: DialogFormProps) {
   const handleCloseForm = () => {
     // Fecha o formulário
     handleIsOpen();
-
-    // Limpa o erro se houver
-    if (errorMessage) {
-      setErrorMessage("");
-    }
   };
 
   return (
@@ -92,6 +87,27 @@ export function DialogForm({ userId, customBox }: DialogFormProps) {
             </Button>
           </DialogFooter>
         </DialogWrapping>
+      )}
+    </>
+  );
+}
+
+type DialogFormProps = {
+  userId: number;
+  customBox: {
+    id: number;
+    name: string;
+  };
+};
+
+// Formulário para remover um jogo de uma caixa padrão
+export function DialogForm({ userId, customBox }: DialogFormProps) {
+  const { isOpen } = useDialogStore();
+
+  return (
+    <>
+      {isOpen && (
+        <HandleDialogRendering userId={userId} customBox={customBox} />
       )}
     </>
   );

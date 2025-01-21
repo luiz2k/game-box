@@ -3,8 +3,8 @@
 import {
   addGameToStandardBox,
   findAllStandardBoxByUserId,
-  getUserById,
-} from "@/modules/shared/lib/prisma/prisma";
+} from "@/modules/shared/lib/prisma/standardBox";
+import { findUserById } from "@/modules/shared/lib/prisma/user";
 import { getPlanInfos } from "@/modules/shared/utils/plains";
 import { Box } from "@prisma/client";
 import { revalidatePath } from "next/cache";
@@ -26,7 +26,7 @@ export async function addGameToStandardBoxAction({
     const standardBox = await findAllStandardBoxByUserId({
       userId,
       gameId,
-      box,
+      boxName: box,
     });
 
     if (standardBox.length > 0) {
@@ -34,14 +34,19 @@ export async function addGameToStandardBoxAction({
     }
 
     // Obtém informações sobre o usuário, se não encontrar, retorna
-    const user = await getUserById(userId);
+    const user = await findUserById({
+      userId: userId,
+    });
 
     if (!user) {
       throw "Usuário não encontrado.";
     }
 
     // Obtém todos os jogos dentro da caixa
-    const gamesInTheBox = await findAllStandardBoxByUserId({ userId, box });
+    const gamesInTheBox = await findAllStandardBoxByUserId({
+      userId,
+      boxName: box,
+    });
 
     // Obtém informações sobre o plano do usuário
     const userPlan = getPlanInfos(user.plan);
@@ -58,7 +63,7 @@ export async function addGameToStandardBoxAction({
     await addGameToStandardBox({
       userId: userId,
       gameId: gameId,
-      box: box,
+      boxName: box,
     });
 
     revalidatePath(`/jogos/${gameId}`);

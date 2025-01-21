@@ -1,9 +1,7 @@
-import {
-  findAllCustomBoxByUserId,
-  findAllListedGameByUserId,
-} from "@/modules/shared/lib/prisma/prisma";
 import { authSession } from "@/modules/shared/utils/session";
 import { Content } from "./components/Content/Content";
+import { findAllCustomBoxByUserId } from "@/modules/shared/lib/prisma/customBox";
+import { findAllListedGameByUserId } from "@/modules/shared/lib/prisma/listedGame";
 
 type CustomBoxButtonsProps = {
   gameId: number;
@@ -14,7 +12,9 @@ export async function CustomBoxButtons({ gameId }: CustomBoxButtonsProps) {
   const session = await authSession();
 
   // Obtem as caixas customizadas do usuário
-  const customBoxes = await findAllCustomBoxByUserId(session.id);
+  const customBoxes = await findAllCustomBoxByUserId({
+    userId: session.id,
+  });
 
   // Obtem as caixas onde o jogo foi listado
   const listedGames = await findAllListedGameByUserId({

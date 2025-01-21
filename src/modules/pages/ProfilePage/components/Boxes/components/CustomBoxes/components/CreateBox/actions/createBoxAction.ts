@@ -1,8 +1,8 @@
 "use server";
 
-import { createCustomBox } from "@/modules/shared/lib/prisma/prisma";
 import { revalidatePath } from "next/cache";
 import { createBoxSchema } from "../../validations/createBoxSchema";
+import { createCustomBox } from "@/modules/shared/lib/prisma/customBox";
 
 type CreateBoxAction = {
   formData: FormData;
@@ -31,7 +31,7 @@ export async function createBoxAction({ formData, userId }: CreateBoxAction) {
     // Cria uma nova caixa
     await createCustomBox({
       userId: userId,
-      name: formData.get("name") as string,
+      boxName: isValid.data.name,
     });
 
     // Atualiza as informações da página

@@ -7,7 +7,7 @@ import {
   GameCardWarapping,
 } from "@/modules/shared/components/GameCard/GameCard";
 import { PageTitle } from "@/modules/shared/components/PageTitle/PageTitle";
-import { findAllGames } from "@/modules/shared/lib/prisma/prisma";
+import { findAllGames } from "@/modules/shared/lib/prisma/game";
 
 import Link from "next/link";
 

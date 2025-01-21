@@ -1,6 +1,6 @@
 "use server";
 
-import { deleteCustomBox } from "@/modules/shared/lib/prisma/prisma";
+import { deleteCustomBox } from "@/modules/shared/lib/prisma/customBox";
 import { revalidatePath } from "next/cache";
 
 type DeleteCustomBoxAction = {

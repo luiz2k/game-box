@@ -1,5 +1,5 @@
 import { SubscriptionCard } from "@/modules/shared/components/SubscriptionCard/SubscriptionCard";
-import { findAllCustomBoxByUserId } from "@/modules/shared/lib/prisma/prisma";
+import { findAllCustomBoxByUserId } from "@/modules/shared/lib/prisma/customBox";
 import { getPlanInfos } from "@/modules/shared/utils/plains";
 import { authSession } from "@/modules/shared/utils/session";
 
@@ -11,7 +11,9 @@ export async function SignatureInfo({ plan }: SignatureInfoProps) {
   const session = await authSession();
 
   const planInfos = getPlanInfos(plan);
-  const userBoxes = await findAllCustomBoxByUserId(session.id);
+  const userBoxes = await findAllCustomBoxByUserId({
+    userId: session.id,
+  });
 
   return (
     <div className="flex flex-col gap-4 min-[945px]:flex-row">

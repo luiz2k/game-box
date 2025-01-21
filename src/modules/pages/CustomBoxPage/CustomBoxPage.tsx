@@ -8,15 +8,13 @@ import {
   GameCardWarapping,
 } from "@/modules/shared/components/GameCard/GameCard";
 import { PageTitle } from "@/modules/shared/components/PageTitle/PageTitle";
-import {
-  findAllGameListedInBox,
-  findCustomBoxByUserId,
-} from "@/modules/shared/lib/prisma/prisma";
 import { authSession } from "@/modules/shared/utils/session";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DialogForm } from "./components/DialogForm/DialogForm";
 import { GameCardCustomAction } from "./components/GameCardCustomAction/GameCardCustomAction";
+import { findCustomBoxByUserId } from "@/modules/shared/lib/prisma/customBox";
+import { findAllListedGameByUserId } from "@/modules/shared/lib/prisma/listedGame";
 
 type CustomBoxPageProps = {
   params: Promise<{
@@ -36,7 +34,10 @@ export async function CustomBoxPage({ params }: CustomBoxPageProps) {
   const session = await authSession();
 
   // Busca informações sobre a caixa
-  const customBox = await findCustomBoxByUserId(+boxId);
+  const customBox = await findCustomBoxByUserId({
+    boxId: +boxId,
+    userId: session.id,
+  });
 
   // Se não encontrar a caixa, retorna 404
   if (!customBox) {
@@ -44,7 +45,10 @@ export async function CustomBoxPage({ params }: CustomBoxPageProps) {
   }
 
   // Busca todos os jogos listados na caixa
-  const games = await findAllGameListedInBox(+boxId);
+  const games = await findAllListedGameByUserId({
+    userId: session.id,
+    boxId: +boxId,
+  });
 
   return (
     <section className="grid gap-10">

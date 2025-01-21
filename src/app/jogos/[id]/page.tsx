@@ -1,5 +1,5 @@
 import { GamePage } from "@/modules/pages/GamePage/GamePage";
-import { findAllGames } from "@/modules/shared/lib/prisma/prisma";
+import { findAllGames } from "@/modules/shared/lib/prisma/game";
 
 // Gera as rotas dinâmicas de forma estática
 export async function generateStaticParams() {

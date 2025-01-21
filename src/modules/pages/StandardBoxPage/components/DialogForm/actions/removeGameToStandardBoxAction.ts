@@ -3,7 +3,7 @@
 import {
   findAllStandardBoxByUserId,
   removeGameToStandardBox,
-} from "@/modules/shared/lib/prisma/prisma";
+} from "@/modules/shared/lib/prisma/standardBox";
 import { Box } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
@@ -22,7 +22,7 @@ export async function removeGameToStandardBoxAction(
     const standardBox = await findAllStandardBoxByUserId({
       userId: data.userId,
       gameId: data.gameId,
-      box: data.box,
+      boxName: data.box,
     });
 
     if (standardBox.length === 0) {
@@ -37,7 +37,7 @@ export async function removeGameToStandardBoxAction(
     await removeGameToStandardBox({
       userId: data.userId,
       gameId: data.gameId,
-      box: data.box,
+      boxName: data.box,
     });
 
     // Atualiza a página

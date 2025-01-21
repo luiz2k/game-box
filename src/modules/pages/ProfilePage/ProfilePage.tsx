@@ -1,16 +1,18 @@
 import { PageTitle } from "@/modules/shared/components/PageTitle/PageTitle";
-import { getUserById } from "@/modules/shared/lib/prisma/prisma";
 import { authSession } from "@/modules/shared/utils/session";
 import { redirect } from "next/navigation";
 import { Boxes } from "./components/Boxes/Boxes";
 import { SignatureInfo } from "./components/SignatureInfo/SignatureInfo";
+import { findUserById } from "@/modules/shared/lib/prisma/user";
 
 export async function ProfilePage() {
   // Obtém os dados da sessão do usuário
   const session = await authSession();
 
   // Obtém os dados do usuário pelo ID, se não encontrar, redireciona para a página inicial
-  const user = await getUserById(session.id);
+  const user = await findUserById({
+    userId: session.id,
+  });
 
   if (!user) {
     return redirect("/");

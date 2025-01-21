@@ -6,7 +6,7 @@ import {
   GameCardImage,
   GameCardWarapping,
 } from "@/modules/shared/components/GameCard/GameCard";
-import { findAllGames } from "@/modules/shared/lib/prisma/prisma";
+import { findAllGames } from "@/modules/shared/lib/prisma/game";
 import Link from "next/link";
 
 export async function PopularGames() {

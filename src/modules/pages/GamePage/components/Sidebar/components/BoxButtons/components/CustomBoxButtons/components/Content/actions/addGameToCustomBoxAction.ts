@@ -1,10 +1,10 @@
 "use server";
 
 import {
-  addGameToCustomBox,
+  addListedGame,
   findAllListedGameByUserId,
-  getUserById,
-} from "@/modules/shared/lib/prisma/prisma";
+} from "@/modules/shared/lib/prisma/listedGame";
+import { findUserById } from "@/modules/shared/lib/prisma/user";
 import { getPlanInfos } from "@/modules/shared/utils/plains";
 import { revalidatePath } from "next/cache";
 
@@ -24,7 +24,7 @@ export async function addGameToCustomBoxAction({
     const game = await findAllListedGameByUserId({
       userId: userId,
       gameId: gameId,
-      customBoxId: customBoxId,
+      boxId: customBoxId,
     });
 
     if (game.length > 0) {
@@ -32,7 +32,9 @@ export async function addGameToCustomBoxAction({
     }
 
     // Obtém informações sobre o usuário, se não encontrar, retorna
-    const user = await getUserById(userId);
+    const user = await findUserById({
+      userId: userId,
+    });
 
     if (!user) {
       throw "Usuário não encontrado.";
@@ -41,7 +43,7 @@ export async function addGameToCustomBoxAction({
     // Obtém todos os jogos dentro da caixa
     const gamesInTheBox = await findAllListedGameByUserId({
       userId: userId,
-      customBoxId: customBoxId,
+      boxId: customBoxId,
     });
 
     // Obtém informações sobre o plano do usuário
@@ -55,10 +57,10 @@ export async function addGameToCustomBoxAction({
       throw "Limite máximo de jogos dentro de caixa.";
     }
 
-    await addGameToCustomBox({
+    await addListedGame({
       userId: userId,
       gameId: gameId,
-      customBoxId: customBoxId,
+      boxId: customBoxId,
     });
 
     // Atualiza o conteúdo da página

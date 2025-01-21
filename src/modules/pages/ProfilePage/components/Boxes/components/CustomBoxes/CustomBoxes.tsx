@@ -1,7 +1,3 @@
-import {
-  findAllCustomBoxByUserId,
-  getUserById,
-} from "@/modules/shared/lib/prisma/prisma";
 import { authSession } from "@/modules/shared/utils/session";
 import Link from "next/link";
 import {
@@ -16,14 +12,20 @@ import { DeleteBox } from "./components/DeleteBox/DeleteBox";
 import { DoNotAllowToCreateBox } from "./components/DoNotAllowToCreateBox/DoNotAllowToCreateBox";
 import { getPlanInfos } from "@/modules/shared/utils/plains";
 import { redirect } from "next/navigation";
+import { findAllCustomBoxByUserId } from "@/modules/shared/lib/prisma/customBox";
+import { findUserById } from "@/modules/shared/lib/prisma/user";
 
 export async function CustomBoxes() {
   // Obtém os dados da sessão do usuário
   const session = await authSession();
 
   const [userBoxes, user] = await Promise.all([
-    findAllCustomBoxByUserId(session.id), // Busca todas as caixas que o usuário criou
-    getUserById(session.id), // Busca o usuário pelo ID
+    findAllCustomBoxByUserId({
+      userId: session.id,
+    }), // Busca todas as caixas que o usuário criou
+    findUserById({
+      userId: session.id,
+    }), // Busca o usuário pelo ID
   ]);
 
   if (!user) {

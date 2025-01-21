@@ -2,8 +2,8 @@
 
 import {
   findAllListedGameByUserId,
-  removeListedGameByUserId,
-} from "@/modules/shared/lib/prisma/prisma";
+  removeListedGame,
+} from "@/modules/shared/lib/prisma/listedGame";
 import { revalidatePath } from "next/cache";
 
 type RemoveGameToCustomBoxAction = {
@@ -20,7 +20,7 @@ export async function removeGameToCustomBoxAction(
   const standardBox = await findAllListedGameByUserId({
     userId: data.userId,
     gameId: data.gameId,
-    customBoxId: data.boxId,
+    boxId: data.boxId,
   });
 
   if (standardBox.length === 0) {
@@ -32,10 +32,10 @@ export async function removeGameToCustomBoxAction(
   }
 
   // Remove o jogo da caixa
-  await removeListedGameByUserId({
+  await removeListedGame({
     userId: data.userId,
     gameId: data.gameId,
-    customBoxId: data.boxId,
+    boxId: data.boxId,
   });
 
   // Atualiza a página

@@ -1,7 +1,7 @@
-import { findAllStandardBoxByUserId } from "@/modules/shared/lib/prisma/prisma";
 import { authSession } from "@/modules/shared/utils/session";
 import { standardBoxes } from "@/modules/shared/utils/standardBoxes";
 import { Content } from "./components/Content/Content";
+import { findAllStandardBoxByUserId } from "@/modules/shared/lib/prisma/standardBox";
 
 type StandardBoxButtonsProps = {
   gameId: number;

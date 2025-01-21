@@ -1,7 +1,7 @@
-import { findGameById } from "@/modules/shared/lib/prisma/prisma";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Sidebar } from "./components/Sidebar/Sidebar";
+import { findGameById } from "@/modules/shared/lib/prisma/game";
 
 type GamePageProps = {
   params: Promise<{ id: string }>;
@@ -16,7 +16,9 @@ export async function GamePage({ params }: GamePageProps) {
   }
 
   // Busca o jogo pelo ID, se não encontrar, retorna 404
-  const game = await findGameById(+id);
+  const game = await findGameById({
+    gameId: +id,
+  });
 
   // Se o jogo for undefined, retorna 404
   if (!game) {

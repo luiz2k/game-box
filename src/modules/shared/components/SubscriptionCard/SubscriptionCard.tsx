@@ -7,14 +7,14 @@ export async function SubscriptionCard() {
 
   return (
     <div className="space-y-5 rounded-2xl bg-black-2 p-4">
-      <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
+      <div className="flex flex-col justify-between gap-5 min-[962px]:flex-row min-[962px]:items-center">
         <div className="space-y-1">
           <h2 className="text-2xl font-bold">Faça já sua assinatura!</h2>
           <p>Comece sua jornada hoje com o plano perfeito para você</p>
         </div>
 
         <div className="space-y-1">
-          <p className="sm:text-end">Plano mensal</p>
+          <p className="min-[962px]:text-end">Plano mensal</p>
           <p className="text-4xl font-bold">R$ 24,99</p>
         </div>
       </div>

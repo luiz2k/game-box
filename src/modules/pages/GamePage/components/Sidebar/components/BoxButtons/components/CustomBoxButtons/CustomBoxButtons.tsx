@@ -1,5 +1,5 @@
 import { authSession } from "@/modules/shared/utils/session";
-import { Content } from "./components/Content/Content";
+import { Buttons } from "./components/Content/Buttons";
 import { findAllCustomBoxByUserId } from "@/modules/shared/lib/prisma/customBox";
 import { findAllListedGameByUserId } from "@/modules/shared/lib/prisma/listedGame";
 
@@ -36,6 +36,6 @@ export async function CustomBoxButtons({ gameId }: CustomBoxButtonsProps) {
   });
 
   return (
-    <Content userId={session.id} listedBoxes={listedBoxes} gameId={gameId} />
+    <Buttons userId={session.id} listedBoxes={listedBoxes} gameId={gameId} />
   );
 }

@@ -1,6 +1,6 @@
 import { authSession } from "@/modules/shared/utils/session";
 import { standardBoxes } from "@/modules/shared/utils/standardBoxes";
-import { Content } from "./components/Content/Content";
+import { Buttons } from "./components/Content/Buttons";
 import { findAllStandardBoxByUserId } from "@/modules/shared/lib/prisma/standardBox";
 
 type StandardBoxButtonsProps = {
@@ -32,6 +32,6 @@ export async function StandardBoxButtons({ gameId }: StandardBoxButtonsProps) {
   });
 
   return (
-    <Content userId={session.id} gameId={gameId} listedBoxes={listedBoxes} />
+    <Buttons userId={session.id} gameId={gameId} listedBoxes={listedBoxes} />
   );
 }

@@ -1,37 +1,36 @@
 "use client";
 
 import { Button } from "@/modules/shared/components/Button/Button";
+import { Box } from "@prisma/client";
 import { SquarePlus, Trash2 } from "lucide-react";
+import { removeGameToStandardBoxAction } from "./actions/removeGameToStandardBoxAction";
+import { addGameToStandardBoxAction } from "./actions/addGameToStandardBoxAction";
 import { useState } from "react";
-import { addGameToCustomBoxAction } from "./actions/addGameToCustomBoxAction";
-import { removeGameToCustomBoxAction } from "./actions/removeGameToCustomBoxAction";
 
-type ContentProps = {
+type ButtonsProps = {
   userId: number;
   gameId: number;
   listedBoxes: {
-    userId: number;
-    id: number;
+    contains: boolean;
+    box: Box;
     name: string;
-    constains: boolean;
   }[];
 };
-export function Content({ userId, gameId, listedBoxes }: ContentProps) {
+
+export function Buttons({ userId, gameId, listedBoxes }: ButtonsProps) {
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const handleOnClick = async (
-    boxId: number,
-    gameId: number,
-    constains: boolean,
-  ) => {
-    if (constains) {
+  // Adiciona ou remove o jogo da caixa
+  const handleOnClick = async (box: Box, contains: boolean) => {
+    if (contains) {
       // Remove o jogo da caixa
-      const response = await removeGameToCustomBoxAction({
+      const response = await removeGameToStandardBoxAction({
         userId: userId,
         gameId: gameId,
-        customBoxId: boxId,
+        box: box,
       });
 
+      // Se houver error, exibe a mensagem
       if (response?.messages.error) {
         setErrorMessage(response.messages.error);
       }
@@ -40,34 +39,33 @@ export function Content({ userId, gameId, listedBoxes }: ContentProps) {
     }
 
     // Adiciona o jogo na caixa
-    const response = await addGameToCustomBoxAction({
+    const response = await addGameToStandardBoxAction({
       userId: userId,
       gameId: gameId,
-      customBoxId: boxId,
+      box: box,
     });
 
     if (response?.messages.error) {
       setErrorMessage(response.messages.error);
     }
   };
-
   return (
     <div className="space-y-2">
       <div className="space-y-1">
-        <h2 className="font-bold">Suas caixas</h2>
+        <h2 className="font-bold">Caixas padrão</h2>
         {errorMessage && <p className="text-sm text-red-600">{errorMessage}</p>}
       </div>
 
       <ul className="scroll max-h-[13.5rem] space-y-2 overflow-y-auto pr-2">
         {listedBoxes.map((box) => (
-          <li key={box.id}>
+          <li key={box.box}>
             <Button
               type="button"
-              variant={box.constains ? "ghost" : "primary"}
+              variant={box.contains ? "ghost" : "primary"}
               width="full"
-              rightIcon={box.constains ? Trash2 : SquarePlus}
+              rightIcon={box.contains ? Trash2 : SquarePlus}
               space="between"
-              onClick={() => handleOnClick(box.id, gameId, box.constains)}
+              onClick={async () => handleOnClick(box.box, box.contains)}
             >
               {box.name}
             </Button>

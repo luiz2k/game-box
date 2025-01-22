@@ -17,7 +17,7 @@ type ContentProps = {
   }[];
 };
 export function Content({ userId, gameId, listedBoxes }: ContentProps) {
-  const [errorMenssage, setErrorMenssage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleOnClick = async (
     boxId: number,
@@ -33,7 +33,7 @@ export function Content({ userId, gameId, listedBoxes }: ContentProps) {
       });
 
       if (response?.messages.error) {
-        setErrorMenssage(response.messages.error);
+        setErrorMessage(response.messages.error);
       }
 
       return;
@@ -47,7 +47,7 @@ export function Content({ userId, gameId, listedBoxes }: ContentProps) {
     });
 
     if (response?.messages.error) {
-      setErrorMenssage(response.messages.error);
+      setErrorMessage(response.messages.error);
     }
   };
 
@@ -55,9 +55,7 @@ export function Content({ userId, gameId, listedBoxes }: ContentProps) {
     <div className="space-y-2">
       <div className="space-y-1">
         <h2 className="font-bold">Suas caixas</h2>
-        {errorMenssage && (
-          <p className="text-sm text-red-600">{errorMenssage}</p>
-        )}
+        {errorMessage && <p className="text-sm text-red-600">{errorMessage}</p>}
       </div>
 
       <ul className="scroll max-h-[13.5rem] space-y-2 overflow-y-auto pr-2">

@@ -18,7 +18,7 @@ type ButtonsProps = {
 };
 
 export function Content({ userId, gameId, listedBoxes }: ButtonsProps) {
-  const [errorMenssage, setErrorMenssage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   // Adiciona ou remove o jogo da caixa
   const handleOnClick = async (box: Box, contains: boolean) => {
@@ -32,7 +32,7 @@ export function Content({ userId, gameId, listedBoxes }: ButtonsProps) {
 
       // Se houver error, exibe a mensagem
       if (response?.messages.error) {
-        setErrorMenssage(response.messages.error);
+        setErrorMessage(response.messages.error);
       }
 
       return;
@@ -46,16 +46,14 @@ export function Content({ userId, gameId, listedBoxes }: ButtonsProps) {
     });
 
     if (response?.messages.error) {
-      setErrorMenssage(response.messages.error);
+      setErrorMessage(response.messages.error);
     }
   };
   return (
     <div className="space-y-2">
       <div className="space-y-1">
         <h2 className="font-bold">Caixas padrão</h2>
-        {errorMenssage && (
-          <p className="text-sm text-red-600">{errorMenssage}</p>
-        )}
+        {errorMessage && <p className="text-sm text-red-600">{errorMessage}</p>}
       </div>
 
       <ul className="scroll max-h-[13.5rem] space-y-2 overflow-y-auto pr-2">

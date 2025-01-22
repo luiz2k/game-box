@@ -49,7 +49,7 @@ export function LoginForm() {
             </>
           )}
 
-          {/* Se não houver mensagens, exibe a menssagem padrão */}
+          {/* Se não houver mensagens, exibe a mensagem padrão */}
           {!formState?.messages && (
             <p>Entre com seu e-mail e senha para acessar sua conta.</p>
           )}

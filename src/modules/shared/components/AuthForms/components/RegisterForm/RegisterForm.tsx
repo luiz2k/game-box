@@ -42,7 +42,7 @@ export function RegisterForm() {
             </>
           )}
 
-          {/* Se não houver mensagens, exibe a menssagem padrão */}
+          {/* Se não houver mensagens, exibe a mensagem padrão */}
           {!formState?.messages && <p>Crie uma conta e organize seus jogos.</p>}
         </DialogHeaderDesc>
       </DialogHeader>

@@ -1,16 +1,18 @@
 import { SubscriptionCard } from "@/modules/shared/components/SubscriptionCard/SubscriptionCard";
 import { findAllCustomBoxByUserId } from "@/modules/shared/lib/prisma/customBox";
 import { getPlanInfos } from "@/modules/shared/utils/plains";
-import { authSession } from "@/modules/shared/utils/session";
 import { twMerge } from "tailwind-merge";
 
 type SignatureInfoProps = {
   plan: string;
+  session: {
+    expires: string;
+    id: number;
+    username: string;
+  };
 };
 
-export async function SignatureInfo({ plan }: SignatureInfoProps) {
-  const session = await authSession();
-
+export async function SignatureInfo({ plan, session }: SignatureInfoProps) {
   // Obtém as informações do plano do usuário
   const planInfos = getPlanInfos(plan);
 
@@ -45,7 +47,7 @@ export async function SignatureInfo({ plan }: SignatureInfoProps) {
       </div>
 
       <div className="flex-grow">
-        {planInfos?.name === "Free" && <SubscriptionCard />}
+        {planInfos?.name === "Free" && <SubscriptionCard session={session} />}
       </div>
     </div>
   );

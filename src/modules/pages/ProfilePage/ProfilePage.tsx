@@ -1,9 +1,9 @@
 import { PageTitle } from "@/modules/shared/components/PageTitle/PageTitle";
+import { findUserById } from "@/modules/shared/lib/prisma/user";
 import { authSession } from "@/modules/shared/utils/session";
 import { redirect } from "next/navigation";
 import { Boxes } from "./components/Boxes/Boxes";
 import { SignatureInfo } from "./components/SignatureInfo/SignatureInfo";
-import { findUserById } from "@/modules/shared/lib/prisma/user";
 
 export async function ProfilePage() {
   // Obtém os dados da sessão do usuário
@@ -29,7 +29,7 @@ export async function ProfilePage() {
         }
       />
 
-      <SignatureInfo plan={user.plan} />
+      <SignatureInfo plan={user.plan} session={session} />
 
       <Boxes />
     </section>

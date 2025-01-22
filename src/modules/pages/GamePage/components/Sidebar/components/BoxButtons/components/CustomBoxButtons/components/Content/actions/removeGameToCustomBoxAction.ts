@@ -1,5 +1,6 @@
 "use server";
 
+import { CustomError } from "@/modules/shared/utils/errorHandler";
 import {
   findAllListedGameByUserId,
   removeListedGame,
@@ -26,7 +27,7 @@ export async function removeGameToCustomBoxAction({
     });
 
     if (!game) {
-      throw "Jogo não encontrado dentro da caixa.";
+      throw new CustomError("Jogo não encontrado dentro da caixa.");
     }
 
     await removeListedGame({
@@ -37,19 +38,17 @@ export async function removeGameToCustomBoxAction({
 
     revalidatePath(`/jogos/${gameId}`);
   } catch (error) {
-    console.error(error);
-
-    if (error instanceof Error) {
+    if (error instanceof CustomError) {
       return {
-        menssages: {
-          error: "Ocorreu um erro inesperado, tente novamente.",
+        messages: {
+          error: error.message,
         },
       };
     }
 
     return {
-      menssages: {
-        error: String(error),
+      messages: {
+        error: "Ocorreu um erro inesperado, por favor, tente novamente.",
       },
     };
   }

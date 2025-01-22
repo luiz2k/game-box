@@ -1,5 +1,6 @@
 "use server";
 
+import { CustomError } from "@/modules/shared/utils/errorHandler";
 import {
   findAllStandardBoxByUserId,
   removeGameToStandardBox,
@@ -26,11 +27,7 @@ export async function removeGameToStandardBoxAction(
     });
 
     if (standardBox.length === 0) {
-      return {
-        messages: {
-          error: "Jogo não encontrado na caixa.",
-        },
-      };
+      throw new CustomError("Jogo não encontrado na caixa.");
     }
 
     // Remove o jogo da caixa
@@ -48,10 +45,18 @@ export async function removeGameToStandardBoxAction(
         success: "Jogo removido com sucesso.",
       },
     };
-  } catch {
+  } catch (error) {
+    if (error instanceof CustomError) {
+      return {
+        messages: {
+          error: error.message,
+        },
+      };
+    }
+
     return {
       messages: {
-        error: "Ocorreu um erro ao remover o jogo, Tente novamente.",
+        error: "Ocorreu um erro inesperado, por favor, tente novamente.",
       },
     };
   }

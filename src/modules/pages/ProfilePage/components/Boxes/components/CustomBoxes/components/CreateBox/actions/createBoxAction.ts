@@ -1,8 +1,12 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { createBoxSchema } from "../../validations/createBoxSchema";
+import {
+  CreateBoxSchema,
+  createBoxSchema,
+} from "../../validations/createBoxSchema";
 import { createCustomBox } from "@/modules/shared/lib/prisma/customBox";
+import { CustomError } from "@/modules/shared/utils/errorHandler";
 
 type CreateBoxAction = {
   formData: FormData;
@@ -19,13 +23,13 @@ export async function createBoxAction({ formData, userId }: CreateBoxAction) {
     const isValid = createBoxSchema.safeParse(data);
 
     if (!isValid.success) {
-      return {
-        messages: {
-          error: "Por favor, preencha todos os campos corretamente.",
+      throw new CustomError(
+        "Por favor, preencha todos os campos corretamente.",
+        {
+          inputErrors: isValid.error.flatten().fieldErrors,
+          inputValues: data,
         },
-        inputErrors: isValid.error.flatten().fieldErrors, // Retorna os erros de validação
-        inputValues: data, // Retorna os valores do formulário
-      };
+      );
     }
 
     // Cria uma nova caixa
@@ -42,10 +46,20 @@ export async function createBoxAction({ formData, userId }: CreateBoxAction) {
         success: "Caixa criada com sucesso.",
       },
     };
-  } catch {
+  } catch (error) {
+    if (error instanceof CustomError) {
+      return {
+        messages: {
+          error: error.message,
+        },
+        inputErrors: error.others?.inputErrors as CreateBoxSchema,
+        inputValues: error.others?.inputValues as CreateBoxSchema,
+      };
+    }
+
     return {
       messages: {
-        error: "Ocorreu um erro ao criar a caixa. Tente novamente.",
+        error: "Ocorreu um erro inesperado, por favor, tente novamente.",
       },
     };
   }

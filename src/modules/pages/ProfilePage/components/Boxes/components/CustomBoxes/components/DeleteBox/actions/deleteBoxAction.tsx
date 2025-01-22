@@ -1,5 +1,6 @@
 "use server";
 
+import { CustomError } from "@/modules/shared/utils/errorHandler";
 import {
   deleteCustomBox,
   findCustomBoxByUserId,
@@ -24,11 +25,7 @@ export async function deleteBoxAction({
     });
 
     if (!customBox) {
-      return {
-        messages: {
-          error: "Caixa não encontrada.",
-        },
-      };
+      throw new CustomError("Caixa não encontrada.");
     }
 
     // Deleta a caixa
@@ -45,10 +42,18 @@ export async function deleteBoxAction({
         success: "Caixa deletada com sucesso.",
       },
     };
-  } catch {
+  } catch (error) {
+    if (error instanceof CustomError) {
+      return {
+        messages: {
+          error: error.message,
+        },
+      };
+    }
+
     return {
       messages: {
-        error: "Ocorreu um erro ao deletar a caixa. Tente novamente.",
+        error: "Ocorreu um erro inesperado, por favor, tente novamente.",
       },
     };
   }

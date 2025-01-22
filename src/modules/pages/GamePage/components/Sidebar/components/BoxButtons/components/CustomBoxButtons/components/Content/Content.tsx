@@ -32,8 +32,8 @@ export function Content({ userId, gameId, listedBoxes }: ContentProps) {
         customBoxId: boxId,
       });
 
-      if (response?.menssages.error) {
-        setErrorMenssage(response.menssages.error);
+      if (response?.messages.error) {
+        setErrorMenssage(response.messages.error);
       }
 
       return;
@@ -46,8 +46,8 @@ export function Content({ userId, gameId, listedBoxes }: ContentProps) {
       customBoxId: boxId,
     });
 
-    if (response?.menssages.error) {
-      setErrorMenssage(response.menssages.error);
+    if (response?.messages.error) {
+      setErrorMenssage(response.messages.error);
     }
   };
 

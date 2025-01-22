@@ -61,8 +61,8 @@ export function LoginForm() {
           label="E-mail"
           name="email"
           placeholder="@"
-          error={formState?.inputErrors?.email?.toString()}
-          defaultValue={formState?.inputValues?.email.toString()}
+          error={formState?.inputErrors?.email}
+          defaultValue={formState?.inputValues?.email}
           autoFocus
           width="full"
         />
@@ -70,8 +70,8 @@ export function LoginForm() {
           label="Senha"
           name="password"
           placeholder="kwjd451q"
-          error={formState?.inputErrors?.password?.toString()}
-          defaultValue={formState?.inputValues?.password.toString()}
+          error={formState?.inputErrors?.password}
+          defaultValue={formState?.inputValues?.password}
           width="full"
         />
       </DialogBody>

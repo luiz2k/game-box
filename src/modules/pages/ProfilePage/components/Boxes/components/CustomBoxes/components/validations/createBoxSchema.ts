@@ -7,3 +7,5 @@ export const createBoxSchema = z.object({
     .min(2, { message: "O nome da caixa deve ter no mínimo 2 caracteres." })
     .max(25, { message: "O nome da caixa deve ter no máximo 25 caracteres." }),
 });
+
+export type CreateBoxSchema = z.infer<typeof createBoxSchema>;

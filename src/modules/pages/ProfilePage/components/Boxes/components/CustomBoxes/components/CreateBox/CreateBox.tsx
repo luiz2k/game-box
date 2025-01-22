@@ -63,8 +63,8 @@ function HandleDialogRendering({
             width="full"
             name="name"
             label="Nome da caixa"
-            error={formState?.inputErrors?.name?.toString() || ""}
-            defaultValue={formState?.inputValues?.name.toString() || ""}
+            error={formState?.inputErrors?.name}
+            defaultValue={formState?.inputValues?.name}
           />
         </DialogBody>
 

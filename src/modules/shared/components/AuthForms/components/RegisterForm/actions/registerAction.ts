@@ -2,8 +2,9 @@
 
 import { prisma } from "@/modules/shared/lib/prisma/prisma";
 import { hash } from "bcryptjs";
-import { registerSchema } from "../validations/registerSchema";
+import { RegisterSchema, registerSchema } from "../validations/registerSchema";
 import { stripeCreateCustomer } from "@/modules/shared/lib/stripe/stripe";
+import { CustomError } from "@/modules/shared/utils/errorHandler";
 
 // Ação de registrar um usuário
 export async function registerAction(_prev: unknown, formData: FormData) {
@@ -15,13 +16,13 @@ export async function registerAction(_prev: unknown, formData: FormData) {
     const isValid = registerSchema.safeParse(data);
 
     if (!isValid.success) {
-      return {
-        messages: {
-          error: "Por favor, preencha todos os campos corretamente.",
+      throw new CustomError(
+        "Por favor, preencha todos os campos corretamente.",
+        {
+          inputErrors: isValid.error?.flatten().fieldErrors, // Retorna os erros de validação
+          inputValues: data, // Retorna os valores do formulário
         },
-        inputErrors: isValid.error?.flatten().fieldErrors, // Retorna os erros de validação
-        inputValues: data, // Retorna os valores do formulário
-      };
+      );
     }
 
     // Desestrutura os dados do formulário
@@ -35,12 +36,9 @@ export async function registerAction(_prev: unknown, formData: FormData) {
     });
 
     if (userExist > 0) {
-      return {
-        messages: {
-          error: "E-mail já cadastrado.",
-        },
+      throw new CustomError("E-mail já cadastrado.", {
         inputValues: data, // Retorna os valores do formulário
-      };
+      });
     }
 
     // Cria o cliente no Stripe
@@ -66,11 +64,19 @@ export async function registerAction(_prev: unknown, formData: FormData) {
       },
     };
   } catch (error) {
-    console.error("Ocorreu um erro inesperado:", error);
+    if (error instanceof CustomError) {
+      return {
+        messages: {
+          error: error.message,
+        },
+        inputErrors: error.others?.inputErrors as RegisterSchema,
+        inputValues: error.others?.inputValues as RegisterSchema,
+      };
+    }
 
     return {
       messages: {
-        error: "Ocorreu um erro inesperado. Por favor, tente novamente.",
+        error: "Ocorreu um erro inesperado, por favor, tente novamente.",
       },
     };
   }

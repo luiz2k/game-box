@@ -52,8 +52,8 @@ export function RegisterForm() {
           label="Usuário"
           name="username"
           placeholder="Exemplo"
-          error={formState?.inputErrors?.username?.toString()}
-          defaultValue={formState?.inputValues?.username.toString()}
+          error={formState?.inputErrors?.username}
+          defaultValue={formState?.inputValues?.username}
           autoFocus
           width="full"
         />
@@ -61,24 +61,24 @@ export function RegisterForm() {
           label="E-mail"
           name="email"
           placeholder="@"
-          error={formState?.inputErrors?.email?.toString()}
-          defaultValue={formState?.inputValues?.email.toString()}
+          error={formState?.inputErrors?.email}
+          defaultValue={formState?.inputValues?.email}
           width="full"
         />
         <FormInput
           label="Senha"
           name="password"
           placeholder="kwjd451q"
-          error={formState?.inputErrors?.password?.toString()}
-          defaultValue={formState?.inputValues?.password.toString()}
+          error={formState?.inputErrors?.password}
+          defaultValue={formState?.inputValues?.password}
           width="full"
         />
         <FormInput
           label="Confirmar senha"
           name="confirmPassword"
           placeholder="kwjd451q"
-          error={formState?.inputErrors?.confirmPassword?.toString()}
-          defaultValue={formState?.inputValues?.confirmPassword.toString()}
+          error={formState?.inputErrors?.confirmPassword}
+          defaultValue={formState?.inputValues?.confirmPassword}
           width="full"
         />
       </DialogBody>

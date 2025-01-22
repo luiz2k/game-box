@@ -3,7 +3,8 @@
 import { signIn } from "@/auth";
 import { prisma } from "@/modules/shared/lib/prisma/prisma";
 import { compare } from "bcryptjs";
-import { loginSchema } from "../validations/loginSchema";
+import { LoginSchema, loginSchema } from "../validations/loginSchema";
+import { CustomError } from "@/modules/shared/utils/errorHandler";
 
 // Ação de logar um usuário
 export async function loginAction(_prev: unknown, formData: FormData) {
@@ -15,13 +16,13 @@ export async function loginAction(_prev: unknown, formData: FormData) {
     const isValid = loginSchema.safeParse(data);
 
     if (!isValid.success) {
-      return {
-        messages: {
-          error: "Por favor, preencha todos os campos corretamente.",
+      throw new CustomError(
+        "Por favor, preencha todos os campos corretamente.",
+        {
+          inputErrors: isValid.error?.flatten().fieldErrors, // Retorna os erros de validação
+          inputValues: data, // Retorna os valores anteriormente preenchidos
         },
-        inputErrors: isValid.error?.flatten().fieldErrors, // Retorna os erros de validação
-        inputValues: data, // Retorna os valores do formulário
-      };
+      );
     }
 
     // Desestrutura os dados do formulário
@@ -35,24 +36,18 @@ export async function loginAction(_prev: unknown, formData: FormData) {
     });
 
     if (!userExists) {
-      return {
-        messages: {
-          error: "E-mail ou senha incorretos.",
-        },
-        inputValues: data, // Retorna os valores do formulário
-      };
+      throw new CustomError("E-mail ou senha incorretos.", {
+        inputValues: data, // Retorna os valores anteriormente preenchidos
+      });
     }
 
     // Verifica se a senha é valida
     const passwordIsValid = await compare(password, userExists.password);
 
     if (!passwordIsValid) {
-      return {
-        messages: {
-          error: "E-mail ou senha incorretos.",
-        },
-        inputValues: data, // Retorna os valores do formulário
-      };
+      throw new CustomError("E-mail ou senha incorretos.", {
+        inputValues: data, // Retorna os valores anteriormente preenchidos
+      });
     }
 
     // Se tudo estiver OK, loga o usuário com o Auth.js
@@ -68,11 +63,19 @@ export async function loginAction(_prev: unknown, formData: FormData) {
       },
     };
   } catch (error) {
-    console.error("Ocorreu um erro inesperado:", error);
+    if (error instanceof CustomError) {
+      return {
+        messages: {
+          error: error.message,
+        },
+        inputErrors: error.others?.inputErrors as LoginSchema,
+        inputValues: error.others?.inputValues as LoginSchema,
+      };
+    }
 
     return {
       messages: {
-        error: "Ocorreu um erro inesperado. Por favor, tente novamente.",
+        error: "Ocorreu um erro inesperado, por favor, tente novamente.",
       },
     };
   }

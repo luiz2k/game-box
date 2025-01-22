@@ -31,8 +31,8 @@ export function Content({ userId, gameId, listedBoxes }: ButtonsProps) {
       });
 
       // Se houver error, exibe a mensagem
-      if (response?.menssages.error) {
-        setErrorMenssage(response.menssages.error);
+      if (response?.messages.error) {
+        setErrorMenssage(response.messages.error);
       }
 
       return;
@@ -45,8 +45,8 @@ export function Content({ userId, gameId, listedBoxes }: ButtonsProps) {
       box: box,
     });
 
-    if (response?.menssages.error) {
-      setErrorMenssage(response.menssages.error);
+    if (response?.messages.error) {
+      setErrorMenssage(response.messages.error);
     }
   };
   return (

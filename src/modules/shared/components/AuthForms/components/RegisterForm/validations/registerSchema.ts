@@ -21,3 +21,5 @@ export const registerSchema = z
     path: ["confirmPassword"],
     message: "As senhas devem ser iguais.",
   });
+
+export type RegisterSchema = z.infer<typeof registerSchema>;

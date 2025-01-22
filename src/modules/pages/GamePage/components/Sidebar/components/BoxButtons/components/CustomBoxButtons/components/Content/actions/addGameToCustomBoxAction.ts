@@ -1,5 +1,6 @@
 "use server";
 
+import { CustomError } from "@/modules/shared/utils/errorHandler";
 import {
   addListedGame,
   findAllListedGameByUserId,
@@ -28,7 +29,7 @@ export async function addGameToCustomBoxAction({
     });
 
     if (game.length > 0) {
-      throw "Jogo já adicionado dentro da caixa.";
+      throw new CustomError("Jogo já adicionado dentro da caixa.");
     }
 
     // Obtém informações sobre o usuário, se não encontrar, retorna
@@ -37,7 +38,7 @@ export async function addGameToCustomBoxAction({
     });
 
     if (!user) {
-      throw "Usuário não encontrado.";
+      throw new CustomError("Usuário não encontrado.");
     }
 
     // Obtém todos os jogos dentro da caixa
@@ -54,7 +55,7 @@ export async function addGameToCustomBoxAction({
     const limitExceeded = gamesInTheBox.length >= boxLimit;
 
     if (limitExceeded) {
-      throw "Limite máximo de jogos dentro de caixa.";
+      throw new CustomError("Limite máximo de jogos dentro de caixa.");
     }
 
     await addListedGame({
@@ -66,19 +67,17 @@ export async function addGameToCustomBoxAction({
     // Atualiza o conteúdo da página
     revalidatePath(`/jogos/${gameId}`);
   } catch (error) {
-    console.error(error);
-
-    if (error instanceof Error) {
+    if (error instanceof CustomError) {
       return {
-        menssages: {
-          error: "Ocorreu um erro inesperado, tente novamente.",
+        messages: {
+          error: error.message,
         },
       };
     }
 
     return {
-      menssages: {
-        error: String(error),
+      messages: {
+        error: "Ocorreu um erro inesperado, por favor, tente novamente.",
       },
     };
   }

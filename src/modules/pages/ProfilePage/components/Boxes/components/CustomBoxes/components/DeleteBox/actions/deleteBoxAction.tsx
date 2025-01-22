@@ -1,6 +1,9 @@
 "use server";
 
-import { deleteCustomBox } from "@/modules/shared/lib/prisma/customBox";
+import {
+  deleteCustomBox,
+  findCustomBoxByUserId,
+} from "@/modules/shared/lib/prisma/customBox";
 import { revalidatePath } from "next/cache";
 
 type DeleteCustomBoxAction = {
@@ -14,6 +17,20 @@ export async function deleteBoxAction({
   userId,
 }: DeleteCustomBoxAction) {
   try {
+    // Busca a caixa que será excluido, se não encontrar, retorna
+    const customBox = await findCustomBoxByUserId({
+      boxId: boxId,
+      userId: userId,
+    });
+
+    if (!customBox) {
+      return {
+        messages: {
+          error: "Caixa não encontrada.",
+        },
+      };
+    }
+
     // Deleta a caixa
     await deleteCustomBox({
       boxId: boxId,

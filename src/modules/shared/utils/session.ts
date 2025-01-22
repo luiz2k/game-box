@@ -25,7 +25,7 @@ export async function authSession() {
 
   return {
     expires: session.expires,
-    id: +session.user.id,
-    username: session.user.username,
+    id: +session.user.id as number,
+    username: session.user.username as string,
   };
 }

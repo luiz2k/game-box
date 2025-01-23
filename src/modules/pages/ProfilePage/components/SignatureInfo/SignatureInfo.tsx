@@ -47,7 +47,7 @@ export async function SignatureInfo({ plan, session }: SignatureInfoProps) {
       </div>
 
       <div className="flex-grow">
-        {planInfos?.name === "Free" && <SubscriptionCard session={session} />}
+        {planInfos?.name === "Free" && <SubscriptionCard />}
       </div>
     </div>
   );

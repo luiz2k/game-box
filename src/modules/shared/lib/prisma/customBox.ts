@@ -58,11 +58,11 @@ type DeleteCustomBox = {
 };
 
 // Remove uma caixa customizada
-export async function deleteCustomBox(data: DeleteCustomBox) {
+export async function deleteCustomBox({ boxId, userId }: DeleteCustomBox) {
   await prisma.customBox.delete({
     where: {
-      id: data.boxId,
-      userId: data.userId,
+      id: boxId,
+      userId: userId,
     },
   });
 }

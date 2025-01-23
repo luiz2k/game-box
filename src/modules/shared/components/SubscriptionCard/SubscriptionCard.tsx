@@ -1,15 +1,10 @@
 import { Check } from "lucide-react";
 import { Button } from "../Button/Button";
+import { auth } from "@/auth";
 
-type SubscriptionCardProps = {
-  session: {
-    expires: string;
-    id: number;
-    username: string;
-  };
-};
+export async function SubscriptionCard() {
+  const session = await auth();
 
-export async function SubscriptionCard({ session }: SubscriptionCardProps) {
   return (
     <div className="space-y-5 rounded-2xl bg-black-2 p-4">
       <div className="flex flex-col justify-between gap-5 min-[962px]:flex-row min-[962px]:items-center">

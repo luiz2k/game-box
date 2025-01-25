@@ -1,10 +1,7 @@
 import { Check } from "lucide-react";
-import { Button } from "../Button/Button";
-import { auth } from "@/auth";
+import { Buttons } from "./components/Buttons/Buttons";
 
 export async function SubscriptionCard() {
-  const session = await auth();
-
   return (
     <div className="space-y-5 rounded-2xl bg-black-2 p-4">
       <div className="flex flex-col justify-between gap-5 min-[962px]:flex-row min-[962px]:items-center">
@@ -34,11 +31,7 @@ export async function SubscriptionCard() {
         </li>
       </ul>
 
-      <Button width="full" variant="primary">
-        {session
-          ? "Faça já sua assinatura!"
-          : "Crie uma conta e faça sua assinatura!"}
-      </Button>
+      <Buttons />
     </div>
   );
 }

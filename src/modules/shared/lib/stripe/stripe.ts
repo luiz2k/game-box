@@ -38,8 +38,6 @@ export async function stripeCreateCustomer({
   if (customerExists) {
     return {
       customerId: customerExists.id,
-      subscriptionId: customerExists.subscriptions?.data[0].status as string,
-      subscriptionStatus: customerExists.subscriptions?.data[0].id as string,
     };
   }
 
@@ -47,16 +45,6 @@ export async function stripeCreateCustomer({
   const customer = await stripe.customers.create({
     name: username,
     email: email,
-  });
-
-  // Define a assinatura Free por padão após criar o cliente
-  const subscription = await stripe.subscriptions.create({
-    customer: customer.id,
-    items: [
-      {
-        price: process.env.STRIPE_FREE_SIGNATURE_ID,
-      },
-    ],
   });
 
   // Retorna o ID do cliente e informações da assinatura

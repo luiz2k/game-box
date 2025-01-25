@@ -54,7 +54,6 @@ export async function registerAction(_prev: unknown, formData: FormData) {
         email,
         password: hashedPassword,
         stripeCustomerId: customer.customerId,
-        stripeSubscriptionId: customer.subscriptionId,
       },
     });
 

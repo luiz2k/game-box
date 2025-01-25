@@ -17,7 +17,7 @@ export function DialogWrapping({
 }: DialogWrappingProps) {
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black-2/10 backdrop-blur-3xl"
+      className="fixed inset-0 z-10 flex items-center justify-center bg-black-2/10 backdrop-blur-3xl"
       onClick={close}
     >
       <form

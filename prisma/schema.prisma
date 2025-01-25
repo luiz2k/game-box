@@ -17,7 +17,7 @@ model User {
 
   // Informações relacionadas ao Stripe 
   stripeCustomerId     String @unique @map("stripe_customer_id")
-  stripeSubscriptionId String @unique @map("stripe_subscription_id")
+  stripeSubscriptionId String? @unique @map("stripe_subscription_id")
 
   standardBox StandardBox[]
   customBox   CustomBox[]

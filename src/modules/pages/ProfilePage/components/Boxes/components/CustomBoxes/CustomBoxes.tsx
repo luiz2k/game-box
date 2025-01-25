@@ -1,5 +1,9 @@
-import { authSession } from "@/modules/shared/utils/session";
+import { auth } from "@/auth";
+import { findAllCustomBoxByUserId } from "@/modules/shared/lib/prisma/customBox";
+import { findUserById } from "@/modules/shared/lib/prisma/user";
+import { getPlanInfos } from "@/modules/shared/utils/plains";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import {
   BoxCardHeader,
   BoxCardHeaderContent,
@@ -10,21 +14,21 @@ import { BoxCardHeaderActionCustom } from "./components/BoxCardHeaderActionCusto
 import { CreateBox } from "./components/CreateBox/CreateBox";
 import { DeleteBox } from "./components/DeleteBox/DeleteBox";
 import { DoNotAllowToCreateBox } from "./components/DoNotAllowToCreateBox/DoNotAllowToCreateBox";
-import { getPlanInfos } from "@/modules/shared/utils/plains";
-import { redirect } from "next/navigation";
-import { findAllCustomBoxByUserId } from "@/modules/shared/lib/prisma/customBox";
-import { findUserById } from "@/modules/shared/lib/prisma/user";
 
 export async function CustomBoxes() {
   // Obtém os dados da sessão do usuário
-  const session = await authSession();
+  const session = await auth();
+
+  if (!session) {
+    return null;
+  }
 
   const [userBoxes, user] = await Promise.all([
     findAllCustomBoxByUserId({
-      userId: session.id,
+      userId: +session.user.id,
     }), // Busca todas as caixas que o usuário criou
     findUserById({
-      userId: session.id,
+      userId: +session.user.id,
     }), // Busca o usuário pelo ID
   ]);
 
@@ -74,12 +78,12 @@ export async function CustomBoxes() {
           </>
         ) : (
           <>
-            <CreateBox userId={session.id} />
+            <CreateBox userId={+session.user.id} />
           </>
         )}
       </div>
 
-      <DeleteBox userId={session.id} />
+      <DeleteBox userId={+session.user.id} />
     </div>
   );
 }

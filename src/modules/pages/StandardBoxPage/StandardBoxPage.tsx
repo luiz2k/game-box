@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import {
   GameCardBody,
   GameCardBodyAction,
@@ -8,14 +9,13 @@ import {
   GameCardWarapping,
 } from "@/modules/shared/components/GameCard/GameCard";
 import { PageTitle } from "@/modules/shared/components/PageTitle/PageTitle";
-import { authSession } from "@/modules/shared/utils/session";
+import { findAllStandardBoxByUserId } from "@/modules/shared/lib/prisma/standardBox";
+import { gameColumnStyle } from "@/modules/shared/utils/gameColumnStyle";
 import { standardBoxes } from "@/modules/shared/utils/standardBoxes";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DialogForm } from "./components/DialogForm/DialogForm";
 import { GameCardCustomAction } from "./components/GameCardCustomAction/GameCardCustomAction";
-import { findAllStandardBoxByUserId } from "@/modules/shared/lib/prisma/standardBox";
-import { gameColumnStyle } from "@/modules/shared/utils/gameColumnStyle";
 
 type BoxPageProps = {
   params: Promise<{ boxName: string }>;
@@ -35,11 +35,15 @@ export async function StandardBoxPage({ params }: BoxPageProps) {
   }
 
   // Obtém os dados da sessão do usuário
-  const session = await authSession();
+  const session = await auth();
+
+  if (!session) {
+    return null;
+  }
 
   // Busca todos os jogos listados na caixa
   const games = await findAllStandardBoxByUserId({
-    userId: session.id,
+    userId: +session.user.id,
     boxName: standardBox.box,
   });
 
@@ -103,7 +107,7 @@ export async function StandardBoxPage({ params }: BoxPageProps) {
         </div>
       )}
 
-      <DialogForm userId={session.id} standardBox={standardBox} />
+      <DialogForm userId={+session.user.id} standardBox={standardBox} />
     </section>
   );
 }

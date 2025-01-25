@@ -1,6 +1,6 @@
+import { auth } from "@/auth";
 import { CustomBoxPage } from "@/modules/pages/CustomBoxPage/CustomBoxPage";
 import { findCustomBoxByUserId } from "@/modules/shared/lib/prisma/customBox";
-import { authSession } from "@/modules/shared/utils/session";
 import { Metadata } from "next";
 
 type GenerateMetadataProps = {
@@ -13,11 +13,17 @@ export async function generateMetadata({
 }: GenerateMetadataProps): Promise<Metadata> {
   const { boxId } = await params;
 
-  const session = await authSession();
+  const session = await auth();
+
+  if (!session) {
+    return {
+      title: `Caixa customizada - GAME BOX`,
+    };
+  }
 
   const box = await findCustomBoxByUserId({
     boxId: +boxId,
-    userId: session.id,
+    userId: +session.user.id,
   });
 
   return {

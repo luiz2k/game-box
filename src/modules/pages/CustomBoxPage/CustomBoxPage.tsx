@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import {
   GameCardBody,
   GameCardBodyAction,
@@ -8,14 +9,13 @@ import {
   GameCardWarapping,
 } from "@/modules/shared/components/GameCard/GameCard";
 import { PageTitle } from "@/modules/shared/components/PageTitle/PageTitle";
-import { authSession } from "@/modules/shared/utils/session";
+import { findCustomBoxByUserId } from "@/modules/shared/lib/prisma/customBox";
+import { findAllListedGameByUserId } from "@/modules/shared/lib/prisma/listedGame";
+import { gameColumnStyle } from "@/modules/shared/utils/gameColumnStyle";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DialogForm } from "./components/DialogForm/DialogForm";
 import { GameCardCustomAction } from "./components/GameCardCustomAction/GameCardCustomAction";
-import { findCustomBoxByUserId } from "@/modules/shared/lib/prisma/customBox";
-import { findAllListedGameByUserId } from "@/modules/shared/lib/prisma/listedGame";
-import { gameColumnStyle } from "@/modules/shared/utils/gameColumnStyle";
 
 type CustomBoxPageProps = {
   params: Promise<{
@@ -32,12 +32,16 @@ export async function CustomBoxPage({ params }: CustomBoxPageProps) {
   }
 
   // Obtém os dados da sessão do usuário
-  const session = await authSession();
+  const session = await auth();
+
+  if (!session) {
+    return null;
+  }
 
   // Busca informações sobre a caixa
   const customBox = await findCustomBoxByUserId({
     boxId: +boxId,
-    userId: session.id,
+    userId: +session.user.id,
   });
 
   // Se não encontrar a caixa, retorna 404
@@ -47,7 +51,7 @@ export async function CustomBoxPage({ params }: CustomBoxPageProps) {
 
   // Busca todos os jogos listados na caixa
   const games = await findAllListedGameByUserId({
-    userId: session.id,
+    userId: +session.user.id,
     boxId: +boxId,
   });
 
@@ -111,7 +115,7 @@ export async function CustomBoxPage({ params }: CustomBoxPageProps) {
         </div>
       )}
 
-      <DialogForm customBox={customBox} userId={session.id} />
+      <DialogForm customBox={customBox} userId={+session.user.id} />
     </section>
   );
 }

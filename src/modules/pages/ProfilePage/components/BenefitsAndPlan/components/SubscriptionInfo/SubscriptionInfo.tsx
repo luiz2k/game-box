@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
-import { Button } from "@/modules/shared/components/Button/Button";
 import { prisma } from "@/modules/shared/lib/prisma/prisma";
 import { stripeFindCustomerSubscription } from "@/modules/shared/lib/stripe/stripe";
+import { CancelSubscription } from "./components/CancelSubscription/CancelSubscription";
 
 export async function SubscriptionInfo() {
   // Busca a sessão do usuário, se não encontrar, retorna
@@ -33,35 +33,51 @@ export async function SubscriptionInfo() {
   return (
     <>
       {subscription && (
-        <div className="w-full min-w-[18.75rem] space-y-5 rounded-2xl bg-black-2 p-4">
+        <div className="grid w-full min-w-[18.75rem] gap-5 rounded-2xl bg-black-2 p-4">
           <h2 className="text-2xl font-bold">Sua assinatura</h2>
 
           <div className="space-y-1 text-sm">
             <p>
               <span className="font-bold">Próxima cobrança:</span>{" "}
-              {subscription.current_period_end}
+              {subscription?.cancel_at_period_end ? (
+                <>Assinatura cancelada!</>
+              ) : (
+                <>{subscription.current_period_end}</>
+              )}
             </p>
-            <p>
-              <span className="font-bold">Valor:</span>{" "}
-              {subscription.plan.amount}
-            </p>
-            <p>
-              <span className="font-bold">Ciclo:</span>{" "}
-              {subscription.plan.interval}
-            </p>
-            <p>
-              <span className="font-bold">Status:</span>{" "}
-              <span className="text-green-600">{subscription.status}</span>
-            </p>
+
+            {!subscription.cancel_at_period_end && (
+              <>
+                <p>
+                  <span className="font-bold">Valor:</span>{" "}
+                  {subscription.plan.amount}
+                </p>
+
+                <p>
+                  <span className="font-bold">Ciclo:</span>{" "}
+                  {subscription.plan.interval}
+                </p>
+              </>
+            )}
+
+            {subscription.cancel_at_period_end ? (
+              <p>
+                <span className="font-bold">Status:</span>{" "}
+                <span className="text-orange-600">
+                  Ativo até {subscription.current_period_end}
+                </span>
+              </p>
+            ) : (
+              <p>
+                <span className="font-bold">Status:</span>{" "}
+                <span className="text-green-600">{subscription.status}</span>
+              </p>
+            )}
           </div>
 
-          <Button
-            width="full"
-            variant="primary"
-            className="bg-red-600 hover:bg-red-700"
-          >
-            Cancelar assinatura
-          </Button>
+          {!subscription.cancel_at_period_end && (
+            <CancelSubscription subscription={subscription} />
+          )}
         </div>
       )}
     </>

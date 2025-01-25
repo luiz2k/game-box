@@ -3,7 +3,7 @@ import { findUserById } from "@/modules/shared/lib/prisma/user";
 import { authSession } from "@/modules/shared/utils/session";
 import { redirect } from "next/navigation";
 import { Boxes } from "./components/Boxes/Boxes";
-import { SignatureInfo } from "./components/SignatureInfo/SignatureInfo";
+import { BenefitsAndPlan } from "./components/BenefitsAndPlan/BenefitsAndPlan";
 
 export async function ProfilePage() {
   // Obtém os dados da sessão do usuário
@@ -29,7 +29,7 @@ export async function ProfilePage() {
         }
       />
 
-      <SignatureInfo />
+      <BenefitsAndPlan />
 
       <Boxes />
     </section>

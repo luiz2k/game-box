@@ -4,7 +4,7 @@ import { SubscriptionInfo } from "./components/SubscriptionInfo/SubscriptionInfo
 import { auth } from "@/auth";
 import { findUserById } from "@/modules/shared/lib/prisma/user";
 
-export async function SignatureInfo() {
+export async function BenefitsAndPlan() {
   const session = await auth();
 
   if (!session) {

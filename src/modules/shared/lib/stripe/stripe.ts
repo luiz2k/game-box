@@ -164,6 +164,19 @@ export async function stripeFindCustomerSubscription({
   return formattedSubscriptionData;
 }
 
+type stripeCancelSubscription = {
+  subscriptionId: string;
+};
+
+// Cancela a assinatura no final do ciclo
+export async function stripeCancelSubscription({
+  subscriptionId,
+}: stripeCancelSubscription) {
+  await stripe.subscriptions.update(subscriptionId, {
+    cancel_at_period_end: true,
+  });
+}
+
 // Formata o intervalo da assinatura
 function formatInterval(interval: string) {
   switch (interval) {

@@ -29,7 +29,7 @@ export async function ProfilePage() {
         }
       />
 
-      <SignatureInfo plan={user.plan} session={session} />
+      <SignatureInfo />
 
       <Boxes />
     </section>

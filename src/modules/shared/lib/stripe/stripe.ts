@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import Stripe from "stripe";
 
 // Cria uma instância do Stripe
@@ -50,6 +51,139 @@ export async function stripeCreateCustomer({
   // Retorna o ID do cliente e informações da assinatura
   return {
     customerId: customer.id,
-    subscriptionId: subscription.id,
   };
+}
+
+type StripeCreateCheckout = {
+  userEmail: string;
+};
+
+// Inicia um checkout (pagamento)
+export async function stripeCreateCheckout({
+  userEmail,
+}: StripeCreateCheckout) {
+  // Obtém o cliente no Stripe pelo seu e-mail, se não existir, retona null
+  const customer = await getStripeCustomerByEmail({
+    email: userEmail,
+  });
+
+  if (!customer) {
+    return null;
+  }
+
+  // Obtém as assinaturas do cliente
+  const signatures = await stripe.subscriptions.list({
+    customer: customer.id,
+    status: "active", // Apenas assinaturas ativas
+  });
+
+  // Identificador da assinatura Premium
+  const premiumSignaratureId = process.env.STRIPE_PREMIUM_SIGNATURE_ID;
+
+  // Verifica se a assinatura atual do cliente é Premium, se for premium, bloqueia
+  const isPremiumAccount = signatures.data.some((signature) =>
+    signature.items.data.some((item) => item.price.id === premiumSignaratureId),
+  );
+
+  if (isPremiumAccount) {
+    return null;
+  }
+
+  // Inicia a sessão de checkout (pagamento)
+  const checkoutSession = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price: process.env.STRIPE_PREMIUM_SIGNATURE_ID,
+        quantity: 1,
+      },
+    ],
+    payment_method_types: ["card"],
+    mode: "subscription",
+    customer: customer.id,
+    success_url: `http://localhost:3000?m=success`,
+    cancel_url: `http://localhost:3000?m=cancel`,
+    metadata: {
+      userId: userEmail, // Id do usuário na aplicação
+    },
+  });
+
+  // Obtém a URL da sessão de checkout e redireciona o usuário
+  const sessionUrl = checkoutSession.url;
+
+  if (sessionUrl) {
+    redirect(sessionUrl);
+  }
+}
+
+export type SubscriptionPlan = Stripe.Subscription & {
+  plan: {
+    amount: number;
+    nickname: string;
+    interval: string;
+  };
+};
+
+type StripeFindCustomerSubscription = {
+  customerId: string;
+};
+
+// Busca a assinatura ativa do usuário
+export async function stripeFindCustomerSubscription({
+  customerId,
+}: StripeFindCustomerSubscription) {
+  // Obtém as assinaturas ativas do cliente, se não existir, retorna null
+  const subscriptions = await stripe.subscriptions.list({
+    customer: customerId,
+    status: "active", // Apenas assinaturas ativas
+  });
+
+  if (subscriptions.data.length === 0) {
+    return null;
+  }
+
+  // Pega os dados da assinatura
+  const subscriptionData = subscriptions.data[0] as SubscriptionPlan;
+
+  // Formata os dados de assinatura e retorna
+  const formattedSubscriptionData = {
+    ...subscriptionData,
+    plan: {
+      amount: (subscriptionData.plan.amount / 100).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }),
+      nickname: subscriptionData.plan.nickname,
+      interval: formatInterval(subscriptionData.plan.interval),
+    },
+    current_period_end: new Date(
+      subscriptionData?.current_period_end * 1000,
+    ).toLocaleDateString("pt-BR"),
+    status: formatStatus(subscriptionData.status),
+  };
+
+  return formattedSubscriptionData;
+}
+
+// Formata o intervalo da assinatura
+function formatInterval(interval: string) {
+  switch (interval) {
+    case "month":
+      return "Mensal";
+    case "year":
+      return "Anual";
+    default:
+      return interval;
+  }
+}
+
+// Formata o status da assinatura
+function formatStatus(status: string) {
+  switch (status) {
+    case "active":
+      return "Ativo";
+    case "trialing":
+      return "Trial";
+    default:
+      return status;
+  }
 }

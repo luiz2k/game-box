@@ -16,15 +16,14 @@ type HandleDialogRenderingProps = {
   onClose: () => void;
   subscription: {
     current_period_end: string;
-    plan: {
-      nickname: string;
-    };
   };
+  userPlan: string;
 };
 
 export function HandleDialogRendering({
   onClose,
   subscription,
+  userPlan,
 }: HandleDialogRenderingProps) {
   const [formState, formAction] = useActionState(
     cancelSubscriptionAction,
@@ -56,8 +55,7 @@ export function HandleDialogRendering({
           <p>Tem ceteza que deseja cancelar a sua assinatura?</p>
           <p>
             Após fazer isso você terá acesso ao plano{" "}
-            <span className="font-bold">{subscription.plan.nickname}</span> até
-            o dia{" "}
+            <span className="font-bold">{userPlan}</span> até o dia{" "}
             <span className="font-bold">{subscription.current_period_end}</span>
             .
           </p>
@@ -85,12 +83,13 @@ export function HandleDialogRendering({
 type CancelSubscriptionProps = {
   subscription: {
     current_period_end: string;
-    plan: {
-      nickname: string;
-    };
   };
+  userPlan: string;
 };
-export function CancelSubscription({ subscription }: CancelSubscriptionProps) {
+export function CancelSubscription({
+  subscription,
+  userPlan,
+}: CancelSubscriptionProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
@@ -108,6 +107,7 @@ export function CancelSubscription({ subscription }: CancelSubscriptionProps) {
         <HandleDialogRendering
           onClose={() => setIsOpen(false)}
           subscription={subscription}
+          userPlan={userPlan}
         />
       )}
     </>

@@ -18,6 +18,7 @@ export async function SubscriptionInfo() {
     },
     select: {
       stripeCustomerId: true,
+      plan: true,
     },
   });
 
@@ -76,7 +77,10 @@ export async function SubscriptionInfo() {
           </div>
 
           {!subscription.cancel_at_period_end && (
-            <CancelSubscription subscription={subscription} />
+            <CancelSubscription
+              subscription={subscription}
+              userPlan={user.plan}
+            />
           )}
         </div>
       )}

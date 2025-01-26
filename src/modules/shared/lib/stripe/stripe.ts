@@ -118,7 +118,6 @@ export async function stripeCreateCheckout({
 export type SubscriptionPlan = Stripe.Subscription & {
   plan: {
     amount: number;
-    nickname: string;
     interval: string;
   };
 };
@@ -152,7 +151,6 @@ export async function stripeFindCustomerSubscription({
         style: "currency",
         currency: "BRL",
       }),
-      nickname: subscriptionData.plan.nickname,
       interval: formatInterval(subscriptionData.plan.interval),
     },
     current_period_end: new Date(

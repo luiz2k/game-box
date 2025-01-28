@@ -25,45 +25,57 @@ export async function POST(request: NextRequest) {
   switch (event.type) {
     // Caso uma assinatura tenha sido efetuada
     case "checkout.session.completed":
-      (async () => {
-        const object = event.data.object;
+      try {
+        (async () => {
+          const object = event.data.object;
 
-        // Obtém as informações sobre o plano Premium
-        const planPremiumInfos = getPlanInfos("Premium");
+          // Obtém as informações sobre o plano Premium
+          const planPremiumInfos = getPlanInfos("Premium");
 
-        // Atualiza os dados do usuário para a assinatura Premium
-        await prisma.user.update({
-          where: {
-            stripeCustomerId: object.customer as string,
-          },
-          data: {
-            stripeSubscriptionId: object.subscription as string, // ID da assinatura
-            plan: planPremiumInfos?.name, // Nome do plano (Premium)
-          },
-        });
-      })();
+          // Atualiza os dados do usuário para a assinatura Premium
+          await prisma.user.update({
+            where: {
+              stripeCustomerId: object.customer as string,
+            },
+            data: {
+              stripeSubscriptionId: object.subscription as string, // ID da assinatura
+              plan: planPremiumInfos?.name, // Nome do plano (Premium)
+            },
+          });
+        })();
+
+        console.log("Assinatura do usuário atualizada!");
+      } catch (error) {
+        console.log("Erro ao atualizar assinatura do usuário: ", error);
+      }
 
       break;
 
     // Caso uma assinatura tenha sido cancelada
     case "customer.subscription.deleted":
-      (async () => {
-        const object = event.data.object;
+      try {
+        (async () => {
+          const object = event.data.object;
 
-        // Obtém as informações sobre o plano Free
-        const planPremiumInfos = getPlanInfos("Free");
+          // Obtém as informações sobre o plano Free
+          const planPremiumInfos = getPlanInfos("Free");
 
-        // Atualiza os dados do usuário para a assinatura Premium
-        await prisma.user.update({
-          where: {
-            stripeCustomerId: object.customer as string,
-          },
-          data: {
-            stripeSubscriptionId: "", // Deixa o ID da assinatura vazio
-            plan: planPremiumInfos?.name, // Nome do plano (Free)
-          },
-        });
-      })();
+          // Atualiza os dados do usuário para a assinatura Premium
+          await prisma.user.update({
+            where: {
+              stripeCustomerId: object.customer as string,
+            },
+            data: {
+              stripeSubscriptionId: "", // Deixa o ID da assinatura vazio
+              plan: planPremiumInfos?.name, // Nome do plano (Free)
+            },
+          });
+        })();
+
+        console.log("Assinatura do usuário removida!");
+      } catch (error) {
+        console.log("Erro ao remover a assinatura do usuário: ", error);
+      }
 
       break;
     default:

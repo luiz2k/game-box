@@ -90,7 +90,9 @@ export async function stripeCreateCheckout({
   }
 
   // Obtém a URL de origem
-  const ORIGIN = process.env.ORIGIN;
+  const ORIGIN_URL = process.env.ORIGIN_URL;
+
+  return;
 
   // Inicia a sessão de checkout (pagamento)
   const checkoutSession = await stripe.checkout.sessions.create({
@@ -103,8 +105,8 @@ export async function stripeCreateCheckout({
     payment_method_types: ["card"],
     mode: "subscription",
     customer: customer.id,
-    success_url: `${ORIGIN}/perfil`,
-    cancel_url: `${ORIGIN}`,
+    success_url: `${ORIGIN_URL}/perfil`,
+    cancel_url: `${ORIGIN_URL}`,
     metadata: {
       userEmail: userEmail, // E-mail do usuário na aplicação
     },

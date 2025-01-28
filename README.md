@@ -5,31 +5,31 @@
 [Visitar projeto]()
 
 
-## **Sobre o Projeto**  
-O Game Box é uma aplicação web que tem como objetivo permitir que os usuários armazenem e gerenciem suas coleções de jogos. Através da plataforma, os usuários podem criar suas próprias caixas de jogos, adicionar jogos a elas e compartilhar suas coleções com outros usuários.
+## **📖 Sobre o Projeto**
+Com o **GAME BOX**, os usuários podem gerenciar seus jogos em diferentes categorias, como jogos favoritos, jogos que estão jogando, jogos que abandonaram e jogos que terminaram. Além disso, os usuários pode criar novas categorias personalizadas e adicionar jogos a elas.
 
 A aplicação foi desenvolvida com o objetivo de aprender e aprimorar habilidades em tecnologias como **Next.js**, **Prisma**, **Tailwind CSS**, **TypeScript**, **Stripe**, **Zustand** etc.
 
-### **Implementações**
+### **👨‍💻 Funcionalidades**
 Aqui estão algumas das principais funcionalidades e padrões de design adotados no desenvolvimento do projeto.
 
-#### **Padrão Composition Pattern**
-No desenvolvimento do projeto foi adotado o padrão de projeto **Composition Pattern** para criar facilitar a criação de componentes reutilizaveis.
+- #### **Padrão Composition Pattern**
+  No desenvolvimento do projeto foi adotado o padrão de projeto **Composition Pattern** para criar facilitar a criação de componentes reutilizaveis.
  
-#### **Autenticação com Auth.js**
-Utilização do **Auth.js** para gerenciar a autenticação dos usuários, e controle das rotas privadas.
+- #### **Autenticação com Auth.js**
+  Utilização do **Auth.js** para gerenciar a autenticação dos usuários, e controle das rotas privadas.
 
-#### **Assinatura com o Stripe**
-Integração com o **Stripe** para permitir que os usuários façam assinaturas e obtenham acesso aos recursos exclusivos. Além disso foi implementado os **webhooks** para receber notificações sobre eventos de assinatura, como alterações de status ou cancelamentos.
+- #### **Assinatura com o Stripe**
+  Integração com o **Stripe** para permitir que os usuários façam assinaturas e obtenham acesso aos recursos exclusivos. Além disso foi implementado os **webhooks** para receber notificações sobre eventos de assinatura, como alterações de status ou cancelamentos.
 
-#### **Validação de Dados com Zod**
-Utilização do **Zod** para validação de dados de entrada, garantindo que os dados recebidos estejam de acordo com os critérios definidos.
+- #### **Validação de Dados com Zod**
+  Utilização do **Zod** para validação de dados de entrada, garantindo que os dados recebidos estejam de acordo com os critérios definidos.
 
-#### **Controle de Estados com Zustand**
-Para gerenciar o estados globais da aplicação foi utilizado o **Zustand**. Através delas controlados o estados dos formulários de autenticação e gerenciamento das caixas de jogos.
+- #### **Controle de Estados com Zustand**
+  Para gerenciar o estados globais da aplicação foi utilizado o **Zustand**. Através delas controlados o estados dos formulários de autenticação e gerenciamento das caixas de jogos.
 
 
-## **Pré-requisitos**
+## **💻 Pré-requisitos**
 Antes de começar, garanta que os seguintes itens estejam instalados no seu ambiente:
 
 ### **Softwares Necessários**
@@ -47,7 +47,7 @@ Antes de começar, garanta que os seguintes itens estejam instalados no seu ambi
          - Baixe o PostgreSQL do site oficial: [https://www.postgresql.org/](https://www.postgresql.org/).
 
 
-## **Como rodar o projeto**
+## **⚙️ Como instalar e rodar o projeto**
 Siga os passos abaixo para configurar e executar o projeto:
 
 ### **1. Clone o repositório e acesse o diretório**
@@ -142,7 +142,7 @@ Para testar o webhook do Stripe localmente, siga os passos abaixo:
    ```
 
 
-## **Como fazer assinatura com o Stripe**
+## **🧾 Como fazer assinatura com o Stripe**
 Para fazer assinaturas com o **Stripe** do ambiente de desenvolvimento, basta clicar no botão `Faça já sua assinatua!`. Após isso preencha o formulário com os seguintes dados:
 
 - **Número do cartão:** 4242 4242 4242 4242

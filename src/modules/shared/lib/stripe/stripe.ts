@@ -106,7 +106,7 @@ export async function stripeCreateCheckout({
     success_url: `${ORIGIN}/perfil`,
     cancel_url: `${ORIGIN}`,
     metadata: {
-      userId: userEmail, // Id do usuário na aplicação
+      userEmail: userEmail, // E-mail do usuário na aplicação
     },
   });
 

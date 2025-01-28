@@ -26,9 +26,10 @@ export async function POST(request: NextRequest) {
     // Caso uma assinatura tenha sido efetuada
     case "checkout.session.completed":
       try {
-        (async () => {
-          const object = event.data.object;
+        const object = event.data.object;
 
+        // Atualiza a assinatura do  usuário para Premium
+        (async function updateUserPlan() {
           // Obtém as informações sobre o plano Premium
           const planPremiumInfos = getPlanInfos("Premium");
 
@@ -54,9 +55,10 @@ export async function POST(request: NextRequest) {
     // Caso uma assinatura tenha sido cancelada
     case "customer.subscription.deleted":
       try {
-        (async () => {
-          const object = event.data.object;
+        const object = event.data.object;
 
+        // Remove a assinatura do usuário
+        (async function removeUserPlan() {
           // Obtém as informações sobre o plano Free
           const planPremiumInfos = getPlanInfos("Free");
 

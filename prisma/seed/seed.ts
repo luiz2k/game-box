@@ -13,8 +13,14 @@ const games = data.map(({ release_date, ...rest }) => ({
 }));
 
 (async () => {
-  // Insere os jogos na tabela
-  await prisma.game.createMany({
-    data: games,
-  });
+  for (const game of games) {
+    // Insere o jogo na tabela dependendo de sua existência
+    await prisma.game.upsert({
+      where: {
+        id: game.id,
+      },
+      update: {}, // Nada para atualizar
+      create: game, // Cria o jogo
+    });
+  }
 })();

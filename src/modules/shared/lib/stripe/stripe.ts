@@ -92,8 +92,6 @@ export async function stripeCreateCheckout({
   // Obtém a URL de origem
   const ORIGIN_URL = process.env.ORIGIN_URL;
 
-  return;
-
   // Inicia a sessão de checkout (pagamento)
   const checkoutSession = await stripe.checkout.sessions.create({
     line_items: [

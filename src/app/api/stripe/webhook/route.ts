@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
           // Atualiza os dados do usuário para a assinatura Premium
           await prisma.user.update({
             where: {
-              stripeCustomerId: object.customer as string,
+              email: object.metadata?.userEmail,
             },
             data: {
               stripeSubscriptionId: object.subscription as string, // ID da assinatura

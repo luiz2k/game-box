@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
+import { prisma } from "../prisma/prisma";
 
 // Cria uma instância do Stripe
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -176,6 +177,72 @@ export async function stripeCancelSubscription({
   await stripe.subscriptions.update(subscriptionId, {
     cancel_at_period_end: true,
   });
+}
+
+// Atualiza a assinatura do usuário
+export async function handleWebhookCheckoutSessionCompleted(
+  event: Stripe.Checkout.Session,
+) {
+  try {
+    // Verifica se o usuário existe, se não, lança um erro
+    const user = await prisma.user.findUnique({
+      where: {
+        email: event.metadata?.userEmail,
+      },
+    });
+
+    if (!user) {
+      throw new Error("Usuário nao encontrado.");
+    }
+
+    // Atualiza os dados do usuário para a assinatura Premium
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        stripeSubscriptionId: event.subscription as string, // ID da assinatura
+        plan: "Premium", // Nome do plano (Premium)
+      },
+    });
+
+    console.log("Assinatura do usuário atualizada!");
+  } catch (error) {
+    console.log("Erro ao atualizar assinatura do usuário: ", error);
+  }
+}
+
+// Remove a assinatura do usuário
+export async function handleWebhookCustomerSubscriptionDeleted(
+  event: Stripe.Subscription,
+) {
+  try {
+    // Verifica se o usuário existe, se não, lança um erro
+    const user = await prisma.user.findUnique({
+      where: {
+        stripeCustomerId: event.customer as string,
+      },
+    });
+
+    if (!user) {
+      throw new Error("Usuário nao encontrado.");
+    }
+
+    // Atualiza os dados do usuário para a assinatura Free
+    await prisma.user.update({
+      where: {
+        stripeCustomerId: event.customer as string,
+      },
+      data: {
+        stripeSubscriptionId: "", // Deixa o ID da assinatura vazio
+        plan: "Free", // Nome do plano (Free)
+      },
+    });
+
+    console.log("Assinatura do usuário removida!");
+  } catch (error) {
+    console.log("Erro ao remover a assinatura do usuário: ", error);
+  }
 }
 
 // Formata o intervalo da assinatura

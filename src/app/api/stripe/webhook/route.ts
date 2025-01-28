@@ -1,13 +1,16 @@
-import { prisma } from "@/modules/shared/lib/prisma/prisma";
-import { stripe } from "@/modules/shared/lib/stripe/stripe";
-import { getPlanInfos } from "@/modules/shared/utils/plains";
+import {
+  handleWebhookCheckoutSessionCompleted,
+  handleWebhookCustomerSubscriptionDeleted,
+  stripe,
+} from "@/modules/shared/lib/stripe/stripe";
 import { NextRequest, NextResponse } from "next/server";
+import Stripe from "stripe";
 
 export async function POST(request: NextRequest) {
   const sig = request.headers.get("stripe-signature") as string;
   const body = await request.text();
 
-  let event;
+  let event: Stripe.Event;
 
   try {
     event = stripe.webhooks.constructEvent(
@@ -25,60 +28,11 @@ export async function POST(request: NextRequest) {
   switch (event.type) {
     // Caso uma assinatura tenha sido efetuada
     case "checkout.session.completed":
-      try {
-        const object = event.data.object;
-
-        // Atualiza a assinatura do  usuário para Premium
-        (async function updateUserPlan() {
-          // Obtém as informações sobre o plano Premium
-          const planPremiumInfos = getPlanInfos("Premium");
-
-          // Atualiza os dados do usuário para a assinatura Premium
-          await prisma.user.update({
-            where: {
-              email: object.metadata?.userEmail,
-            },
-            data: {
-              stripeSubscriptionId: object.subscription as string, // ID da assinatura
-              plan: planPremiumInfos?.name, // Nome do plano (Premium)
-            },
-          });
-        })();
-
-        console.log("Assinatura do usuário atualizada!");
-      } catch (error) {
-        console.log("Erro ao atualizar assinatura do usuário: ", error);
-      }
-
+      await handleWebhookCheckoutSessionCompleted(event.data.object);
       break;
-
     // Caso uma assinatura tenha sido cancelada
     case "customer.subscription.deleted":
-      try {
-        const object = event.data.object;
-
-        // Remove a assinatura do usuário
-        (async function removeUserPlan() {
-          // Obtém as informações sobre o plano Free
-          const planPremiumInfos = getPlanInfos("Free");
-
-          // Atualiza os dados do usuário para a assinatura Premium
-          await prisma.user.update({
-            where: {
-              stripeCustomerId: object.customer as string,
-            },
-            data: {
-              stripeSubscriptionId: "", // Deixa o ID da assinatura vazio
-              plan: planPremiumInfos?.name, // Nome do plano (Free)
-            },
-          });
-        })();
-
-        console.log("Assinatura do usuário removida!");
-      } catch (error) {
-        console.log("Erro ao remover a assinatura do usuário: ", error);
-      }
-
+      await handleWebhookCustomerSubscriptionDeleted(event.data.object);
       break;
     default:
       console.log(`Tipo de evento não tratado: ${event.type}`);

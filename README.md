@@ -2,7 +2,7 @@
 
 ![Demonstração](https://i.imgur.com/0gct1Hf.png)
 
-[Visitar projeto](https://luiz2k-gamebox.vercel.app/)
+[Visitar projeto](https://gamebox-luiz2k.vercel.app/)
 
 
 ## **📖 Sobre o Projeto**

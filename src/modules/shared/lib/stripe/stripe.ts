@@ -1,6 +1,10 @@
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
-import { prisma } from "../prisma/prisma";
+import {
+  findUserByEmail,
+  findUserByStripeCustomerId,
+  updatedUserPlan,
+} from "../prisma/user";
 
 // Cria uma instância do Stripe
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -184,11 +188,16 @@ export async function handleWebhookCheckoutSessionCompleted(
   event: Stripe.Checkout.Session,
 ) {
   try {
+    // Verifica se o e-mail do usuário foi enviado no metadata
+    const userEmail = event.metadata?.userEmail;
+
+    if (!userEmail) {
+      throw new Error("E-mail do usuário nao encontrado.");
+    }
+
     // Verifica se o usuário existe, se não, lança um erro
-    const user = await prisma.user.findUnique({
-      where: {
-        email: event.metadata?.userEmail,
-      },
+    const user = await findUserByEmail({
+      email: userEmail,
     });
 
     if (!user) {
@@ -196,14 +205,10 @@ export async function handleWebhookCheckoutSessionCompleted(
     }
 
     // Atualiza os dados do usuário para a assinatura Premium
-    await prisma.user.update({
-      where: {
-        id: user.id,
-      },
-      data: {
-        stripeSubscriptionId: event.subscription as string, // ID da assinatura
-        plan: "Premium", // Nome do plano (Premium)
-      },
+    await updatedUserPlan({
+      userId: user.id,
+      plan: "Premium",
+      SubscriptionId: event.subscription as string,
     });
 
     console.log("Assinatura do usuário atualizada!");
@@ -218,10 +223,8 @@ export async function handleWebhookCustomerSubscriptionDeleted(
 ) {
   try {
     // Verifica se o usuário existe, se não, lança um erro
-    const user = await prisma.user.findUnique({
-      where: {
-        stripeCustomerId: event.customer as string,
-      },
+    const user = await findUserByStripeCustomerId({
+      stripeCustomerId: event.customer as string,
     });
 
     if (!user) {
@@ -229,14 +232,10 @@ export async function handleWebhookCustomerSubscriptionDeleted(
     }
 
     // Atualiza os dados do usuário para a assinatura Free
-    await prisma.user.update({
-      where: {
-        stripeCustomerId: event.customer as string,
-      },
-      data: {
-        stripeSubscriptionId: "", // Deixa o ID da assinatura vazio
-        plan: "Free", // Nome do plano (Free)
-      },
+    await updatedUserPlan({
+      userId: user.id,
+      plan: "Free",
+      SubscriptionId: "",
     });
 
     console.log("Assinatura do usuário removida!");

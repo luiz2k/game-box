@@ -1,7 +1,14 @@
 import { Check } from "lucide-react";
 import { Buttons } from "./components/Buttons/Buttons";
+import { stripeFindPremiumSignature } from "../../lib/stripe/stripe";
 
 export async function SubscriptionCard() {
+  const premiumSignature = await stripeFindPremiumSignature();
+
+  if (!premiumSignature) {
+    return null;
+  }
+
   return (
     <div className="w-full space-y-5 rounded-2xl bg-black-2 p-4">
       <div className="flex flex-col justify-between gap-5 min-[962px]:flex-row min-[962px]:items-center">
@@ -11,8 +18,10 @@ export async function SubscriptionCard() {
         </div>
 
         <div className="space-y-1">
-          <p className="min-[962px]:text-end">Plano mensal</p>
-          <p className="text-4xl font-bold">R$ 24,99</p>
+          <p className="min-[962px]:text-end">
+            Plano {premiumSignature?.recurring.interval}
+          </p>
+          <p className="text-4xl font-bold">{premiumSignature?.unit_amount}</p>
         </div>
       </div>
 
@@ -27,7 +36,7 @@ export async function SubscriptionCard() {
           <span className="text-accent-1">
             <Check className="size-5" />
           </span>
-          Crie até 20 caixas
+          Crie quantas caixas quiser
         </li>
       </ul>
 

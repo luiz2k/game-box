@@ -123,6 +123,46 @@ export async function stripeCreateCheckout({
   }
 }
 
+export async function stripeFindPremiumSignature() {
+  // Obtém o ID da assinatura premium a partir das variáveis de ambiente
+  const premiumSignatureId = process.env.STRIPE_PREMIUM_SIGNATURE_ID;
+
+  // Verifica se o ID está definido; caso contrário, retorna null
+  if (!premiumSignatureId) {
+    console.warn("ID da assinatura premium não está definido.");
+    return null;
+  }
+
+  try {
+    // Faz a requisição para obter os detalhes da assinatura no Stripe
+    const premiumSignature = await stripe.prices.retrieve(premiumSignatureId);
+
+    // Verifica se a resposta da API contém os dados necessários
+    if (
+      !premiumSignature ||
+      !premiumSignature.unit_amount || // Valor da assinatura não pode ser nulo
+      !premiumSignature.recurring?.interval // O intervalo de cobrança deve existir
+    ) {
+      console.warn("Assinatura premium inválida ou dados ausentes.");
+      return null;
+    }
+
+    // Retorna os dados formatados para exibição, convertendo o valor para moeda BRL
+    return {
+      ...premiumSignature, // Mantém os outros dados retornados pela API
+      // Converte o valor para moeda BRL
+      unit_amount: formatCurrency(premiumSignature.unit_amount), // Converte o valor para moeda BRL
+      recurring: {
+        interval: formatInterval(premiumSignature.recurring.interval), // Traduz o intervalo de tempo
+      },
+    };
+  } catch (error) {
+    // Captura e exibe erros caso a requisição falhe
+    console.error("Erro ao buscar assinatura premium:", error);
+    return null;
+  }
+}
+
 export type SubscriptionPlan = Stripe.Subscription & {
   plan: {
     amount: number;
@@ -266,4 +306,12 @@ function formatStatus(status: string) {
     default:
       return status;
   }
+}
+
+// Formata o valor da assinatura para moeda BRL
+function formatCurrency(amount: number): string {
+  return (amount / 100).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
 }

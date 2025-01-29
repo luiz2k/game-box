@@ -51,6 +51,7 @@ export function RegisterForm() {
         <FormInput
           label="Usuário"
           name="username"
+          type="text"
           placeholder="Exemplo"
           error={formState?.inputErrors?.username}
           defaultValue={formState?.inputValues?.username}
@@ -60,6 +61,7 @@ export function RegisterForm() {
         <FormInput
           label="E-mail"
           name="email"
+          type="email"
           placeholder="@"
           error={formState?.inputErrors?.email}
           defaultValue={formState?.inputValues?.email}
@@ -68,6 +70,7 @@ export function RegisterForm() {
         <FormInput
           label="Senha"
           name="password"
+          type="password"
           placeholder="kwjd451q"
           error={formState?.inputErrors?.password}
           defaultValue={formState?.inputValues?.password}
@@ -76,6 +79,7 @@ export function RegisterForm() {
         <FormInput
           label="Confirmar senha"
           name="confirmPassword"
+          type="password"
           placeholder="kwjd451q"
           error={formState?.inputErrors?.confirmPassword}
           defaultValue={formState?.inputValues?.confirmPassword}

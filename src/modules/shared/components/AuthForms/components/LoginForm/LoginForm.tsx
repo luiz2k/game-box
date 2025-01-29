@@ -60,6 +60,7 @@ export function LoginForm() {
         <FormInput
           label="E-mail"
           name="email"
+          type="email"
           placeholder="@"
           error={formState?.inputErrors?.email}
           defaultValue={formState?.inputValues?.email}
@@ -69,6 +70,7 @@ export function LoginForm() {
         <FormInput
           label="Senha"
           name="password"
+          type="password"
           placeholder="kwjd451q"
           error={formState?.inputErrors?.password}
           defaultValue={formState?.inputValues?.password}

@@ -59,20 +59,26 @@ export function Buttons({ userId, gameId, listedBoxes }: ContentProps) {
       </div>
 
       <ul className="scroll max-h-[13.5rem] space-y-2 overflow-y-auto pr-2">
-        {listedBoxes.map((box) => (
-          <li key={box.id}>
-            <Button
-              type="button"
-              variant={box.constains ? "ghost" : "primary"}
-              width="full"
-              rightIcon={box.constains ? Trash2 : SquarePlus}
-              space="between"
-              onClick={() => handleOnClick(box.id, gameId, box.constains)}
-            >
-              {box.name}
-            </Button>
-          </li>
-        ))}
+        {listedBoxes.length > 0 ? (
+          listedBoxes.map((box) => (
+            <li key={box.id}>
+              <Button
+                type="button"
+                variant={box.constains ? "ghost" : "primary"}
+                width="full"
+                rightIcon={box.constains ? Trash2 : SquarePlus}
+                space="between"
+                onClick={() => handleOnClick(box.id, gameId, box.constains)}
+              >
+                {box.name}
+              </Button>
+            </li>
+          ))
+        ) : (
+          <p className="text-sm text-white-1/50">
+            Você não possui caixas criadas
+          </p>
+        )}
       </ul>
     </div>
   );

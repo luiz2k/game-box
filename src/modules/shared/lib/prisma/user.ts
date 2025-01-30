@@ -10,9 +10,8 @@ export async function findUserById({ userId }: FindUserById) {
     where: {
       id: userId,
     },
-    select: {
-      username: true,
-      plan: true,
+    omit: {
+      password: true,
     },
   });
 

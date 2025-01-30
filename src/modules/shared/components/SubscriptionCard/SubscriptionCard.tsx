@@ -3,6 +3,7 @@ import { Buttons } from "./components/Buttons/Buttons";
 import { stripeFindPremiumSignature } from "../../lib/stripe/stripe";
 
 export async function SubscriptionCard() {
+  // Busca as informações da assinatura premium
   const premiumSignature = await stripeFindPremiumSignature();
 
   if (!premiumSignature) {

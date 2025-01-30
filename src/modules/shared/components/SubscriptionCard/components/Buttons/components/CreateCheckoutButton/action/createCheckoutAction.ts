@@ -1,25 +1,58 @@
 "use server";
 
 import { auth } from "@/auth";
-import { prisma } from "@/modules/shared/lib/prisma/prisma";
+import { findUserById } from "@/modules/shared/lib/prisma/user";
 import { stripeCreateCheckout } from "@/modules/shared/lib/stripe/stripe";
+import { CustomError } from "@/modules/shared/utils/errorHandler";
+import { redirect } from "next/navigation";
 
+// Ação para criar uma sessão de checkout
 export async function createCheckoutAction() {
-  // Obtém a sessão do usuário
-  const session = await auth();
+  try {
+    // Obtém a sessão do usuário, se nao encontrar, redireciona para a página inicial
+    const session = await auth();
 
-  // Obtém o e-mail do usuário
-  const user = await prisma.user.findUnique({
-    where: {
-      id: +session?.user.id,
-    },
-    select: {
-      email: true,
-    },
-  });
+    if (!session) {
+      throw new CustomError(
+        "Erro ao uma criar a sessão de checkout, por favor, tente novamente!",
+      );
+    }
 
-  // Se encontrar o usuário inicia a sessão de checkout
-  if (user) {
-    await stripeCreateCheckout({ userEmail: user.email });
+    // Busca o usuário pelo ID, se nao encontrar, redireciona para a página inicial
+    const user = await findUserById({
+      userId: +session.user.id,
+    });
+
+    if (!user) {
+      throw new CustomError(
+        "Erro ao uma criar a sessão de checkout, por favor, tente novamente!",
+      );
+    }
+
+    // Cria a sessão de checkout, se não conseguir, lança um erro
+    const checkoutUrl = await stripeCreateCheckout({ userEmail: user.email });
+
+    if (!checkoutUrl) {
+      throw new CustomError(
+        "Erro ao uma criar a sessão de checkout, por favor, tente novamente!",
+      );
+    }
+
+    // Redireciona para a sessão de checkout
+    redirect(checkoutUrl);
+  } catch (error) {
+    if (error instanceof CustomError) {
+      return {
+        messages: {
+          error: error.message,
+        },
+      };
+    }
+
+    return {
+      messages: {
+        error: "Ocorreu um erro inesperado, por favor, tente novamente.",
+      },
+    };
   }
 }

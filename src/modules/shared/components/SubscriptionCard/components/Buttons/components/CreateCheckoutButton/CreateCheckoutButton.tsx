@@ -1,19 +1,22 @@
+"use client";
+
 import { Button } from "@/modules/shared/components/Button/Button";
-import { Session } from "next-auth";
+import { useActionState } from "react";
 import { createCheckoutAction } from "./action/createCheckoutAction";
 
-type CreateCheckoutButtonProps = {
-  session: Session | null;
-};
+export function CreateCheckoutButton() {
+  const [formState, formAction, isPending] = useActionState(
+    createCheckoutAction,
+    null,
+  );
 
-export function CreateCheckoutButton({ session }: CreateCheckoutButtonProps) {
   return (
-    <>
-      {session && (
-        <Button width="full" variant="primary" onClick={createCheckoutAction}>
-          Faça já sua assinatura!
-        </Button>
-      )}
-    </>
+    <form action={formAction}>
+      <Button type="submit" width="full" variant="primary" disabled={isPending}>
+        {formState?.messages.error
+          ? formState.messages.error
+          : "Faça já sua assinatura!"}
+      </Button>
+    </form>
   );
 }

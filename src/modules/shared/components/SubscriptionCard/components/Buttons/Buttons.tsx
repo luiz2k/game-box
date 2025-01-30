@@ -7,9 +7,9 @@ export async function Buttons() {
 
   return (
     <>
-      <CreateCheckoutButton session={session} />
+      {session && <CreateCheckoutButton />}
 
-      <CreateAccountButton session={session} />
+      {!session && <CreateAccountButton />}
     </>
   );
 }

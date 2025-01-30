@@ -61,6 +61,7 @@ export function LoginForm() {
           label="E-mail"
           name="email"
           type="email"
+          autoComplete="email"
           placeholder="@"
           error={formState?.inputErrors?.email}
           defaultValue={formState?.inputValues?.email}
@@ -71,6 +72,7 @@ export function LoginForm() {
           label="Senha"
           name="password"
           type="password"
+          autoComplete="current-password"
           placeholder="kwjd451q"
           error={formState?.inputErrors?.password}
           defaultValue={formState?.inputValues?.password}

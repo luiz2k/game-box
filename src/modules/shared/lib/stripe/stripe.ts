@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import Stripe from "stripe";
 import {
   findUserByEmail,
@@ -118,9 +117,7 @@ export async function stripeCreateCheckout({
   // Obtém a URL da sessão de checkout e redireciona o usuário
   const sessionUrl = checkoutSession.url;
 
-  if (sessionUrl) {
-    redirect(sessionUrl);
-  }
+  return sessionUrl;
 }
 
 export async function stripeFindPremiumSignature() {

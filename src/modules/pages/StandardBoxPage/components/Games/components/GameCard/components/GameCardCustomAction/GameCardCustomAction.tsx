@@ -1,8 +1,8 @@
 "use client";
 
+import { useDialogStore } from "@/modules/pages/CustomBoxPage/stores/dialogStore";
 import { GameCardBodyActionButton } from "@/modules/shared/components/GameCard/GameCard";
 import { Trash2 } from "lucide-react";
-import { useDialogStore } from "../../stores/dialogStore";
 
 type GameCardCustomActionProps = {
   title: string;

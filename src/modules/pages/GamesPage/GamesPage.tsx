@@ -1,15 +1,7 @@
-import {
-  GameCardBody,
-  GameCardBodyHeader,
-  GameCardBodyHeaderDesc,
-  GameCardBodyHeaderTitle,
-  GameCardImage,
-  GameCardWarapping,
-} from "@/modules/shared/components/GameCard/GameCard";
 import { PageTitle } from "@/modules/shared/components/PageTitle/PageTitle";
 import { findAllGames } from "@/modules/shared/lib/prisma/game";
-
 import Link from "next/link";
+import { GameCard } from "./componentes/GameCard/GameCard";
 
 export async function GamesPage() {
   const games = await findAllGames();
@@ -21,21 +13,7 @@ export async function GamesPage() {
       <div className="grid grid-cols-[repeat(auto-fit,_minmax(245px,_1fr))] gap-4">
         {games.map((game) => (
           <Link key={game.id} title={game.title} href={`/jogos/${game.id}`}>
-            <GameCardWarapping>
-              <GameCardImage imgSrc={game.cover} alt={game.title} />
-
-              <GameCardBody>
-                <GameCardBodyHeader>
-                  <GameCardBodyHeaderTitle title={game.title} />
-                  <GameCardBodyHeaderDesc>
-                    <p>{game.genre.join(", ")}</p>
-                    <p>
-                      {new Date(game.release_date).toLocaleDateString("pt-BR")}
-                    </p>
-                  </GameCardBodyHeaderDesc>
-                </GameCardBodyHeader>
-              </GameCardBody>
-            </GameCardWarapping>
+            <GameCard game={game} />
           </Link>
         ))}
       </div>

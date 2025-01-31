@@ -59,7 +59,7 @@ export async function registerAction(_prev: unknown, formData: FormData) {
 
     return {
       messages: {
-        success: "Cadastro realizado com sucesso.",
+        success: "Cadastro realizado com sucesso, por favor, realize o login.",
       },
     };
   } catch (error) {

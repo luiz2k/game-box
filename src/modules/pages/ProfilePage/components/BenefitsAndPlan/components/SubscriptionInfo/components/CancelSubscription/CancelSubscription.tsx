@@ -25,7 +25,7 @@ export function HandleDialogRendering({
   subscription,
   userPlan,
 }: HandleDialogRenderingProps) {
-  const [formState, formAction] = useActionState(
+  const [formState, formAction, isPending] = useActionState(
     cancelSubscriptionAction,
     null,
   );
@@ -71,6 +71,7 @@ export function HandleDialogRendering({
           type="submit"
           variant="primary"
           width="full"
+          disabled={isPending}
           className="bg-red-600 hover:bg-red-700"
         >
           Confirmar

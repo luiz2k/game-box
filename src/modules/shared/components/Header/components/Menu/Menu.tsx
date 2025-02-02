@@ -2,54 +2,35 @@
 
 import { useAuthFormsStore } from "@/modules/shared/stores/authFormsStore";
 import { KeyRound, LogIn, LogOut, UserPen, UserRound } from "lucide-react";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { MenuOption } from "./components/MenuOption/MenuOption";
 import { Session } from "next-auth";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signOutAction } from "./actions/signOutAction";
+import { MenuOption } from "./components/MenuOption/MenuOption";
 
 type MenuProps = {
   session: Session | null;
 };
 
 export function Menu({ session }: MenuProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
   const { handleLoginIsOpen, handleRegisterIsOpen } = useAuthFormsStore();
 
   const router = useRouter();
 
-  // Fecha o menu se clicar fora
-  useEffect(() => {
-    if (!isOpen) return;
-
-    function documentEvent() {
-      setIsOpen(false);
-    }
-
-    if (isOpen) {
-      document.addEventListener("click", documentEvent);
-    }
-
-    return () => document.removeEventListener("click", documentEvent);
-  }, [isOpen]);
-
   return (
-    <div className="relative">
+    <div className="group relative">
       <button
         type="button"
-        onClick={() => setIsOpen((prev) => !prev)}
         aria-label="Lidar com menu"
         className="flex size-9 items-center justify-center rounded-full bg-accent-1 duration-200 hover:bg-accent-2"
       >
         <UserRound className="size-6 text-white-1" />
       </button>
 
-      {isOpen && (
-        <div className="absolute right-0 top-11 z-10 w-32 overflow-hidden rounded-2xl bg-accent-1 py-2">
+      <div className="absolute right-0 top-0 z-10 hidden pt-11 group-hover:block">
+        <div className="w-32 overflow-hidden rounded-2xl bg-accent-1 py-2">
           {/* Se o usuário não estiver autenticado, exibe os botões dos formulários */}
-          <ul>
+          <menu>
             {!session && (
               <>
                 <li>
@@ -91,9 +72,9 @@ export function Menu({ session }: MenuProps) {
                 </li>
               </>
             )}
-          </ul>
+          </menu>
         </div>
-      )}
+      </div>
     </div>
   );
 }

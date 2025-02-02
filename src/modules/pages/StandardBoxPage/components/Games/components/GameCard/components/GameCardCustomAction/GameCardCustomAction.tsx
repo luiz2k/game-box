@@ -1,6 +1,6 @@
 "use client";
 
-import { useDialogStore } from "@/modules/pages/CustomBoxPage/stores/dialogStore";
+import { useDialogStore } from "@/modules/pages/StandardBoxPage/stores/dialogStore";
 import { GameCardBodyActionButton } from "@/modules/shared/components/GameCard/GameCard";
 import { Trash2 } from "lucide-react";
 

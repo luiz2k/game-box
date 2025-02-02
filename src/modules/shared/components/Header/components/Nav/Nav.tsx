@@ -8,12 +8,21 @@ export function Nav() {
 
   return (
     <nav>
-      <NavAnchor href="/" onMouseEnter={() => router.prefetch("/")}>
-        Início
-      </NavAnchor>
-      <NavAnchor href="/jogos" onMouseEnter={() => router.prefetch("/jogos")}>
-        Jogos
-      </NavAnchor>
+      <ul className="flex">
+        <li>
+          <NavAnchor href="/" onMouseEnter={() => router.prefetch("/")}>
+            Início
+          </NavAnchor>
+        </li>
+        <li>
+          <NavAnchor
+            href="/jogos"
+            onMouseEnter={() => router.prefetch("/jogos")}
+          >
+            Jogos
+          </NavAnchor>
+        </li>
+      </ul>
     </nav>
   );
 }

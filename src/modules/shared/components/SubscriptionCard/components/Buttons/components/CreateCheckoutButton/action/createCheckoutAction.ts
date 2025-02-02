@@ -8,6 +8,9 @@ import { redirect } from "next/navigation";
 
 // Ação para criar uma sessão de checkout
 export async function createCheckoutAction() {
+  // Variável para armazenar a URL da sessão de checkout
+  let checkoutUrl: string | null = null;
+
   try {
     // Obtém a sessão do usuário, se nao encontrar, redireciona para a página inicial
     const session = await auth();
@@ -30,16 +33,18 @@ export async function createCheckoutAction() {
     }
 
     // Cria a sessão de checkout, se não conseguir, lança um erro
-    const checkoutUrl = await stripeCreateCheckout({ userEmail: user.email });
+    const createCheckout = await stripeCreateCheckout({
+      userEmail: user.email,
+    });
 
-    if (!checkoutUrl) {
+    if (!createCheckout) {
       throw new CustomError(
         "Erro ao uma criar a sessão de checkout, por favor, tente novamente!",
       );
     }
 
-    // Redireciona para a sessão de checkout
-    redirect(checkoutUrl);
+    // Atribui a URL da sessão de checkout
+    checkoutUrl = createCheckout;
   } catch (error) {
     if (error instanceof CustomError) {
       return {
@@ -54,5 +59,10 @@ export async function createCheckoutAction() {
         error: "Ocorreu um erro inesperado, por favor, tente novamente.",
       },
     };
+  } finally {
+    // Se houver uma URL de checkout, redireciona para ela
+    if (checkoutUrl) {
+      redirect(checkoutUrl);
+    }
   }
 }
